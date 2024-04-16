@@ -1,0 +1,8 @@
+Work Meeting #1: 4/16/23
+Accomplished: basic structure of game and classes
+To-Do:
+- Need to fix how battle ends. Character can't keep playing after health = 0
+- Create human class and let enemy and character inherit from there.
+
+
+
