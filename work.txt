@@ -4,5 +4,9 @@ To-Do:
 - Need to fix how battle ends. Character can't keep playing after health = 0
 - Create human class and let enemy and character inherit from there.
 
-
+FP Workshop #1: 4/18
+Accomplished: figuring out structure of classes
+To-Do:
+- seperate battle and game class
+- battle & non-battle classes
 
