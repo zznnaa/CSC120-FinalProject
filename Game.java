@@ -2,14 +2,15 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Game {
-    public Enemy enemy;
-    public Character character;
+    public Human enemy;
+    public Human character;
     
     public Game(){
-        this.enemy = new Enemy(10);
-        this.character = new Character(10, 5, 5, 5);
+        this.enemy = new Human("enemy", 10, 5, 0, true);
+        this.character = new Human("human", 10, 5, 5, false);
     }
 
+//everything below this, go through to seperate battle and game classes
     public void checkIn(Character c){
         c.printStatus();
     }
