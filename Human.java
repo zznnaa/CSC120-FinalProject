@@ -16,7 +16,8 @@ public Human(String name, int health, int experience, int alliance, boolean isEn
     this.isEnemy = isEnemy;
 }
 
-//methods
+//methods: attack methods. 
+//TO-DO: have an attack method that randomly samples from the attack options available
 public void kick(Human h){
     //-5 points to enemy
     System.out.println(h.name + " has suffered a kick");
@@ -29,6 +30,16 @@ public void shoot(Human h){
     System.out.println(h.name + "is down with a grave injury");
     int damage = 10;
     h.health -= damage;
+}
+
+// checks if the human is alive or not
+public boolean isAlive(){
+    if (this.health == 0){
+        return false; 
+    }
+    else{
+        return true;
+    }
 }
 
 public String toString(){

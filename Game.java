@@ -41,3 +41,5 @@ public static void main(String[] args) {
 
 }
 }
+
+// A game consists of three battles
