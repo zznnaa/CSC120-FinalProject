@@ -10,3 +10,9 @@ To-Do:
 - seperate battle and game class
 - battle & non-battle classes
 
+Zoe 4/20 1 hour:
+split game and battle classes
+
+Work Meeting #2 4/20:
+
+
