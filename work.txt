@@ -15,13 +15,12 @@ split game and battle classes
 
 Work Meeting #2 4/20:
 Chioma: 
-    Updated Battle class
+    Updated Battle class. Character can no longer play after battle is lost
+    Added attack() method within Human to allow human randomly choose attacks
     TODO: 
-    - Stop character from playing after they are dead
-    - Add attack() method within Human to allow human randomly choose attacks
     - Work on Nonbattle class at your own discretion
 Zoe:
-    Research dialogue trees
+    Researched dialogue trees
     TODO:
     - Figure out how dialogue trees work
     - Create the Train class

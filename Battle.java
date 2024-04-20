@@ -35,15 +35,8 @@ public class Battle {
         System.out.println("Your battle with the enemy has started.");
         while (end != true){
             //enemy attacks character. 
-            // TO-DO: let enemy pick a random character from list of characters to attack. Enemy should also use random attacks (to be implemented in Human)
-            //choose random number between range
-            int x = this.getRandomNumber(1, 2);
-            // based on random number, enemy chooses an attack
-            if (x == 1){
-                this.enemy.kick(this.character);
-            } else {
-                this.enemy.shoot(this.character);
-            }
+            // TO-DO: let enemy pick a random character from list of characters to attack. 
+            this.enemy.attack(this.character);
     
             // Check if character is alive
             //character dead, enemy alive
@@ -62,13 +55,9 @@ public class Battle {
                 this.end = true;
             }
 
-            // if character & enemy alive, keep going
-            //based on random number, character chooses an attack
-            // put this into an if statement to sto pplayer from playing after they've died.
-            if (x == 1){
-                this.character.kick(this.enemy);
-            } else {
-                this.character.shoot(this.enemy);
+            // if character & enemy alive, keep fighting
+            else if(this.character.isAlive() && this.enemy.isAlive()){
+                this.character.attack(this.enemy);
             }
         }
     }
