@@ -4,10 +4,12 @@ import java.util.Random;
 public class Game {
     public Human enemy;
     public Human character;
+    public Scanner sc;
     
     public Game(){
         this.enemy = new Human("enemy", 10, 5, 0, true);
         this.character = new Human("human", 10, 5, 5, false);
+        this.sc = new Scanner(System.in);
     }
 
 //everything below this, go through to seperate battle and game classes
