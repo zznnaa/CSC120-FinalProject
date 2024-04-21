@@ -14,5 +14,16 @@ Zoe 4/20 1 hour:
 split game and battle classes
 
 Work Meeting #2 4/20:
-
+Chioma: 
+    Updated Battle class. Character can no longer play after battle is lost
+    Added attack() method within Human to allow human randomly choose attacks
+    TODO: 
+    - Work on Nonbattle class at your own discretion
+Zoe:
+    Researched dialogue trees
+    TODO:
+    - Figure out how dialogue trees work
+    - Create the Train class
+Next Meeting:
+- Work on the Campfire class together
 

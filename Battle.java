@@ -1,55 +1,79 @@
+import java.util.Random;
+
 public class Battle {
     
-    public Game game;
+    //public Game game; battle cannot have game b/c game brings everything together. Analogous to train
+    public Human enemy;
+    public Human character;
     boolean end;
 
-    Battle(Game g){
-        this.game = g;
+    // a battle is between an enemy and a character. To extend the second attribute character to an arrayList of characters
+    Battle(Human e, Human c){
+        this.enemy = e;
+        this.character = c;
         this.end = false;
     }
 
-    public void battle(){
-        System.out.println("Your battle with the enemy has started.");
-        do{
-            //enemy attacks character
-            game.enemy.kick(game.character);
+    //getRandomNumber within range
+    public int getRandomNumber(int min, int max){
+        Random random = new Random();
+        return random.nextInt(max - min) + min;
+    }
     
-            //checks to see if character has lost battle
-            if (game.character.health == 0) {
+    //overloaded getRandomNumber without range
+    public int getRandomNumber(){
+        Random random = new Random();
+        return random.nextInt();
+    }
+    
+    public void checkIn(String order){
+        System.out.println("The captain has ordered the troop to retreat");
+        System.out.println(this.character);
+    }
+
+    public void doBattle(){
+        System.out.println("Your battle with the enemy has started.");
+        while (end != true){
+            //enemy attacks character. 
+            // TO-DO: let enemy pick a random character from list of characters to attack. 
+            this.enemy.attack(this.character);
+    
+            // Check if character is alive
+            //character dead, enemy alive
+            if (!this.character.isAlive() && this.enemy.isAlive()){
                 System.out.println("Sorry you lost the battle.");
                 this.end = true;
             }
-            else if (game.enemy.health == 0 && game.character.health != 0){
-                System.out.println("Congrats you won the battle!");
+            // character dead, enemy dead
+            else if (!this.character.isAlive() && !this.enemy.isAlive()){
+                System.out.println(this.character.name + " was a noble warrior. They gave their life to put an end to " + this.enemy.name);
                 this.end = true;
             }
-    
-            System.out.println("Do you wish to attack the enemy or to see the status of your troops?");
-            String order = game.sc.nextLine().toLowerCase();
-            if (order.equals("attack")){
-                //choose random number between range
-                int x = game.getRandomNumber(1, 2);
-                //based on random number, character chooses an attack
-                if (x == 1){
-                    game.character.kick(game.enemy);
-                } else {
-                    game.character.shoot(game.enemy);
-                }
-            } else {
-                System.out.println("The captain has ordered the troop to retreat");
-                System.out.println(game.character);
+            // character alive, enemy dead
+            else if(this.character.isAlive() && !this.enemy.isAlive()){
+                System.out.println("Congrats! You have won the battle");
+                this.end = true;
             }
-    
-        } while (end != true);
+
+            // if character & enemy alive, keep fighting
+            else if(this.character.isAlive() && this.enemy.isAlive()){
+                this.character.attack(this.enemy);
+            }
+        }
     }
 
 
     public static void main(String[] args) {
-        Game game = new Game();
-        Battle battle = new Battle(game);
-        battle.battle();
+        Human character = new Human("Zee", 10, 2, 10, false);
+        Human enemy = new Human("Thug", 10, 10, 0, true);
+        Battle battle = new Battle(enemy, character);
+        battle.doBattle();
     }
 }
 
 //NOTES TO US
-// Need to fix how battle ends. Character can't keep playing after health = 0
+// Need to fix how battle ends. Character can't keep playing after health = 0. Still can't figure out the error
+
+
+// MORE NOTES
+// how to implement how to ask the player whether to check in or not after 5 attacks. Maybe let the player decided when to check in by teelling them that they can call the chekIn function 
