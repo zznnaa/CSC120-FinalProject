@@ -53,4 +53,3 @@ public class Battle {
 
 //NOTES TO US
 // Need to fix how battle ends. Character can't keep playing after health = 0
-// Make sure check status works
