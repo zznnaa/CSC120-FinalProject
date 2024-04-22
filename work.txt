@@ -30,3 +30,7 @@ Next Meeting:
 Zoe 4/21 3 hours:
 - completed training class
 - tried to install guava
+
+Zoe 4/22 1.5 hours:
+- installed guava
+- started to create graph
