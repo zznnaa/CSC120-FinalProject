@@ -27,3 +27,6 @@ Zoe:
 Next Meeting:
 - Work on the Campfire class together
 
+Zoe 4/21 3 hours:
+- completed training class
+- tried to install guava
