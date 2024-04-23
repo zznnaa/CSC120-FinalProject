@@ -40,7 +40,7 @@ public static void main(String[] args) {
     // while (currentLocation != myGraph.incidentNodes(userInput)){
     //     System.out.println("That's not an avaliable option. Try again.");
     // }
-
+    
     for (String successor : myGraph.successors(currentLocation)){
         if (myGraph.hasEdgeConnecting(currentLocation, successor) &&
             myGraph.edgeConnecting(currentLocation, successor).get().equals(userInput)){
@@ -50,5 +50,10 @@ public static void main(String[] args) {
             }
     }
 
+    if (myGraph.incidentNodes(userInput) != null){
+        currentLocation = myGraph.incidentNodes(userInput).target();
+        System.out.println(currentLocation);
+    }
+        
 }
 }

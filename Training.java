@@ -25,11 +25,11 @@ public class Training extends Battle{
     public void trainingLoop(){
         while (end != true){
             //first character attacks and lists how much damage done
-            int x = this.character.attack(this.character2);
+            this.character.attack(this.character2);
             System.out.println(this.character2.name + " has " + this.character2.health + " health left.");
             
             //second character attacks and lists how much damage done
-            int y = this.character2.attack(this.character);
+            this.character2.attack(this.character);
             System.out.println(this.character.name + " has " + this.character.health + " health left.");
             
             //if characters have less than half their health left, training automatically ends

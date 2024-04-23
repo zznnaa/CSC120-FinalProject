@@ -46,14 +46,13 @@ public class Human{
     }
 
     // randomly samples possible attack methods
-    public int attack(Human h){
+    public void attack(Human h){
         int x = this.getRandomNumber(1, 2);
         if (x == 1){
             this.kick(h);
         } else if (x == 2) {
             this.shoot(h);
         }
-        return x;
     }
 
     // checks if the human is alive or not
@@ -64,18 +63,6 @@ public class Human{
         else{
             return true;
         }
-    }
-
-    public int attackLevel(int x){
-        if (x == 1){
-            int damage = 5+experience;
-            return damage;
-        }
-        if (x == 2){
-            int damage = 10+experience;
-            return damage;
-        }
-        return 0;
     }
 
     public String toString(){
