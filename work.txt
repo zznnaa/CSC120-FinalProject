@@ -34,3 +34,7 @@ Zoe 4/21 3 hours:
 Zoe 4/22 1.5 hours:
 - installed guava
 - started to create graph
+
+Zoe 4/23 2.5 hours:
+- creating and navigating through graph
+- replacing strings in graph with hashtable keys/objects
