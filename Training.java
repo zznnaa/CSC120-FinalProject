@@ -69,3 +69,16 @@ public class Training extends Battle{
     }
 
 }
+
+/* NOTES
+ * To be implemented in Game Class: 
+ * System.out.println("Do you want to continue training?");
+                String z = this.sc.nextLine().toLowerCase();
+                if (z.equals("yes")){
+                    continue;
+                }
+                if (z.equals("no")){
+                    System.out.println("Your training has ended.");
+                    break;
+                }
+ */

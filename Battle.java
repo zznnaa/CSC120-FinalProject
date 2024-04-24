@@ -1,8 +1,6 @@
 import java.util.Random;
 
 public class Battle {
-    
-    //public Game game; battle cannot have game b/c game brings everything together. Analogous to train
     public Human enemy;
     public Human character;
     boolean end;
@@ -26,11 +24,13 @@ public class Battle {
         return random.nextInt();
     }
     
+    // player has option to check in with team during a battle (similar to a time out)
     public void checkIn(String order){
         System.out.println("The captain has ordered the troop to retreat");
         System.out.println(this.character);
     }
 
+    // allows turn based attacks between characters and an enemy
     public void doBattle(){
         System.out.println("Your battle with the enemy has started.");
         while (end != true){
@@ -38,7 +38,6 @@ public class Battle {
             // TO-DO: let enemy pick a random character from list of characters to attack. 
             this.enemy.attack(this.character);
     
-            // Check if character is alive
             //character dead, enemy alive
             if (!this.character.isAlive() && this.enemy.isAlive()){
                 System.out.println("Sorry you lost the battle.");
@@ -72,8 +71,4 @@ public class Battle {
 }
 
 //NOTES TO US
-// Need to fix how battle ends. Character can't keep playing after health = 0. Still can't figure out the error
-
-
-// MORE NOTES
-// how to implement how to ask the player whether to check in or not after 5 attacks. Maybe let the player decided when to check in by teelling them that they can call the chekIn function 
+// how to implement how to ask the player whether to check in or not after 5 attacks. Let the player decide when to check in by teelling them that they can call the chekIn function 

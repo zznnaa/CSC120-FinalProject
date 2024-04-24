@@ -23,7 +23,7 @@ Zoe:
     Researched dialogue trees
     TODO:
     - Figure out how dialogue trees work
-    - Create the Train class
+    - Create the Training class
 Next Meeting:
 - Work on the Campfire class together
 
@@ -34,3 +34,9 @@ Zoe 4/21 3 hours:
 Zoe 4/22 1.5 hours:
 - installed guava
 - started to create graph
+
+Chioma 4/22
+- Talked with Jordan about how best to seperate the classes to ensure that we have scanners only in the Game class
+    TO-DO:
+    - Implement the Battle class a method in Game rather than a seperate class
+    - Implement a boolean in the Battle class that determines if a battle session is training or not
