@@ -48,5 +48,5 @@ Zoe 4/23 2.5 hours:
 Work Meeting #3 4/24 1 hour:
 - creating revised architecture diagram
 
-Zoe 4/24 1 hour:
-- tbd
+Zoe 4/24 3 hours:
+- worked on fleshing out while loop for dialogue
