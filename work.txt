@@ -57,3 +57,12 @@ Chioma 4/24 2.5 hours:
     - Fix the battle as a class vs a method problem
     - Once this is done, make sure that Training as an instance of battle works
     - Figure out how to generate random numbers in a more efficient way
+
+Chioma 4/25 45 minutes:
+- Implement battle as a method in game
+    TO-DO:
+    Implement Training as an instance of battle 
+    How to implement a number of battles within game?
+    Implement various characters
+    Implement various enemies
+
