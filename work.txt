@@ -50,3 +50,10 @@ Work Meeting #3 4/24 1 hour:
 
 Zoe 4/24 3 hours:
 - worked on fleshing out while loop for dialogue
+
+Chioma 4/24 2.5 hours:
+    - Started implementing battle as a method within game
+    TO-DO:
+    - Fix the battle as a class vs a method problem
+    - Once this is done, make sure that Training as an instance of battle works
+    - Figure out how to generate random numbers in a more efficient way
