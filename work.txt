@@ -13,7 +13,7 @@ To-Do:
 Zoe 4/20 1 hour:
 split game and battle classes
 
-Work Meeting #2 4/20:
+Work Meeting #2 4/20 2 hours:
 Chioma: 
     Updated Battle class. Character can no longer play after battle is lost
     Added attack() method within Human to allow human randomly choose attacks
@@ -35,7 +35,7 @@ Zoe 4/22 1.5 hours:
 - installed guava
 - started to create graph
 
-Chioma 4/22
+Chioma 4/22 1 hour:
 - Talked with Jordan about how best to seperate the classes to ensure that we have scanners only in the Game class
     TO-DO:
     - Implement the Battle class a method in Game rather than a seperate class
