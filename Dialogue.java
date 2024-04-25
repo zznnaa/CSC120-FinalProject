@@ -13,17 +13,23 @@ import com.google.common.graph.Traverser;
 //keep dialogue and hashtables as attributes of the human, but have a talk method in human or game class
 
 public class Dialogue {
-    Hashtable<String, String> hashtable;
+    Hashtable<String, String> ht;
+    Hashtable<String, String> ht2;
     // ImmutableNetwork<String, String> myGraph;
 
     public Dialogue(){
-        this.hashtable = new Hashtable<String, String>();
+        this.ht = new Hashtable<String, String>();
+        this.ht2 = new Hashtable<String, String>();
         // how do I construct a network within this class?
     }
     
     //talk method
     public void talk(){
         Scanner sc = new Scanner(System.in);
+        
+        //array list that holds all the key value pairs
+        //iterate through the array list, adding key value pairs to the hashtable(s) and then putting edges between them in the graph
+        Pair<A,B> p = new Pair("test", "test");
         
         //hashtable that holds all the character's responses
         Hashtable ht = new Hashtable<String, String>();
@@ -58,7 +64,7 @@ public class Dialogue {
         Object currentLocation = dialogue.nodes().iterator().next();
         System.out.println("Current Location: " + currentLocation);
 
-        //while loop not running all the way through
+        //while loop not running all the way through - global currentLocation and reference key value pairs by position in hashtable
         //make sure null within while loop actually stops it
         //while (dialogue.successors(currentLocation).size() != 0){
             //ask for user input
@@ -88,7 +94,7 @@ public class Dialogue {
             System.out.println(currentLocation);
             //checks if user input is valid (replace with try/catch once done coding the rest of it)
             if (validInput == false){
-                System.out.println("That's not a valid user input. Enter A or B");
+                throw new RuntimeException("That's not a valid user input. Enter A or B");
             }
 
         //}
