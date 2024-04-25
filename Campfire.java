@@ -92,26 +92,38 @@ public static void main(String[] args) {
         Object currentLocation2 = ht.get("beginning");
 
         System.out.println("\n Current Location: " + currentLocation2);
-        
-        //for loop, for each node connected to beginning
-            //if user input equals one of the nodes then make new variable
-            //else return error
-        //if there are incident nodes connected to new input, move within graph
 
-        if (userInput2.charAt(0) == ht2.get("A").toString().charAt(0)){
-            Object replaceUserInputwithNewVariable = ht2.get("A");
+        //testing validity of input
+        boolean validInput = false;
+        //for each edge connected to beginning node
+        for (Object o: myGraph2.incidentEdges(currentLocation2)){
+            //if user input is equal to one of the edges' first characters
+            if (userInput2.charAt(0) == o.toString().charAt(0)){
+                //update user input to match the full name of the edge
+                Object updatedUserInput = o;
+                //use updated user input to update current location of graph
+                Object currentlocation = myGraph2.incidentNodes(updatedUserInput).target();
+                System.out.println("Your new location is: " + currentlocation);
+                validInput = true;
+                break;
         }
+        //checks if user input is valid (replace with try/catch once done coding the rest of it)
+        if (!validInput){
+            System.out.println("That's not a valid user input. Enter A or B");
+        }
+
+        // if (userInput2.charAt(0) == ht2.get("A").toString().charAt(0)){
+        //     Object replaceUserInputwithNewVariable = ht2.get("A");
+        // }
 
         //navigating to different locations in hashtable graph
-        if (myGraph2.incidentNodes(userInput2) != null){
-            currentLocation2 = myGraph2.incidentNodes(userInput2).target();
-            System.out.println("Your new location is: " + currentLocation2);
-        } else {
-            System.out.println("That's not a valid user input. Enter A or B");
-            //userInput something something
-        }
-
-        //is there a way to indicate a specific key, value pair from a hashtable as the node in a graph?
+        // if (myGraph2.incidentNodes(userInput2) != null){
+        //     currentLocation2 = myGraph2.incidentNodes(userInput2).target();
+        //     System.out.println("Your new location is: " + currentLocation2);
+        // } else {
+        //     System.out.println("That's not a valid user input. Enter A or B");
+        //     //userInput something something
+        // }
         
 
 
