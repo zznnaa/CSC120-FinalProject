@@ -66,3 +66,9 @@ Chioma 4/25 45 minutes:
     Implement various characters
     Implement various enemies
 
+Chioma 4/25 2 hours:
+- Changed up battle to allow for various players and to let the user choose the name of their players.
+NEXT:
+- Implement a training loop within the static main method in game
+- Create a description of the enemies to be battled within game 
+- Implement the three "real" battles within game
