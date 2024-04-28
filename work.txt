@@ -72,3 +72,6 @@ NEXT:
 - Implement a training loop within the static main method in game
 - Create a description of the enemies to be battled within game 
 - Implement the three "real" battles within game
+
+Chioma 4/26 1.75 hours
+- Started implementing a battle class that allows the game to run a real or training battle session
