@@ -75,3 +75,6 @@ NEXT:
 
 Chioma 4/26 1.75 hours
 - Started implementing a battle class that allows the game to run a real or training battle session
+
+Chioma 4/28 2 hours
+- Successfully implemented training as a battle case
