@@ -78,3 +78,8 @@ Chioma 4/26 1.75 hours
 
 Chioma 4/28 2 hours
 - Successfully implemented training as a battle case
+
+Chioma 4/29 1.5 hours
+- Researched about switch case in java
+- Partially implemented a switch case to allow user switch between different modes of the game (campfire, battle, train)
+- Created a map of our game
