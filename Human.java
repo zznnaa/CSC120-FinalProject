@@ -57,7 +57,7 @@ public class Human{
 
     // checks if the human is alive or not
     public boolean isAlive(){
-        if (this.health == 0){
+        if (this.health > 0){
             return false; 
         }
         else{
