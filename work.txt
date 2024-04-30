@@ -38,7 +38,7 @@ Zoe 4/22 1.5 hours:
 Chioma 4/22 1 hour:
 - Talked with Jordan about how best to seperate the classes to ensure that we have scanners only in the Game class
     TO-DO:
-    - Implement the Battle class a method in Game rather than a seperate class
+    - Implement the Battle class as a method in Game rather than a seperate class
     - Implement a boolean in the Battle class that determines if a battle session is training or not
 
 Zoe 4/23 2.5 hours:
