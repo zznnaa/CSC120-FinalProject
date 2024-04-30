@@ -83,3 +83,8 @@ Chioma 4/29 1.5 hours
 - Researched about switch case in java
 - Partially implemented a switch case to allow user switch between different modes of the game (campfire, battle, train)
 - Created a map of our game
+
+Chiom 4/29 1.75 hours
+- Split up baattle and training and modified battle to take in enemy to be battled
+- Implemented function to randomly sample enemy
+- Updated addCharacter to randomly sample characters' stats
