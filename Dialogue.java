@@ -102,7 +102,7 @@ public class Dialogue {
                     break;
                 }
             }
-            //checks if user input is valid (replace with try/catch once done coding the rest of it)
+            //checks if user input is valid
             if (validInput == false){
                 System.out.println("That's not a valid user input. Enter A or B");
             }

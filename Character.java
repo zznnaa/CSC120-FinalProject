@@ -8,6 +8,7 @@ public class Character extends Human{
     public Hashtable<String, String> dialogueScript;
     public Hashtable<String, String> edgeScript;
     public ImmutableNetwork<String, String> dialogue;
+    public String currentLocation; //current location user in that character's dialogue network
 
     public Character(String name, int health, int experience, int alliance, boolean isEnemy, HashtablePair script) {
         super(name, health, experience, alliance, isEnemy);
@@ -27,11 +28,13 @@ public class Character extends Human{
             .build();
         //assign to this instance of Character
         this.dialogue = dialogue;
+        //assigns current location as first node in network
+        this.currentLocation = this.dialogue.nodes().iterator().next();
     }
 
     public void talk(){
         //print hashtable graph
-        System.out.println("\n" + dialogue);
+        System.out.println(dialogue);
     }
 
 public static void main(String[] args) {

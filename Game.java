@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Game {
@@ -89,6 +90,15 @@ public class Game {
         return enemy; 
     }
 
+    //lists out the characters in the user's party
+    public void listCharacters(){
+        int x = 0;
+        for (Character option : characters){
+            x += 1;
+            System.out.println(x + ". " + option.name);
+        }
+    }
+    
     // TO-DO: functions to check if user can battle, train or campfire
 
 
@@ -219,19 +229,68 @@ public class Game {
 
     public void campfire(){
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
+        //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
-        int x = 0;
-        for (Character character : characters){
-            x += 1;
-            System.out.println(x + ". " + character.name);
-        }
+        //lists out the characters
+        this.listCharacters();
         String talkToName = this.sc.nextLine();
-        for (Character character : characters){
-            if (talkToName.contains(character.name)){
+        
+        //selects that character from the list of characters
+        Character character = null;
+        for (Character option : characters){
+            if (talkToName.contains(option.name)){
                 System.out.println("successfully chose which character");
-                character.talk();
+                character = option;
+                break;
             }
         }
+        //prints network
+        character.talk();
+
+        //prints current location of user in that character's dialogue tree
+        System.out.println("Current Location: " + character.currentLocation);
+        System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
+
+        //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
+        //while loop to ask player for dialogue options
+        while (character.dialogue.successors(character.currentLocation).size() != 0){
+            //ask for user input
+            System.out.println("\n Pick a response:");
+            //iterate through the edges in current location
+            Iterator<String> iterator = character.dialogue.outEdges(character.currentLocation).iterator();
+            while (iterator.hasNext()){
+                String line = iterator.next();
+                System.out.println(character.edgeScript.get(line));
+            }
+            String userInput2 = sc.nextLine(); //"A";
+
+            //testing validity of input
+            boolean validInput = false;
+            //for each edge connected to beginning node
+            for (String option: character.dialogue.outEdges(character.currentLocation)){
+                System.out.println("This is your edge object:");
+                System.out.println(option);
+                //if user input is equal to one of the edges' first characters
+                if (userInput2.charAt(0) == character.edgeScript.get(option).toString().charAt(0)){
+                    //update current location of user in character's dialogue network
+                    character.currentLocation = character.dialogue.incidentNodes(option).target();
+                    System.out.println("\n Your new location is: " + character.currentLocation);
+                    System.out.println("Your new location is: " + character.dialogueScript.get(character.currentLocation));
+                    validInput = true;
+                    break;
+                }
+            }
+            //checks if user input is valid
+            if (validInput == false){
+                System.out.println("That's not a valid user input. Enter A or B");
+            }
+
+        }
+
+    //TODO: increase character's alliance based on how far down they get in the graph compared to where they started
+    //increase character's alliance
+    character.alliance += 5;
+
     }
 
     public static void main(String[] args) {
