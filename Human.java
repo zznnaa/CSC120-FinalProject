@@ -31,7 +31,6 @@ public class Human{
     }
 
     // attack methods. 
-    //TO-DO: have an attack method that randomly samples from the attack options available
     public void kick(Human h){
         //-5 points to enemy
         System.out.println(h.name + " has suffered a kick");
@@ -58,20 +57,17 @@ public class Human{
 
     // checks if the human is alive or not
     public boolean isAlive(){
-        if (this.health > 0){
-            return false; 
-        }
-        else{
-            return true;
-        }
+        return this.health > 0;
     }
 
     public String toString(){
-        return "Name: " + name +
-                "\nHealth: " + health +
-                "\nExperience: " + experience +
-                "\nAlliance: " + alliance +
-                "\nisEnemy: " + isEnemy;
+        if (!isEnemy){
+            return name + " has health " + health + ", experience " + experience + " and is a friend.";
+        }
+        else{
+            return name + " has health " + health + ", experience " + experience + " and is an enemy";
+        }
+
     }
 
     public static void main(String[] args) {
@@ -79,3 +75,15 @@ public class Human{
         System.out.println(h);
     }
 }
+
+// TO-DO:
+// make alliance private and implement a getter for it
+// edit the attack methods to cause damage based on experience and alliance (remember that enemy's allaince won't affect their attacks)
+
+// public String toString(){
+//     return "Name: " + name +
+//             "\nHealth: " + health +
+//             "\nExperience: " + experience +
+//             "\nAlliance: " + alliance +
+//             "\nisEnemy: " + isEnemy;
+// }

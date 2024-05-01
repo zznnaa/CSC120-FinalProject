@@ -108,6 +108,8 @@ public class Game {
         String chr1 = sc.nextLine();
         String chr2 = sc.nextLine();
 
+        // TO-DO: check if characters are in game first. Also make sure that the nCharacters > 0
+
         // find proponent and opponent in ArrayList characters and save their health
         for (Human character: characters){
             if (character.name.equals(chr1)){
@@ -132,23 +134,25 @@ public class Game {
         battleOngoing = this.advanceBattle(true, proponent, opponent); 
         }
 
+        // TO-DO: allow user to end training while both characters are still alive. Copy from the Training file
+
         // update characters' experience based on battle outcome
         // proponent and opponent die
-        if (proponent.health == 0 && opponent.health == 0){
+        if (!proponent.isAlive() && !opponent.isAlive()){
             System.out.println("Both characters lost their lives. More training is recommended");
             proponent.experience += 5;
             opponent.experience += 5;
         }
 
         // proponent dies, opponent doesn't
-        else if (proponent.health == 0 && opponent.health != 0){
+        else if (!proponent.isAlive() && opponent.isAlive()){
             System.out.println(opponent.name + " won the battle.");
             proponent.experience += 5;
             opponent.experience += 10;
         }
 
         // proponent doesn't die, opponent does
-        else if (proponent.health != 0 && opponent.health == 0){
+        else if (proponent.isAlive() && !opponent.isAlive()){
             System.out.println(opponent.name + " lost the battle.");
             proponent.experience += 10;
             opponent.experience += 5;
@@ -157,6 +161,8 @@ public class Game {
         // reinstate their health
         proponent.health = initialHealth.get(0);
         opponent.health = initialHealth.get(1);
+
+        // TO-DO: show character updated stats after a training session
     }
 
 
@@ -173,12 +179,19 @@ public class Game {
             // Ask the user if they wish to attack or retreat. Call advanceBattle based on user response
             System.out.println("Do you wish to return the attack or check in with your troop? (attack/retreat)");
             String nextMove = sc.nextLine().toLowerCase();
+
+            // force the user to enter a valid option
+            while (!(nextMove.equals("attack") || nextMove.equals("retreat"))){
+                System.out.println("You have not entered a valid option. Try again. You can either attack or retreat.");
+                nextMove = this.sc.nextLine();
+            }
+
             if (nextMove.equals("attack")){
                 battleOngoing = this.advanceBattle(true, this.characters.get(i), enemy); // TO-DO: allow a different chr return attack
             }
             else if (nextMove.equals("retreat")){
                 battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy);
-            }  // TO-DO: throw an exception that doesn't break out of the loop when the user types in a response that's not part of the options given
+            }
             
             // TO-Do: delete this
             System.out.println("This is enemy " + enemy);
@@ -206,7 +219,7 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        Game game = new Game(1);
+        Game game = new Game(3);
 
         System.out.println("Your game has started.");
 
@@ -225,13 +238,19 @@ public class Game {
         while(!gameOver){
             // Allow player choose next move based on characters' stats
             System.out.println("Based on your troop's stats, what would you like to do: train, engage in battle or have a campfire with your troop?");
-            String cmd = game.sc.nextLine(); // check in with Jordan about this in OH
+            String cmd = game.sc.nextLine(); // check in with Jordan about this in OH. It's fine
+
+            while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire"))){
+                System.out.println("You have not entered a valid option. Try again. You can train, battle or have a campfire");
+                cmd = game.sc.nextLine();
+            }
 
             // allows player to switch between different modes in a game
             switch (cmd){
                 case "battle":
                 // TO-DO: implement a method that check if troop is eligible for option. If troop is eligible, then battle. Else, say can't battle. Must train or camp
                 Human enemy = game.addEnemy();
+                // TO-DO: print out enemy, and ask user one last time to battle or train
                 System.out.println("Today, you will battle " + enemy.name);
                 game.battle(enemy);
                 break;
@@ -259,23 +278,19 @@ public class Game {
 // NOTES on game mechanics:
 // In a real battle, variuos characters attack. In training, there is always only two characters
 
-// PROBLEMS IN CODE:
-// Enemy can attack without the player choosing to either attack or retreat
-
 // TO-DO:
 
-// OH: should I create another scanner within my static method or use the one specfic to an instance of game? Shoud battle have its own sc and the static method another?
+// OH: 
 // In the battle case, should I display enemy's stats and give the user another chance to battle or train?
 
 // IMMEDIATE
-// implement a switch case statement for all the possible game varieties
-// map out your game to pull all the pieces together
+// implement cantrain, canBattle and canCampfire
+// implement a condition for gameOver
 // write up all the text needed: 
 // - at the beginning of game
 // - enemies descriptions
 // - chracters description
-// edit addCharacter() to randomly sample characters' stats instead of hardcoding itt
-// implement various enemies: set up a way to randomly sample their stats
+
 
 // LATER
 // change the prinout when the captain need to check in with players
