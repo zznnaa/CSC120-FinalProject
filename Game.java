@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.Random;
 
 public class Game {
@@ -9,6 +10,7 @@ public class Game {
     public ArrayList<Human> enemies; // extending game to multiple enemies
     public static boolean gameOver;
     public Scanner sc; // create a scanner for the entire game class
+    public ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>> scripts; //an ArrayList of the four possible hashtable pair scripts
     
     public Game(int nCharacters){
         this.nCharacters = nCharacters;
@@ -16,6 +18,32 @@ public class Game {
         this.enemies = new ArrayList<>();
         Game.gameOver = false;
         this.sc = new Scanner(System.in);
+        Hashtable<String, String> one = new Hashtable<String, String>();
+            one.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
+            one.put("option 1", "Ah you should one day.");
+            one.put("option 2", "You've visited? I miss it.");
+            one.put("option 2.1", "The way the fall leaves would scatter on the ground.");
+            one.put("option 1.1", "Only a day's ride");
+            one.put("last option", "Testing the last string.");
+        Hashtable<String, String> two = new Hashtable<String, String>();
+            two.put("A", "A - I've never been.");
+            two.put("B", "B - I went there once as a child.");
+            two.put("B.A", "A - What do you miss most about it?");
+            two.put("A.A", "A - How far away is it?");
+            two.put("last edge", "A - last edge test 1");
+            two.put("last edge 2", "A - last edge test 2");
+        // Hashtable<String, String> three = ;
+        // Hashtable<String, String> four = ;
+        // Hashtable<String, String> five = ;
+        // Hashtable<String, String> six = ;
+        // Hashtable<String, String> seven = ;
+        // Hashtable<String, String> eight = ;
+        this.scripts = new ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>>();
+            this.scripts.add(new HashtablePair<>(one, two));
+            //this.scripts.add(new HashtablePair<>(three, four));
+            //this.scripts.add(new HashtablePair<>(five, six));
+            //this.scripts.add(new HashtablePair<>(seven, eight));
+
     }
 
     //getRandomNumber within range
@@ -36,8 +64,9 @@ public class Game {
         int health = getRandomNumber(0, 5);
         int experience = getRandomNumber(0, 5);
         int alliance = getRandomNumber(0, 1);
+        HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(getRandomNumber(0,4));
         // add new character to list of characters
-        this.characters.add(new Human(name, health, experience, alliance, false)); 
+        this.characters.add(new Human(name, health, experience, alliance, false, script)); 
     }
 
 
