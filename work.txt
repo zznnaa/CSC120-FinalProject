@@ -53,3 +53,7 @@ Chioma:
     - Fix the battle as a class vs a method problem
     - Once this is done, make sure that Training as an instance of battle works
     - Figure out how to generate random numbers in a more efficient way
+
+Chioma 4/30 1 hour:
+- Fixed battle class to ensure that chractrs died once their health was negative or zero
+- implemented a loop to keep asking user for a response when a valid response isn't inputted
