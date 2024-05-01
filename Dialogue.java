@@ -1,9 +1,7 @@
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 import com.google.common.graph.*;
-import com.google.common.graph.Traverser;
 
 //ARCHITECTURE NOTES: turn dialogue into a parent class,
 //and make the talk method generalized so any two hashtables could be fed into the talk method?
@@ -53,7 +51,6 @@ public class Dialogue {
         ht2.put("last edge 2", "A - last edge test 2");
 
         //network builder using keys in hashtable
-
         ImmutableNetwork<String, String> dialogue =
             NetworkBuilder.directed()
             .allowsParallelEdges(true)
@@ -66,13 +63,12 @@ public class Dialogue {
             .addEdge("option 1.1", "last option", "last edge 2")
             .build();
 
-
         //print hashtable graph
         System.out.println("\n" + dialogue);
 
         //traverse options in hashtable graph
-        // Traverser.forGraph(dialogue).breadthFirst(ht.get("beginning"))
-        // .forEach(x->System.out.println(x));
+        Traverser.forGraph(dialogue).breadthFirst("beginning")
+        .forEach(x->System.out.println(x));
 
         String currentLocation = dialogue.nodes().iterator().next();
         System.out.println("Current Location: " + currentLocation);
@@ -106,7 +102,7 @@ public class Dialogue {
                     break;
                 }
             }
-            //checks if user input is valid (replace with try/catch once done coding the rest of it)
+            //checks if user input is valid
             if (validInput == false){
                 System.out.println("That's not a valid user input. Enter A or B");
             }

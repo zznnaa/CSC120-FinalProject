@@ -1,14 +1,17 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Game {
     public int nCharacters;
-    public ArrayList<Human> characters; // extending game to multiple characters
+    public ArrayList<Character> characters; // extending game to multiple characters
     public ArrayList<Human> enemies; // extending game to multiple enemies
     public static boolean gameOver;
     public Scanner sc; // create a scanner for the entire game class
+    public ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>> scripts; //an ArrayList of the four possible hashtable pair scripts
     
     public Game(int nCharacters){
         this.nCharacters = nCharacters;
@@ -16,6 +19,32 @@ public class Game {
         this.enemies = new ArrayList<>();
         Game.gameOver = false;
         this.sc = new Scanner(System.in);
+        Hashtable<String, String> one = new Hashtable<String, String>();
+            one.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
+            one.put("option 1", "Ah you should one day.");
+            one.put("option 2", "You've visited? I miss it.");
+            one.put("option 2.1", "The way the fall leaves would scatter on the ground.");
+            one.put("option 1.1", "Only a day's ride");
+            one.put("last option", "Testing the last string.");
+        Hashtable<String, String> two = new Hashtable<String, String>();
+            two.put("A", "A - I've never been.");
+            two.put("B", "B - I went there once as a child.");
+            two.put("B.A", "A - What do you miss most about it?");
+            two.put("A.A", "A - How far away is it?");
+            two.put("last edge", "A - last edge test 1");
+            two.put("last edge 2", "A - last edge test 2");
+        // Hashtable<String, String> three = ;
+        // Hashtable<String, String> four = ;
+        // Hashtable<String, String> five = ;
+        // Hashtable<String, String> six = ;
+        // Hashtable<String, String> seven = ;
+        // Hashtable<String, String> eight = ;
+        this.scripts = new ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>>();
+            this.scripts.add(new HashtablePair<>(one, two));
+            //this.scripts.add(new HashtablePair<>(three, four));
+            //this.scripts.add(new HashtablePair<>(five, six));
+            //this.scripts.add(new HashtablePair<>(seven, eight));
+
     }
 
     //getRandomNumber within range
@@ -36,8 +65,9 @@ public class Game {
         int health = getRandomNumber(0, 5);
         int experience = getRandomNumber(0, 5);
         int alliance = getRandomNumber(0, 1);
+        HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(0);//getRandomNumber(0,4));
         // add new character to list of characters
-        this.characters.add(new Human(name, health, experience, alliance, false)); 
+        this.characters.add(new Character(name, health, experience, alliance, false, script)); 
     }
 
 
@@ -60,12 +90,21 @@ public class Game {
         return enemy; 
     }
 
+    //lists out the characters in the user's party
+    public void listCharacters(){
+        int x = 0;
+        for (Character option : characters){
+            x += 1;
+            System.out.println(x + ". " + option.name);
+        }
+    }
+    
     // TO-DO: functions to check if user can battle, train or campfire
 
 
 
     // advance battle by one more attack
-    public boolean advanceBattle(boolean fight, Human protagonist, Human villain){
+    public boolean advanceBattle(boolean fight, Character protagonist, Human villain){
         //if any character dies, you lose the battle
         if (!protagonist.isAlive()){
             System.out.println("Sorry you lost the battle.");
@@ -100,7 +139,7 @@ public class Game {
     // implements a training session
     public void train(){
         boolean battleOngoing = true; // status of battle
-        ArrayList<Human> fightingPair = new ArrayList<>(2); // the fighting pair
+        ArrayList<Character> fightingPair = new ArrayList<>(2); // the fighting pair
         ArrayList<Integer> initialHealth = new ArrayList<>(2); // keeps track of proponent and opponent's health
 
         // Ask the user for the opponent and proponent 
@@ -111,7 +150,7 @@ public class Game {
         // TO-DO: check if characters are in game first. Also make sure that the nCharacters > 0
 
         // find proponent and opponent in ArrayList characters and save their health
-        for (Human character: characters){
+        for (Character character: characters){
             if (character.name.equals(chr1)){
                 fightingPair.add(character);
                 initialHealth.add(character.health);
@@ -122,7 +161,7 @@ public class Game {
             }
         } 
 
-        Human proponent = fightingPair.get(0);
+        Character proponent = fightingPair.get(0);
         Human opponent = fightingPair.get(1);
 
         // while a particular battle is ongoing
@@ -195,27 +234,77 @@ public class Game {
             
             // TO-Do: delete this
             System.out.println("This is enemy " + enemy);
-            for (Human character : this.characters){
+            for (Character character : this.characters){
                 System.out.println("This is " + character.name + character);
             }
         }
     }
 
     public void campfire(){
+        //TODO: make sure this works in game loop
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
+        //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
-        int x = 0;
-        for (Human human : characters){
-            x += 1;
-            System.out.println(x + ". " + human.name);
-        }
-        String characterName = this.sc.nextLine();
-        for (Human human : characters){
-            if (characterName.contains(human.name)){
-                System.out.println("successfully chose which human");
-                //human.talk();
+        //lists out the characters
+        this.listCharacters();
+        String talkToName = this.sc.nextLine();
+        
+        //selects that character from the list of characters
+        Character character = null;
+        for (Character option : characters){
+            if (talkToName.contains(option.name)){
+                System.out.println("successfully chose which character");
+                character = option;
+                break;
             }
         }
+        //prints network
+        character.talk();
+
+        //prints current location of user in that character's dialogue tree
+        System.out.println("Current Location: " + character.currentLocation);
+        System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
+
+        //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
+        //while loop to ask player for dialogue options
+        while (character.dialogue.successors(character.currentLocation).size() != 0){
+            //ask for user input
+            System.out.println("\n Pick a response:");
+            //iterate through the edges in current location
+            Iterator<String> iterator = character.dialogue.outEdges(character.currentLocation).iterator();
+            while (iterator.hasNext()){
+                String line = iterator.next();
+                System.out.println(character.edgeScript.get(line));
+            }
+            String userInput2 = sc.nextLine(); //"A";
+
+            //testing validity of input
+            boolean validInput = false;
+            //for each edge connected to beginning node
+            for (String option: character.dialogue.outEdges(character.currentLocation)){
+                System.out.println("This is your edge object:");
+                System.out.println(option);
+                //if user input is equal to one of the edges' first characters
+                if (userInput2.charAt(0) == character.edgeScript.get(option).toString().charAt(0)){
+                    //update current location of user in character's dialogue network
+                    character.currentLocation = character.dialogue.incidentNodes(option).target();
+                    System.out.println("\n Your new location is: " + character.currentLocation);
+                    System.out.println("Your new location is: " + character.dialogueScript.get(character.currentLocation));
+                    validInput = true;
+                    break;
+                }
+            }
+            //checks if user input is valid
+            if (validInput == false){
+                System.out.println("That's not a valid user input. Enter A or B");
+            }
+
+        }
+
+    //TODO: increase character's alliance based on how far down they get in the graph compared to where they started
+    //increase character's alliance
+    character.alliance += 5;
+
     }
 
     public static void main(String[] args) {
