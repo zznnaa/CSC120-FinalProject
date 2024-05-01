@@ -190,6 +190,19 @@ public class Game {
 
     public void campfire(){
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
+        System.out.println("Which character would you like to talk to?");
+        int x = 0;
+        for (Human human : characters){
+            x += 1;
+            System.out.println(x + ". " + human.name);
+        }
+        String characterName = this.sc.nextLine();
+        for (Human human : characters){
+            if (characterName.contains(human.name)){
+                System.out.println("successfully chose which human");
+                //human.talk();
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -230,7 +243,7 @@ public class Game {
 
                 case "campfire":
                 // TO-DO: implement a method that check if troop is eligible for option. If troop is eliible, then camp
-                //game.campfire(false);
+                game.campfire();
                 break;
 
                 // default case
