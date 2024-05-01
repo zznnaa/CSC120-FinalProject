@@ -88,3 +88,7 @@ Chiom 4/29 1.75 hours
 - Split up baattle and training and modified battle to take in enemy to be battled
 - Implemented function to randomly sample enemy
 - Updated addCharacter to randomly sample characters' stats
+
+Chioma 4/30 1 hour:
+- Fixed battle class to ensure that chractrs died once their health was negative or zero
+- implemented a loop to keep asking user for a response when a valid response isn't inputted

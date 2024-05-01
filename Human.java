@@ -7,6 +7,7 @@ public class Human{
     public int experience;
     public int alliance;
     public boolean isEnemy;
+    //public Dialogue dialogue;
 
     //constructor
     public Human(String name, int health, int experience, int alliance, boolean isEnemy){
