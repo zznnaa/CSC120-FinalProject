@@ -67,8 +67,8 @@ public class Dialogue {
         System.out.println("\n" + dialogue);
 
         //traverse options in hashtable graph
-        // Traverser.forGraph(dialogue).breadthFirst(ht.get("beginning"))
-        // .forEach(x->System.out.println(x));
+        Traverser.forGraph(dialogue).breadthFirst("beginning")
+        .forEach(x->System.out.println(x));
 
         String currentLocation = dialogue.nodes().iterator().next();
         System.out.println("Current Location: " + currentLocation);

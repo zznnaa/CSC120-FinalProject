@@ -228,6 +228,7 @@ public class Game {
     }
 
     public void campfire(){
+        //TODO: make sure this works in game loop
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
         //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
