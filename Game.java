@@ -186,8 +186,11 @@ public class Game {
                 System.out.println("This is " + character.name + character);
             }
         }
-    }    
+    }
 
+    public void campfire(){
+        System.out.println("You are camping with your troop in preparation for the next day's battle.");
+    }
 
     public static void main(String[] args) {
         Game game = new Game(1);
