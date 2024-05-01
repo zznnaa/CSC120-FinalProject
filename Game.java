@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Game {
     public int nCharacters;
-    public ArrayList<Human> characters; // extending game to multiple characters
+    public ArrayList<Character> characters; // extending game to multiple characters
     public ArrayList<Human> enemies; // extending game to multiple enemies
     public static boolean gameOver;
     public Scanner sc; // create a scanner for the entire game class
@@ -64,9 +64,9 @@ public class Game {
         int health = getRandomNumber(0, 5);
         int experience = getRandomNumber(0, 5);
         int alliance = getRandomNumber(0, 1);
-        HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(getRandomNumber(0,4));
+        HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(0);//getRandomNumber(0,4));
         // add new character to list of characters
-        this.characters.add(new Human(name, health, experience, alliance, false, script)); 
+        this.characters.add(new Character(name, health, experience, alliance, false, script)); 
     }
 
 
@@ -94,7 +94,7 @@ public class Game {
 
 
     // advance battle by one more attack
-    public boolean advanceBattle(boolean fight, Human protagonist, Human villain){
+    public boolean advanceBattle(boolean fight, Character protagonist, Human villain){
         //if any character dies, you lose the battle
         if (!protagonist.isAlive()){
             System.out.println("Sorry you lost the battle.");
@@ -129,7 +129,7 @@ public class Game {
     // implements a training session
     public void train(){
         boolean battleOngoing = true; // status of battle
-        ArrayList<Human> fightingPair = new ArrayList<>(2); // the fighting pair
+        ArrayList<Character> fightingPair = new ArrayList<>(2); // the fighting pair
         ArrayList<Integer> initialHealth = new ArrayList<>(2); // keeps track of proponent and opponent's health
 
         // Ask the user for the opponent and proponent 
@@ -138,7 +138,7 @@ public class Game {
         String chr2 = sc.nextLine();
 
         // find proponent and opponent in ArrayList characters and save their health
-        for (Human character: characters){
+        for (Character character: characters){
             if (character.name.equals(chr1)){
                 fightingPair.add(character);
                 initialHealth.add(character.health);
@@ -149,7 +149,7 @@ public class Game {
             }
         } 
 
-        Human proponent = fightingPair.get(0);
+        Character proponent = fightingPair.get(0);
         Human opponent = fightingPair.get(1);
 
         // while a particular battle is ongoing
@@ -211,7 +211,7 @@ public class Game {
             
             // TO-Do: delete this
             System.out.println("This is enemy " + enemy);
-            for (Human character : this.characters){
+            for (Character character : this.characters){
                 System.out.println("This is " + character.name + character);
             }
         }
@@ -221,15 +221,15 @@ public class Game {
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
         System.out.println("Which character would you like to talk to?");
         int x = 0;
-        for (Human human : characters){
+        for (Character character : characters){
             x += 1;
-            System.out.println(x + ". " + human.name);
+            System.out.println(x + ". " + character.name);
         }
-        String characterName = this.sc.nextLine();
-        for (Human human : characters){
-            if (characterName.contains(human.name)){
-                System.out.println("successfully chose which human");
-                //human.talk();
+        String talkToName = this.sc.nextLine();
+        for (Character character : characters){
+            if (talkToName.contains(character.name)){
+                System.out.println("successfully chose which character");
+                character.talk();
             }
         }
     }
