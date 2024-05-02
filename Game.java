@@ -272,6 +272,7 @@ public class Game {
     }    
 
     public void campfire(){    
+        Character character = null;
         //TODO: make sure this works in game loop
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
         //asks user what character they want to talk to
@@ -281,7 +282,6 @@ public class Game {
         String talkToName = this.sc.nextLine();
         
         //selects that character from the list of characters
-        Character character = null;
         for (Character option : characters){
             if (talkToName.contains(option.name)){
                 System.out.println("successfully chose which character");
@@ -296,18 +296,16 @@ public class Game {
         System.out.println("Current Location: " + character.currentLocation);
         System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
 
-        character.currentLocation = character.dialogue.incidentNodes("last edge").target();
         //if no more options, break loop
-        if(character.dialogue.successors(character.currentLocation).size() == 0){
+        if(character.dialogue.successors(character.currentLocation).isEmpty()){
             System.out.println("You have exhausted all your dialogue options for this character.");
-            return;
         }
 
         //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
         //while loop to ask player for dialogue options
         int check = 0;
         //character.dialogue.successors(character.currentLocation).size() != 0
-        while (check <= 3){
+        while (check <= 2){
             check += 1;
             //ask for user input
             System.out.println("\n Pick a response:");
@@ -333,6 +331,7 @@ public class Game {
                     System.out.println("\n Your new location is: " + character.currentLocation);
                     System.out.println("Your new location is: " + character.dialogueScript.get(character.currentLocation));
                     System.out.println(character.dialogue.successors(character.currentLocation));
+                    System.out.println(character.dialogue.successors(character.currentLocation).size());
                     validInput = true;
                     break;
                 }
@@ -341,6 +340,7 @@ public class Game {
             if (validInput == false){
                 System.out.println("That's not a valid user input. Enter A or B");
             }
+
 
         }
     
