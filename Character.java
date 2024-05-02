@@ -38,8 +38,4 @@ public class Character extends Human{
         //assigns current location as first node in network
         this.currentLocation = this.dialogue.nodes().iterator().next();
     }
-
-public static void main(String[] args) {
-    
-}
 }
