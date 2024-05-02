@@ -245,7 +245,7 @@ public class Game {
 
         // Force user to enter names that are in the game
         while (!(characterNames.contains(chr1) || characterNames.contains(chr2))){
-            System.out.println("You have not must match soldiers that are currently in your troop.");
+            System.out.println("You must match soldiers that are currently in your troop.");
             chr1 = sc.nextLine();
             chr2 = sc.nextLine();
         }
