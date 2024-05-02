@@ -143,7 +143,7 @@ public class Game {
     }
 
     /**
-     * lists out living characters in the user's troop
+     * Lists out living characters in the user's troop
      */
     public void listCharacters() {
         int x = 0;
@@ -253,7 +253,7 @@ public class Game {
             } 
         }
         else {
-            //if any character dies, you lose the battle
+            //if any character dies, you lose the battle. Remove the dead character from game too
             if (!protagonist.isAlive()) {
                 System.out.println(protagonist.name + " is dead. The enemy triumphed. BATTLE OVER.");
                 characters.remove(protagonist);
@@ -287,7 +287,9 @@ public class Game {
 
     }
 
-    // implements a training session
+    /**
+     * Simulates a training session
+     */
     public void train() {
         boolean battleOngoing = true; // status of battle
         ArrayList<Character> fightingPair = new ArrayList<>(2); // the fighting pair
