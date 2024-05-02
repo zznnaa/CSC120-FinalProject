@@ -157,7 +157,7 @@ public class Game {
             }
             // if your last 3 actions contains battle and your last action was not campfire, you're fine
             else{
-                return recentActions.contains("campfire") && !(recentActions.get(recentActions.size() - 1).equals("battle"));
+                return recentActions.contains("battle") && !(recentActions.get(recentActions.size() - 1).equals("campfire"));
             }
         }
     }
@@ -168,7 +168,7 @@ public class Game {
         if (isTraining == true){
             // vilain or protagonist dies, training over
             if (!protagonist.isAlive() || !villain.isAlive()){
-                System.out.println("\n***TRAINING OVER***");
+                System.out.println("******TRAINING OVER******\n");
 
                 Human winner; 
                 Human loser; 
@@ -315,7 +315,7 @@ public class Game {
             // force the user to enter a valid option
             while (!(nextMove.equals("attack") || nextMove.equals("check stats"))){
                 System.out.println("You have not entered a valid option. Try again. You can either attack or check stats.");
-                nextMove = this.sc.nextLine();
+                nextMove = this.sc.nextLine().toLowerCase();
             }
 
             if (nextMove.equals("attack")){
@@ -460,7 +460,7 @@ public class Game {
         }
 
         // allows player see a well-formatted output of characters' stats 
-        System.out.println("\nHere's a decription of your troop commander: ");
+        System.out.println("\nHere's a decription of your troop, commander: ");
         for (Character character : game.characters){
             System.out.println(character);
         }
@@ -469,41 +469,44 @@ public class Game {
         while(!gameOver){
             // Allow player choose next move based on characters' stats
             System.out.println("\nBased on your troop's stats, what would you like to do: train, engage in battle or have a campfire with your troop?");
-            String cmd = game.sc.nextLine(); // check in with Jordan about this in OH. It's fine
+            String cmd = game.sc.nextLine().toLowerCase();
 
             while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire"))){
                 System.out.println("You have not entered a valid option. Try again. You can train, battle or have a campfire");
-                cmd = game.sc.nextLine();
+                cmd = game.sc.nextLine().toLowerCase();
             }
 
             // allows player to switch between different modes in a game
             switch (cmd){
                 case "battle":
-                while (!game.canBattle()){
-                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or set up a campfire.");
-                    cmd = game.sc.nextLine();
+                if (game.canBattle()){
+                    Human enemy = game.addEnemy();
+                    // TO-DO: print out enemy, and ask user one last time to battle or train
+                    System.out.println("\nToday, you will battle " + enemy.name + ".\n" + enemy);
+                    game.battle(enemy);
+                    numOfBattles += 1;
                 }
-                Human enemy = game.addEnemy();
-                // TO-DO: print out enemy, and ask user one last time to battle or train
-                System.out.println("\nToday, you will battle " + enemy.name + ".\n" + enemy);
-                game.battle(enemy);
-                numOfBattles += 1;
+                else{
+                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or set up a campfire.");
+                }
                 break;
 
                 case "train":
-                while (!game.canBattle()){
-                    System.out.println("You cannot train with your troop right now, you must engage in a battle or have a campfire.");
-                    cmd = game.sc.nextLine();
+                if (game.canTrain()){
+                    game.train();
                 }
-                game.train();
+                else{
+                    System.out.println("You cannot train with your troop right now, you must engage in a battle or have a campfire.");
+                }
                 break;
 
                 case "campfire":
-                while (!game.canBattle()){
-                    System.out.println("You cannot have a campfire right now, you must engage in a battle or train with your troop.");
-                    cmd = game.sc.nextLine();
+                if (game.canCampFire()){
+                    game.campfire();
                 }
-                game.campfire();
+                else{
+                    System.out.println("You cannot have a campfire right now, you must engage in a battle or train with your troop.");
+                }
                 break;
             }
 
@@ -549,3 +552,13 @@ public class Game {
 // Add in audio while player is in battle mode (battle music) and campfire (crackling of a fire)
 // allow player choose which character should return an enemy's attack in "real" battles
 // outcome of game should be based on both alliance and number of battles won
+
+/**
+ *                 while (!game.canBattle()){
+                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or set up a campfire. What would you like to do?");
+                    cmd = game.sc.nextLine().toLowerCase();
+                    if (cmd.equals("train") || cmd.equals("campfire")){
+                        break;
+                    }
+                }
+ */
