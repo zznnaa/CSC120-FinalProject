@@ -482,10 +482,10 @@ public class Game {
                 Game.gameOver = true;
                 System.out.println("----------------------------GAME OVER------------------------------------------------");
                 if (game.successfulBattles >= 2){
-                    System.out.println("CONGRATULATIONS! YOU WON THE GAME.");
+                    System.out.println("******CONGRATULATIONS! YOU WON THE GAME.******");
                 }
                 else{
-                    System.out.println("SORRY, YOU LOST THE GAME. BETTER LUCK NEXT TIME");
+                    System.out.println("******SORRY, YOU LOST THE GAME. BETTER LUCK NEXT TIME.******");
                 }
             }
         }   
