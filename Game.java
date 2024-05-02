@@ -177,18 +177,24 @@ public class Game {
      * @return a boolean representing whether the user can train
      */
     public boolean canTrain() {
-        // no action yet? good to go!
-        if (recentActions.size() < 1) {
-            return true; 
+        if (characters.size() < 2) {
+            System.out.println("You have less that 2 soldiers left.");
+            return false; 
         }
         else {
-            // if you have less than 3 actions and the last action was not battle, you're fine
-            if (recentActions.size() < 3) {
-                return !(recentActions.get(recentActions.size()-1).equals("battle"));
+             // no action yet? good to go!
+            if (recentActions.size() < 1) {
+                return true; 
             }
-            // if your last 3 actions contains battle and your last action was not battle, you're fine
             else {
-                return recentActions.contains("battle") && !(recentActions.get(recentActions.size() - 1).equals("battle"));
+                // if you have less than 3 actions and the last action was not battle, you're fine
+                if (recentActions.size() < 3) {
+                    return !(recentActions.get(recentActions.size()-1).equals("battle"));
+                }
+                // if your last 3 actions contains battle and your last action was not battle, you're fine
+                else {
+                    return recentActions.contains("battle") && !(recentActions.get(recentActions.size() - 1).equals("battle"));
+                }
             }
         }
     }
@@ -254,6 +260,7 @@ public class Game {
             //if any character dies, you lose the battle
             if (!protagonist.isAlive()) {
                 System.out.println(protagonist.name + " is dead. The enemy triumphed. BATTLE OVER.");
+                characters.remove(protagonist);
                 return false; // the battle is over
             }
 
@@ -580,7 +587,7 @@ public class Game {
                     game.train();
                 }
                 else {
-                    System.out.println("Commander, an enemy is around the corner. You can set up camp to prepare your soldiers for tomorrow or march on to the battle clearing.");
+                    System.out.println("Commander, an enemy is around the corner. You can set up camp to prepare your soldier(s) for tomorrow or march on to the battle clearing.");
                 }
                 break;
 
