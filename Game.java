@@ -73,7 +73,7 @@ public class Game {
     public void addCharacter(String name){
         // randomly sample character's stats
         int health = getRandomNumber(15, 50);
-        int experience = getRandomNumber(1, 5);
+        int experience = 0;
         int alliance = getRandomNumber(1, 10);
         HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(0);//getRandomNumber(0,4));
         // add new character to list of characters
@@ -274,16 +274,14 @@ public class Game {
 
         // proponent dies, opponent doesn't
         else if (!proponent.isAlive() && opponent.isAlive()){
-            System.out.println(opponent.name + " won the battle.");
-            proponent.experience += 5;
-            opponent.experience += 10;
+            proponent.experience += 3;
+            opponent.experience += 5;
         }
 
         // proponent doesn't die, opponent does
         else if (proponent.isAlive() && !opponent.isAlive()){
-            System.out.println(opponent.name + " lost the battle.");
-            proponent.experience += 10;
-            opponent.experience += 5;
+            proponent.experience += 5;
+            opponent.experience += 3;
         }
 
         // reinstate their health

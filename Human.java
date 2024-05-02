@@ -34,14 +34,14 @@ public class Human{
     public void kick(Human h){
         //-5 points to enemy
         System.out.println(h.name + " has suffered a kick");
-        int damage = 5;
+        int damage = 5 + experience;
         h.health -= damage;
     }
 
     public void shoot(Human h){
         // -10 points to enemy 
         System.out.println(h.name + "is down with a grave injury");
-        int damage = 10;
+        int damage = 10 + experience;
         h.health -= damage;
     }
 
