@@ -138,7 +138,8 @@ public class Game {
             if (option.isAlive()){
                 x += 1;
                 System.out.println(x + ". " + option.name);
-            } else {
+                System.out.println(option.health);
+            } else if (!option.isAlive()){
                 continue;
             }   
         }
@@ -371,7 +372,11 @@ public class Game {
         
         //replenish every character's health
         for (Character option: characters){
-            option.health = option.maxHealth;
+            if (option.isAlive()){
+                option.health = option.maxHealth;
+            } else {
+                continue;
+            }
         }
         
         //asks user what character they want to talk to
