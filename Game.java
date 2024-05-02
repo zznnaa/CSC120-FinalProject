@@ -318,29 +318,38 @@ public class Game {
         //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
         //lists out the characters
+        //only list out characters with remaining dialogue options
         this.listCharacters();
-        String talkToName = this.sc.nextLine();
         
-        //selects that character from the list of characters
-        for (Character option : characters){
-            if (talkToName.contains(option.name)){
-                System.out.println("successfully chose which character");
-                character = option;
-                break;
-            }
+        //user selects character from the list of characters
+        boolean chooseCharacter = false;
+        while (chooseCharacter == false) {
+            //asks for user input
+            String talkToName = this.sc.nextLine();
+            //iterates through character list
+            for (Character option : characters){
+                //checks if user input contains the character's name
+                if (talkToName.contains(option.name)){
+                    //if so, allows user to choose that character if dialogue options are remaining 
+                    if (!option.dialogue.successors(option.currentLocation).isEmpty()){
+                        character = option;
+                        chooseCharacter = true;
+                        System.out.println("successfully chose which character");
+                        break;
+                    //if no more dialogue options, break loop
+                    } else if (option.dialogue.successors(option.currentLocation).isEmpty()) {
+                        System.out.println("You have exhausted all of this character's dialogue options. Please choose another one.");
+                    }
+                }
+            } 
         }
+
         //prints network
         character.talk();
 
         //prints current location of user in that character's dialogue tree
         System.out.println("Current Location: " + character.currentLocation);
         System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
-
-        //if no more options, break loop
-        if(character.dialogue.successors(character.currentLocation).isEmpty()){
-            System.out.println("You have exhausted all your dialogue options for this character.");
-            return;
-        }
 
         //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
         //while loop to ask player for dialogue options
@@ -350,6 +359,7 @@ public class Game {
             //if no more options, break loop
             if(character.dialogue.successors(character.currentLocation).isEmpty()){
                 System.out.println("You have exhausted all your dialogue options for this character.");
+                System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to another person.");
                 return;
             }
             
@@ -379,6 +389,8 @@ public class Game {
                     System.out.println("Your new location is: " + character.dialogueScript.get(character.currentLocation));
                     System.out.println(character.dialogue.successors(character.currentLocation));
                     System.out.println(character.dialogue.successors(character.currentLocation).size());
+                    //increase character's alliance
+                    character.alliance += 1;
                     validInput = true;
                     break;
                 }
@@ -388,10 +400,6 @@ public class Game {
                 System.out.println("That's not a valid user input. Enter A or B");
             }
         }
-    
-        //increase character's alliance
-        System.out.println("After this conversation, you've increased your alliance with this character.");
-        character.alliance += 5;
     
         System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
     
