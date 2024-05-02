@@ -188,6 +188,7 @@ public class Game {
             // else, keep fighting
             else{
                 protagonist.attack(villain);
+                return true;
             } 
         }
         else {
