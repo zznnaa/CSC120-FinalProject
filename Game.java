@@ -8,6 +8,7 @@ import java.util.Random;
 public class Game {
     public int nCharacters;
     public ArrayList<Character> characters; 
+    public ArrayList<String> characterNames; 
     public ArrayList<Human> enemies; 
     public static boolean gameOver;
     public Scanner sc; // create a scanner for the entire game class
@@ -18,6 +19,7 @@ public class Game {
     public Game(int nCharacters){
         this.nCharacters = nCharacters;
         this.characters = new ArrayList<>(nCharacters);
+        this.characterNames = new ArrayList<>(nCharacters);
         this.enemies = new ArrayList<>();
         Game.gameOver = false;
         this.recentActions = new ArrayList<>(3);
@@ -241,8 +243,13 @@ public class Game {
         String chr1 = sc.nextLine();
         String chr2 = sc.nextLine();
 
-        // TO-DO: check if characters are in game first. Also make sure that the nCharacters > 0
-
+        // Force user to enter names that are in the game
+        while (!(characterNames.contains(chr1) || characterNames.contains(chr2))){
+            System.out.println("You have not must match soldiers that are currently in your troop.");
+            chr1 = sc.nextLine();
+            chr2 = sc.nextLine();
+        }
+        
         // find proponent and opponent in ArrayList characters and save their health
         for (Character character: characters){
             if (character.name.equals(chr1)){
@@ -458,13 +465,17 @@ public class Game {
 
         // name your characters
         System.out.println("\nMeet your Regiment. Enter their " + game.nCharacters + " name(s).");
-        // String characterNames
+        // save characters
         for (int i = 0; i < game.nCharacters; i++){
             game.addCharacter(game.sc.nextLine());
         }
+        // save character name
+        for (Human character : game.characters){
+            game.characterNames.add(character.name);
+        }
 
         // allows player see a well-formatted output of characters' stats 
-        System.out.println("\nA short summary of your soldiers has been provided: ");
+        System.out.println("\nA short summary of your Regiment has been provided: ");
         for (Character character : game.characters){
             System.out.println(" " + character);
         }
@@ -472,8 +483,8 @@ public class Game {
         // while the game isn't over
         while(!gameOver){
             // Allow player choose next move based on characters' stats
-            System.out.println("\nBased on your Regiment's stats, what would you like to do: train, engage in battle or have a campfire?");
-            String cmd = game.sc.nextLine(); // check in with Jordan about this in OH. It's fine
+            System.out.println("\nBased on your soldiers' stats, what would you like to do: train, engage in battle or have a campfire?");
+            String cmd = game.sc.nextLine(); 
 
             while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire"))){
                 System.out.println("You have not entered a valid option. Try again. You can train, battle or have a campfire");
