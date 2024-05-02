@@ -231,7 +231,7 @@ public class Game {
         opponent.attack(proponent);
 
         // proponent returns the attack 
-        battleOngoing = this.advanceBattle(true, proponent, opponent); 
+        battleOngoing = this.advanceBattle(true, proponent, opponent, true); 
         }
 
         // TO-DO: allow user to end training while both characters are still alive. Copy from the Training file
@@ -292,10 +292,10 @@ public class Game {
             }
 
             if (nextMove.equals("attack")){
-                battleOngoing = this.advanceBattle(true, this.characters.get(i), enemy); // TO-DO: allow a different chr return attack
+                battleOngoing = this.advanceBattle(true, this.characters.get(i), enemy, false); // TO-DO: allow a different chr return attack
             }
             else if (nextMove.equals("retreat")){
-                battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy);
+                battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy, false);
             }
 
         }
