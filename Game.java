@@ -85,8 +85,8 @@ public class Game {
         ArrayList<String> enemyNames = new ArrayList<String>(Arrays.asList("Frog", "Hulk", "Tigress", "Chameleon", "Boss Wolf", "Dmitri", "Mei Ling", "Bian Zo"));
         ArrayList<String> enemyDescriptors = new ArrayList<String>(Arrays.asList("The Terror", "The Shadow", "The Silent", "The Bloody", "The Savage", "The Nefarious", "The Mutilator", "The Cyclone"));
         // randomly sample stats
-        int health = getRandomNumber(0, 5);
-        int experience = getRandomNumber(0, 5);
+        int health = getRandomNumber(15, 50);
+        int experience = getRandomNumber(1, 5);
 
         // create a new name
         int i = getRandomNumber(0, enemyNames.size());
@@ -123,7 +123,7 @@ public class Game {
         }
         // after 1st action, if last action was battle, return false
         else{
-            return !(recentActions.get(-1).equals("battle")); 
+            return !(recentActions.get(recentActions.size() - 1).equals("battle")); 
         }
     }
 
@@ -136,11 +136,11 @@ public class Game {
         else{
             // if you have less than 3 actions and the last action was not battle, you're fine
             if (recentActions.size() < 3){
-                return !(recentActions.get(-1).equals("battle"));
+                return !(recentActions.get(recentActions.size()-1).equals("battle"));
             }
             // if your last 3 actions contains battle and your last action was not battle, you're fine
             else{
-                return recentActions.contains("battle") && !(recentActions.get(-1).equals("battle"));
+                return recentActions.contains("battle") && !(recentActions.get(recentActions.size() - 1).equals("battle"));
             }
         }
     }
@@ -153,11 +153,11 @@ public class Game {
         else{
             // if you have less than 3 actions and the last action was not campfire, you're fine
             if (recentActions.size() < 3){
-                return !(recentActions.get(-1).equals("campfire"));
+                return !(recentActions.get(recentActions.size() - 1).equals("campfire"));
             }
             // if your last 3 actions contains battle and your last action was not campfire, you're fine
             else{
-                return recentActions.contains("campfire") && !(recentActions.get(-1).equals("battle"));
+                return recentActions.contains("campfire") && !(recentActions.get(recentActions.size() - 1).equals("battle"));
             }
         }
     }
@@ -479,7 +479,7 @@ public class Game {
             switch (cmd){
                 case "battle":
                 while (!game.canBattle()){
-                    System.out.println("You cannot battle a new enemy at this time.You must train with your troop or set up a campfire.");
+                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or set up a campfire.");
                     cmd = game.sc.nextLine();
                 }
                 Human enemy = game.addEnemy();
