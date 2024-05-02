@@ -1,6 +1,5 @@
 import java.util.Hashtable;
 import com.google.common.graph.*;
-import com.google.common.graph.ImmutableNetwork;
 
 public class Character extends Human{
     public Hashtable<String, String> dialogueScript;
@@ -8,7 +7,7 @@ public class Character extends Human{
     public ImmutableNetwork<String, String> dialogue;
     public String currentLocation; //current location user in that character's dialogue network
 
-    public Character(String name, int health, int experience, int alliance, boolean isEnemy, HashtablePair script) {
+    public Character(String name, int health, int experience, int alliance, boolean isEnemy, HashtablePair<Hashtable<String, String>,Hashtable<String, String>> script) {
         super(name, health, experience, alliance, isEnemy);
         this.dialogueScript = script.getKey();
         this.edgeScript = script.getValue();
