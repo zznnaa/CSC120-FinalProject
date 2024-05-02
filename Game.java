@@ -151,7 +151,7 @@ public class Game {
             if (option.isAlive()) {
                 x += 1;
                 System.out.println(x + ". " + option.name);
-            } else {
+            } else if (!option.isAlive()){
                 continue;
             }   
         }
@@ -395,9 +395,13 @@ public class Game {
         Character character = null;
         System.out.println("You are camping with your troop in preparation for the tomorrow's battle.");
         
-        //replenish every character's health
-        for (Character option: characters) {
-            option.health = option.maxHealth;
+        //replenish every character's health (except if they are dead)
+        for (Character option: characters){
+            if (option.isAlive()){
+                option.health = option.maxHealth;
+            } else {
+                continue;
+            }
         }
         
         //asks user what character they want to talk to
