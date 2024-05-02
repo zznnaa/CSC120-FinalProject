@@ -24,10 +24,10 @@ public class Game {
         this.successfulBattles = 0; 
         this.sc = new Scanner(System.in);
         Hashtable<String, String> one = new Hashtable<String, String>();
-            one.put("Beginning", "You were shit at commanding that last battle.");
-            one.put("Option 1", "Miraculously. You almost tripped and fell facefirst onto your sword.");
+            one.put("Beginning", "You commanded that last battle terribly. I've seen infants do better.");
+            one.put("Option 1", "Miraculously. You almost tripped and fell face first onto your sword.");
             one.put("Option 2", "Yes.");
-            one.put("Option 3", "You would kill us all before you had the chance.");
+            one.put("Option 3", "You would send us up to look for Pan before I had the chance.");
             one.put("Option 4", "Is that not what I'm doing?");
             one.put("Option 5", "I've noticed most humans don't take kindly to my advice.");
             one.put("Option 6", "Yet you never seem to have trouble making us fight your battles.");
@@ -35,9 +35,9 @@ public class Game {
         Hashtable<String, String> two = new Hashtable<String, String>();
             two.put("A", "A - What do you mean? We won.");
             two.put("B", "B - You think you could do a better job?");
-            two.put("1.A", "A - Fuck you.");
+            two.put("1.A", "A - Farwoodsian to a fault, give me a break.");
             two.put("1.B", "B - Well the Imperial Crown isn't going to just let me quit, so you might try helping me improve instead.");
-            two.put("2.A", "A - Fuck you.");
+            two.put("2.A", "A - Farwoodsian to a fault, give me a break.");
             two.put("2.B", "B - Well the Imperial Crown isn't going to just let me quit, so you might try helping me improve instead.");
             two.put("4.A", "A - Uhhh, sure.");
             two.put("4.B", "B - Oh, you're from the Far Woods.");
