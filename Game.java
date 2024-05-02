@@ -319,7 +319,7 @@ public class Game {
 
     public void campfire(){    
         Character character = null;
-        //TODO: make sure this works in game loop
+        //TO-DO: make sure this works in game loop
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
         //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
@@ -348,7 +348,7 @@ public class Game {
             return;
         }
 
-        //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
+        //TO-DO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
         //while loop to ask player for dialogue options
         int check = 0;
         //character.dialogue.successors(character.currentLocation).size() != 0
