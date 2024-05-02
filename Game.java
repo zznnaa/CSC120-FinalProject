@@ -338,7 +338,7 @@ public class Game {
         }
 
         //prints network
-        character.talk();
+        System.out.println(character.dialogue);
 
         //prints current location of user in that character's dialogue tree
         System.out.println("Current Location: " + character.currentLocation);
