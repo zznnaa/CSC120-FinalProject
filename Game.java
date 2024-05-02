@@ -45,7 +45,8 @@ public class Game {
             two.put("4.B", "B - Oh, you're from the Far Woods.");
             two.put("5.A", "A - Most don't take kindly to anyone from the Far Woods, unfortunately.");
             two.put("5.B", "B - Why keeo giving it then?");
-        // Hashtable<String, String> three = ;
+        Hashtable<String, String> three = new Hashtable<String, String>();
+            three.put()
         // Hashtable<String, String> four = ;
         // Hashtable<String, String> five = ;
         // Hashtable<String, String> six = ;
