@@ -62,10 +62,10 @@ public class Human{
 
     public String toString(){
         if (!isEnemy){
-            return name + " has health " + health + ", experience " + experience + " and is a friend.";
+            return name + " has health " + health + ", experience " + experience + ".";
         }
         else{
-            return name + " has health " + health + ", experience " + experience + " and is an enemy";
+            return name + " has health " + health + ", experience " + experience + ".";
         }
 
     }
