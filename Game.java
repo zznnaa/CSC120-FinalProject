@@ -26,19 +26,37 @@ public class Game {
         this.recentActions = new ArrayList<>(3);
         // Zoe testing out networks
         Hashtable<String, String> one = new Hashtable<String, String>();
-            one.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
-            one.put("option 1", "Ah you should one day.");
-            one.put("option 2", "You've visited? I miss it.");
-            one.put("option 2.1", "The way the fall leaves would scatter on the ground.");
-            one.put("option 1.1", "Only a day's ride");
-            one.put("last option", "Testing the last string.");
+            // one.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
+            // one.put("option 1", "Ah you should one day.");
+            // one.put("option 2", "You've visited? I miss it.");
+            // one.put("option 2.1", "The way the fall leaves would scatter on the ground.");
+            // one.put("option 1.1", "Only a day's ride");
+            // one.put("last option", "Testing the last string.");
+            one.put("Beginning", "You were shit at commanding that last battle.");
+            one.put("Option 1", "Miraculously. You almost tripped and fell facefirst onto your sword.");
+            one.put("Option 2", "Yes.");
+            one.put("Option 3", "You would kill us all before you had the chance.");
+            one.put("Option 4", "Is that not what I'm doing?");
+            one.put("Option 5", "I've noticed most humans don't take kindly to my advice.");
+            one.put("Option 6", "Yet you never seem to have trouble making us fight your battles.");
+            one.put("Option 7", "I don't want to see them die");
         Hashtable<String, String> two = new Hashtable<String, String>();
-            two.put("A", "A - I've never been.");
-            two.put("B", "B - I went there once as a child.");
-            two.put("B.A", "A - What do you miss most about it?");
-            two.put("A.A", "A - How far away is it?");
-            two.put("last edge", "A - last edge test 1");
-            two.put("last edge 2", "A - last edge test 2");
+            // two.put("A", "A - I've never been.");
+            // two.put("B", "B - I went there once as a child.");
+            // two.put("B.A", "A - What do you miss most about it?");
+            // two.put("A.A", "A - How far away is it?");
+            // two.put("last edge", "A - last edge test 1");
+            // two.put("last edge 2", "A - last edge test 2");
+            two.put("A", "A - What do you mean? We won.");
+            two.put("B", "B - You think you could do a better job?");
+            two.put("1.A", "A - Fuck you.");
+            two.put("1.B", "B - Well the Imperial Crown isn't going to just let me quit, so you might try helping me improve instead.");
+            two.put("2.A", "A - Fuck you.");
+            two.put("2.B", "B - Well the Imperial Crown isn't going to just let me quit, so you might try helping me improve instead.");
+            two.put("4.A", "A - Uhhh, sure.");
+            two.put("4.B", "B - Oh, you're from the Far Woods.");
+            two.put("5.A", "A - Most don't take kindly to anyone from the Far Woods, unfortunately.");
+            two.put("5.B", "B - Why keeo giving it then?");
         // Hashtable<String, String> three = ;
         // Hashtable<String, String> four = ;
         // Hashtable<String, String> five = ;
@@ -326,10 +344,11 @@ public class Game {
 
         }
     
-    System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
-
-    //increase character's alliance
-    character.alliance += 5;
+        //increase character's alliance
+        System.out.println("After this conversation, you've increased your alliance with this character.");
+        character.alliance += 5;
+    
+        System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
     
     //TODO: increase character's alliance based on how far down they get in the character's dialogue graph
     //System.out.println(character.dialogue.successors(character.currentLocation));
