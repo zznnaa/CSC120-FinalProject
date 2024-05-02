@@ -74,7 +74,7 @@ public class Game {
         // randomly sample character's stats
         int health = getRandomNumber(15, 50);
         int experience = 0;
-        int alliance = getRandomNumber(1, 10);
+        int alliance = 0;
         HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(0);//getRandomNumber(0,4));
         // add new character to list of characters
         this.characters.add(new Character(name, health, experience, alliance, false, script)); 
@@ -416,7 +416,7 @@ public class Game {
                     System.out.println(character.dialogue.successors(character.currentLocation));
                     System.out.println(character.dialogue.successors(character.currentLocation).size());
                     //increase character's alliance
-                    character.alliance += 5;
+                    character.alliance += 1;
                     validInput = true;
                     break;
                 }
