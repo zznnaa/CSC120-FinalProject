@@ -13,10 +13,10 @@ public class Game {
     public static boolean gameOver;
     public Scanner sc; 
     public ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>> scripts; //an ArrayList of the four possible hashtable pair scripts
-    public ArrayList<String> recentActions; // saves the most recent actions
-    public int successfulBattles; // saves number of battles won so far
+    public ArrayList<String> recentActions; 
+    public int successfulBattles; 
     
-    public Game(int nCharacters){
+    public Game(int nCharacters) {
         this.nCharacters = nCharacters;
         this.characters = new ArrayList<>(nCharacters);
         this.characterNames = new ArrayList<>(nCharacters);
@@ -25,6 +25,7 @@ public class Game {
         this.recentActions = new ArrayList<>(3);
         this.successfulBattles = 0; 
         this.sc = new Scanner(System.in);
+        // this keeps track of all the dialogue 
         Hashtable<String, String> one = new Hashtable<String, String>();
             one.put("Beginning", "You commanded that last battle terribly. I've seen infants do better.");
             one.put("Option 1", "Miraculously. You almost tripped and fell face first onto your sword.");
@@ -65,39 +66,43 @@ public class Game {
             four.put("4.B", "B - He thought he could change it.");
             four.put("5.A", "A - He's done good there, a Laker graduating at 18, getting assigned a regiment at 20.");
             four.put("5.B", "B - It's afraid if everyone goes home, they'll never want to come back!");
-        // Hashtable<String, String> five = ;
-        // Hashtable<String, String> six = ;
-        // Hashtable<String, String> seven = ;
-        // Hashtable<String, String> eight = ;
         this.scripts = new ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>>();
             this.scripts.add(new HashtablePair<>(one, two));
             this.scripts.add(new HashtablePair<>(three, four));
-            //this.scripts.add(new HashtablePair<>(five, six));
-            //this.scripts.add(new HashtablePair<>(seven, eight));
-
     }
 
-    //getRandomNumber within range
-    public int getRandomNumber(int min, int max){
+    /**
+     * Randomly generate a number within a given range
+     * @param min lower bound of desired range
+     * @param max upper bound of desired range
+     * @return the randomly generated number
+     */
+    public int getRandomNumber(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
     
-    //overloaded getRandomNumber without range
-    public int getRandomNumber(){
+    /**
+     * Overloaded method to randomly generate method when the range is not specified
+     * @return the randomly generated number
+     */
+    public int getRandomNumber() {
         Random random = new Random();
         return random.nextInt();
     }
 
-    // adds a character
-    public void addCharacter(String name){
+    /**
+     * Creates a new game character by randomly sampling stats and assigning a name based on the user's input
+     * @param name name of the character to be added
+     */
+    public void addCharacter(String name) {
         // randomly sample character's stats
         int health = getRandomNumber(15, 50);
         int experience = 0;
         int alliance = 0;
         int random = getRandomNumber(0,10);
         int scriptNum = 1;
-        if (random < 5){
+        if (random < 5) {
             scriptNum = 0;
         }
         HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(scriptNum);
@@ -105,8 +110,11 @@ public class Game {
         this.characters.add(new Character(name, health, experience, alliance, false, script)); 
     }
 
-    // method to create a new enemy and add to list of enemies
-    public Human addEnemy(){
+    /**
+     * Creates a new enemy by randomly sampling a name and enemy's stats
+     * @return the enemy created
+     */
+    public Human addEnemy() {
         ArrayList<String> enemyNames = new ArrayList<String>(Arrays.asList("Frog", "Hulk", "Tigress", "Chameleon", "Boss Wolf", "Dmitri", "Mei Ling", "Bian Zo"));
         ArrayList<String> enemyDescriptors = new ArrayList<String>(Arrays.asList("The Terror", "The Shadow", "The Silent", "The Bloody", "The Savage", "The Nefarious", "The Mutilator", "The Cyclone"));
         // randomly sample stats
@@ -123,19 +131,24 @@ public class Game {
         return enemy; 
     }
 
-    // method to save the most recent action called  (battle/train/campfire)
-    public void saveRecentAction(String mode){
-        if (recentActions.size() > 2){
+    /**
+     * Saves the most recent mode user enter's- train, campfire or battle
+     * @param mode
+     */
+    public void saveRecentAction(String mode) {
+        if (recentActions.size() > 2) {
             recentActions.remove(0);
         }
         recentActions.add(mode);
     }
 
-    // lists out the characters in the user's party
-    public void listCharacters(){
+    /**
+     * lists out living characters in the user's troop
+     */
+    public void listCharacters() {
         int x = 0;
-        for (Character option : characters){
-            if (option.isAlive()){
+        for (Character option : characters) {
+            if (option.isAlive()) {
                 x += 1;
                 System.out.println(x + ". " + option.name);
             } else {
@@ -144,69 +157,86 @@ public class Game {
         }
     }
     
-    // after 1st action, if last action was not battle, you can battle
-    public boolean canBattle(){
+    /**
+     * Checks if the user can battle or not
+     * @return a boolean representing whether the user can engage in a battle
+     */
+    public boolean canBattle() {
         // no action yet? good to go!
-        if (recentActions.size() < 1){
+        if (recentActions.size() < 1) {
             return true; 
         }
         // after 1st action, if last action was battle, return false
-        else{
+        else {
             return !(recentActions.get(recentActions.size() - 1).equals("battle")); 
         }
     }
 
-    // after 1st action, if last action was not battle and last 3 actions contain battle, return true
-    public boolean canTrain(){
+    /**
+     * Checks if the user can train or not
+     * @return a boolean representing whether the user can train
+     */
+    public boolean canTrain() {
         // no action yet? good to go!
-        if (recentActions.size() < 1){
+        if (recentActions.size() < 1) {
             return true; 
         }
-        else{
+        else {
             // if you have less than 3 actions and the last action was not battle, you're fine
-            if (recentActions.size() < 3){
+            if (recentActions.size() < 3) {
                 return !(recentActions.get(recentActions.size()-1).equals("battle"));
             }
             // if your last 3 actions contains battle and your last action was not battle, you're fine
-            else{
+            else {
                 return recentActions.contains("battle") && !(recentActions.get(recentActions.size() - 1).equals("battle"));
             }
         }
     }
 
-    public boolean canCampFire(){
+    /**
+     * Checks if the user is allowed to enter campfire mode or not
+     * @return a boolean representing whether the user can choose to start a campfire
+     */
+    public boolean canCampFire() {
         // no action yet? good to go!
-        if (recentActions.size() < 1){
+        if (recentActions.size() < 1) {
             return true; 
         }
-        else{
+        else {
             // if you have less than 3 actions and the last action was not campfire, you're fine
-            if (recentActions.size() < 3){
+            if (recentActions.size() < 3) {
                 return !(recentActions.get(recentActions.size() - 1).equals("campfire"));
             }
             // if your last 3 actions contains battle and your last action was not campfire, you're fine
-            else{
+            else {
                 return recentActions.contains("battle") && !(recentActions.get(recentActions.size() - 1).equals("campfire"));
             }
         }
     }
 
 
-    // advance battle by one more attack
+    /**
+     * Advances a battle by one more attack
+     * @param fight checks if the user wishes to return an attack or check characers' stats
+     * @param protagonist the "hero" in a particular battle or training session
+     * @param villain the "enemy" in a particular battle or training session
+     * @param isTraining determines if the ongoing batttle a real battle session or training sesison
+     * @return whether or not the battle has ended
+     */
     public boolean advanceBattle(boolean fight, Character protagonist, Human villain, boolean isTraining){
-        if (isTraining == true){
+        if (isTraining == true) {
             // vilain or protagonist dies, training over
-            if (!protagonist.isAlive() || !villain.isAlive()){
+            if (!protagonist.isAlive() || !villain.isAlive()) {
                 System.out.println("******TRAINING OVER******\n");
 
                 Human winner; 
                 Human loser; 
 
-                if (protagonist.isAlive()){
+                if (protagonist.isAlive()) {
                     winner = protagonist;
                     loser = villain;
                 }
-                else{
+                else {
                     winner = protagonist;
                     loser = villain;
                 }
@@ -215,31 +245,31 @@ public class Game {
             }
 
             // else, keep fighting
-            else{
+            else {
                 protagonist.attack(villain);
                 return true;
             } 
         }
         else {
             //if any character dies, you lose the battle
-            if (!protagonist.isAlive()){
+            if (!protagonist.isAlive()) {
                 System.out.println(protagonist.name + " is dead. The enemy triumphed. BATTLE OVER.");
                 return false; // the battle is over
             }
 
             // if the character is alive, check if enemy is dead
-            else{
+            else {
                 // if the enemy is dead, the character has won the battle
-                if (!villain.isAlive()){
+                if (!villain.isAlive()) {
                     System.out.println("Congrats! You have won the battle");
                     successfulBattles += 1;
                     return false; // battle is over and advanceBattle is no longer true
                 }
 
                 // else either return an attack or check stats
-                else{
+                else {
                     // return an attack
-                    if (fight){
+                    if (fight) {
                         protagonist.attack(villain);
                     }
 
@@ -255,7 +285,7 @@ public class Game {
     }
 
     // implements a training session
-    public void train(){
+    public void train() {
         boolean battleOngoing = true; // status of battle
         ArrayList<Character> fightingPair = new ArrayList<>(2); // the fighting pair
         ArrayList<Integer> initialHealth = new ArrayList<>(2); // keeps track of proponent and opponent's health
@@ -267,19 +297,19 @@ public class Game {
         String chr2 = sc.nextLine();
 
         // Force user to enter names that are in the game
-        while (!(characterNames.contains(chr1) || characterNames.contains(chr2))){
+        while (!(characterNames.contains(chr1) || characterNames.contains(chr2))) {
             System.out.println("You must match soldiers that are currently in your troop.");
             chr1 = sc.nextLine();
             chr2 = sc.nextLine();
         }
         
         // find proponent and opponent in ArrayList characters and save their health
-        for (Character character: characters){
-            if (character.name.equals(chr1)){
+        for (Character character: characters) {
+            if (character.name.equals(chr1)) {
                 fightingPair.add(character);
                 initialHealth.add(character.health);
             }
-            else if (character.name.equals(chr2)){
+            else if (character.name.equals(chr2)) {
                 fightingPair.add(character);
                 initialHealth.add(character.health);
             }
@@ -289,7 +319,7 @@ public class Game {
         Character opponent = fightingPair.get(1);
 
         // while a particular battle is ongoing
-        while(battleOngoing == true){
+        while(battleOngoing == true) {
             // opponent attacks proponent
             opponent.attack(proponent);
 
@@ -299,20 +329,20 @@ public class Game {
 
         // update characters' experience based on battle outcome
         // proponent and opponent die
-        if (!proponent.isAlive() && !opponent.isAlive()){
+        if (!proponent.isAlive() && !opponent.isAlive()) {
             System.out.println("Both characters lost their lives. More training is recommended");
             proponent.experience += 5;
             opponent.experience += 5;
         }
 
         // proponent dies, opponent doesn't
-        else if (!proponent.isAlive() && opponent.isAlive()){
+        else if (!proponent.isAlive() && opponent.isAlive()) {
             proponent.experience += 3;
             opponent.experience += 5;
         }
 
         // proponent doesn't die, opponent does
-        else if (proponent.isAlive() && !opponent.isAlive()){
+        else if (proponent.isAlive() && !opponent.isAlive()) {
             proponent.experience += 5;
             opponent.experience += 3;
         }
@@ -331,11 +361,11 @@ public class Game {
 
 
     // implements a real battle session. Takes in a particular enemy as a parameter
-    public void battle(Human enemy){
+    public void battle(Human enemy) {
         boolean battleOngoing = true; // status of battle
 
         // while a particular battle is ongoing
-        while(battleOngoing == true){
+        while(battleOngoing == true) {
             // enemy randomly chooses a character to attack
             int i = this.getRandomNumber(0, this.characters.size());
             enemy.attack(this.characters.get(i));
@@ -350,27 +380,23 @@ public class Game {
                 nextMove = this.sc.nextLine().toLowerCase();
             }
 
-            if (nextMove.equals("attack")){
+            if (nextMove.equals("attack")) {
                 battleOngoing = this.advanceBattle(true, this.characters.get(i), enemy, false); // TO-DO: allow a different chr return attack
             }
-            else if (nextMove.equals("check stats")){
+            else if (nextMove.equals("check stats")) {
                 battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy, false);
             }
-            //TO-DO: add retreat method
-            //else if (nextMove.equals("retreat")){  
-            //}
-
         }
         // save the action battle
         saveRecentAction("battle");
     }    
 
-    public void campfire(){    
+    public void campfire() {    
         Character character = null;
         System.out.println("You are camping with your troop in preparation for the tomorrow's battle.");
         
         //replenish every character's health
-        for (Character option: characters){
+        for (Character option: characters) {
             option.health = option.maxHealth;
         }
         
@@ -386,11 +412,11 @@ public class Game {
             //asks for user input
             String talkToName = this.sc.nextLine();
             //iterates through character list
-            for (Character option : characters){
+            for (Character option : characters) {
                 //checks if user input contains the character's name
-                if (talkToName.contains(option.name)){
+                if (talkToName.contains(option.name)) {
                     //if so, allows user to choose that character if dialogue options are remaining 
-                    if (!option.dialogue.successors(option.currentLocation).isEmpty()){
+                    if (!option.dialogue.successors(option.currentLocation).isEmpty()) {
                         character = option;
                         chooseCharacter = true;
                         //System.out.println("successfully chose which character");
@@ -415,9 +441,9 @@ public class Game {
         //while loop to ask player for dialogue options
         int check = 0;
         //character.dialogue.successors(character.currentLocation).size() != 0
-        while (check <= 1){
+        while (check <= 1) {
             //if no more options, break loop
-            if(character.dialogue.successors(character.currentLocation).isEmpty()){
+            if(character.dialogue.successors(character.currentLocation).isEmpty()) {
                 System.out.println("\n You have exhausted all your dialogue options for this character.");
                 System.out.println("\n Dawn has arrived, and with it, your next action. Your characters have rested and regained their full health, but you will have to wait until the next campfire to talk to another person.");
                 return;
@@ -428,7 +454,7 @@ public class Game {
             System.out.println("\n Pick a response:");
             //iterate through the edges in current location
             Iterator<String> iterator = character.dialogue.outEdges(character.currentLocation).iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 String line = iterator.next();
                 System.out.println(character.edgeScript.get(line));
             }
@@ -438,11 +464,11 @@ public class Game {
             boolean validInput = false;
             
             //for each edge connected to beginning node
-            for (String option: character.dialogue.outEdges(character.currentLocation)){
+            for (String option: character.dialogue.outEdges(character.currentLocation)) {
                 //System.out.println("This is your edge object:");
                 //System.out.println(option);
                 //if user input is equal to one of the edges' first characters
-                if (userInput2.charAt(0) == character.edgeScript.get(option).toString().charAt(0)){
+                if (userInput2.charAt(0) == character.edgeScript.get(option).toString().charAt(0)) {
                     //update current location of user in character's dialogue network
                     character.currentLocation = character.dialogue.incidentNodes(option).target();
                     //System.out.println("\n Your new location is: " + character.currentLocation);
@@ -457,7 +483,7 @@ public class Game {
                 }
             }
             //checks if user input is valid
-            if (validInput == false){
+            if (validInput == false) {
                 System.out.println("That's not a valid user input. Enter A or B");
             }
         }
@@ -492,22 +518,22 @@ public class Game {
         // name your characters
         System.out.println("You have been given the opportunity to choose " + game.nCharacters + " soldiers to fight with you. Enter the name(s) of your chosen soldier(s):");
         // save characters
-        for (int i = 0; i < game.nCharacters; i++){
+        for (int i = 0; i < game.nCharacters; i++) {
             game.addCharacter(game.sc.nextLine());
         }
         // save character name
-        for (Human character : game.characters){
+        for (Human character : game.characters) {
             game.characterNames.add(character.name);
         }
 
         // allows player see a well-formatted output of characters' stats 
         System.out.println("\nCommander, meet your Regiment: ");
-        for (Character character : game.characters){
+        for (Character character : game.characters) {
             System.out.println("- " + character);
         }
 
         // while the game isn't over
-        while(!gameOver){
+        while(!gameOver) {
             // Allow player choose next move based on characters' stats
             System.out.println("\nCommander, would you like to train with your team, go into battle or set up camp? \nRemember that you must maximize the strengths and resources of your Regiment. Choose wisely\n");
             String cmd = game.sc.nextLine(); 
@@ -518,59 +544,59 @@ public class Game {
             }
 
             // allows player to switch between different modes in a game
-            switch (cmd){
+            switch (cmd) {
                 case "battle":
-                if (game.canBattle()){
+                if (game.canBattle()) {
                     Human enemy = game.addEnemy();
                     // print out enemy, and ask user one last time to battle or train
                     System.out.println("You're coming up against " + enemy.name + ".\n" + enemy + "\nCommander, are you confident that your troop is prepared for this battle?");
                     String confirmation = game.sc.nextLine().toLowerCase();
 
                     // validate input
-                    while(!(confirmation.equals("yes") || confirmation.equals("no"))){
+                    while(!(confirmation.equals("yes") || confirmation.equals("no"))) {
                         System.out.println("Unrecognizable command. Would you still like to go into battle? (yes/no)");
                         confirmation = game.sc.nextLine();
                     }
-                    if (confirmation.equals("yes")){
+                    if (confirmation.equals("yes") ){
                         System.out.println("\nToday, you will battle " + enemy.name + ".\n");
                         game.battle(enemy);
                         numOfBattles += 1;
                     }
-                    else{
+                    else {
                         break;
                     }
                 }
-                else{
+                else {
                     System.out.println("The General of War has forbidden you to engage in another battle in order to preserve your Regiment. \nYou must either train with your troop or set up camp to replenish your soldiers' strengths.");
                 }
                 break;
 
                 case "train":
-                if (game.canTrain()){
+                if (game.canTrain()) {
                     game.train();
                 }
-                else{
+                else {
                     System.out.println("Commander, an enemy is around the corner. You can set up camp to prepare your soldiers for tomorrow or march on to the battle clearing.");
                 }
                 break;
 
                 case "campfire":
-                if (game.canCampFire()){
+                if (game.canCampFire()) {
                     game.campfire();
                 }
-                else{
+                else {
                     System.out.println("War is not for the weak nor lazy. You go into battle now or train with your soldiers.");
                 }
                 break;
             }
 
-            if (numOfBattles >= 3){
+            if (numOfBattles >= 3) {
                 Game.gameOver = true;
                 System.out.println("---------------------------- HER MAJESTY'S ARMY, FIRST COHORT: DELTA REGIMENT ----------------------------");
-                if (game.successfulBattles >= 2){
+                if (game.successfulBattles >= 2) {
                     System.out.println("****** CONGRATULATIONS! YOUR IMPRESSIVE VICTORY'S HAVE LANDED YOU A PLACE IN HER MAJESTY'S COURT. ******");
                 }
-                else{
+                else {
                     System.out.println("****** YOUR PERFORMANCE HAS DISAPPOINTED IMPERIAL STANDARDS. REPORT TO YOUR NEAREST POST OFFICE FOR REASSIGNMENT. ******");
                 }
             }
@@ -590,4 +616,5 @@ public class Game {
 // Figure out how to generate random numbers in a more efficient way
 // Allow user to quit game voluntarily
 // Allow user "reun-away" from a battle
+// think about what methods and attributes should be public or private and make changes accordingly
 

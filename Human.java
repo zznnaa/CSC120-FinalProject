@@ -1,8 +1,6 @@
 import java.util.Random;
 
 public class Human{
-
-    //attributes
     public String name;
     public int health;
     public int maxHealth;
@@ -10,7 +8,6 @@ public class Human{
     public int alliance;
     public boolean isEnemy;
 
-    //constructor
     public Human(String name, int health, int experience, int alliance, boolean isEnemy){
         this.name = name;
         this.health = health;
@@ -20,34 +17,50 @@ public class Human{
         this.isEnemy = isEnemy;
     }
 
-    //getRandomNumber within range
+    /**
+     * Randomly generate a number within a given range
+     * @param min lower bound of desired range
+     * @param max upper bound of desired range
+     * @return the randomly generated number
+     */
     public int getRandomNumber(int min, int max){
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
     
-    //overloaded getRandomNumber without range
+    /**
+     * Overloaded method to randomly generate method when the range is not specified
+     * @return the randomly generated number
+     */
     public int getRandomNumber(){
         Random random = new Random();
         return random.nextInt();
     }
 
-    // attack methods. 
+    /**
+     * Simulates a kick by decreasing a character's health
+     * @param h the character to be kicked
+     */
     public void kick(Human h){
-        //-5 points to enemy
         System.out.println(h.name + " has suffered a kick");
         int damage = 5 + experience;
         h.health -= damage;
     }
 
+    /**
+     * Simulates a shooting attack by decreasing a characters health by a certain amount
+     * @param h the character to be shot
+     */
     public void shoot(Human h){
-        // -10 points to enemy 
         System.out.println(h.name + "is down with a grave injury");
         int damage = 10 + experience;
         h.health -= damage;
     }
 
-    // randomly samples possible attack methods
+    /**
+     * Randomly samples from the two possible attack methods
+     * @param h the character to be attacked
+     */
     public void attack(Human h){
         int x = this.getRandomNumber(1, 2);
         if (x == 1){
@@ -57,7 +70,10 @@ public class Human{
         }
     }
 
-    // checks if the human is alive or not
+    /**
+     * Checks if a charcter is alive or not
+     * @return a boolean based on character's current life status
+     */
     public boolean isAlive(){
         return this.health > 0;
     }
@@ -71,21 +87,4 @@ public class Human{
         }
 
     }
-
-    public static void main(String[] args) {
-        Human h = new Human("enemy", 10, 5, 0, true);
-        System.out.println(h);
-    }
 }
-
-// TO-DO:
-// make alliance private and implement a getter for it
-// edit the attack methods to cause damage based on experience and alliance (remember that enemy's allaince won't affect their attacks)
-
-// public String toString(){
-//     return "Name: " + name +
-//             "\nHealth: " + health +
-//             "\nExperience: " + experience +
-//             "\nAlliance: " + alliance +
-//             "\nisEnemy: " + isEnemy;
-// }
