@@ -360,12 +360,15 @@ public class Game {
         System.out.println(proponent);
         System.out.println(opponent);
 
-        // save the action train
+        // save the action, train
         saveRecentAction("train");
     }
 
 
-    // implements a real battle session. Takes in a particular enemy as a parameter
+    /**
+     * Simulates a real battle session
+     * @param enemy the enemy to be fought
+     */
     public void battle(Human enemy) {
         boolean battleOngoing = true; // status of battle
 
@@ -392,7 +395,7 @@ public class Game {
                 battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy, false);
             }
         }
-        // save the action battle
+        // save the action, battle
         saveRecentAction("battle");
     }    
 
@@ -505,7 +508,7 @@ public class Game {
     // Traverser.forGraph(character.dialogue).breadthFirst(initialLocation)
     // .forEach(x->System.out.println(x));
 
-    // save the action campfire
+    // save the action, campfire
     saveRecentAction("campfire");
     }
 
@@ -622,4 +625,5 @@ public class Game {
 // Allow user to quit game voluntarily
 // Allow user "reun-away" from a battle
 // think about what methods and attributes should be public or private and make changes accordingly
+// increase character's alliance based on how far down they get in the character's dialogue graph
 
