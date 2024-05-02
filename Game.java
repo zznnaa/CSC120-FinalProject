@@ -110,8 +110,12 @@ public class Game {
     public void listCharacters(){
         int x = 0;
         for (Character option : characters){
-            x += 1;
-            System.out.println(x + ". " + option.name);
+            if (option.isAlive()){
+                x += 1;
+                System.out.println(x + ". " + option.name);
+            } else {
+                continue;
+            }   
         }
     }
     
