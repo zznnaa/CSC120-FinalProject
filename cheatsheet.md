@@ -15,3 +15,5 @@ Caveats:
 - After three non-battles, you must battle.
 
 Fastest way to go through all of the methods: battle, campfire, battle, campfire, train, battle.
+
+![GamePath](GamePath.jpg)  
