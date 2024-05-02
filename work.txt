@@ -99,4 +99,5 @@ Zoe 4/30 2 hours:
 Work Meeting #4 6 hours:
 - Completed working game loop
 - Created both scripts for dialogue
-- Fixed bugs
+- Added canBattle, canTrain, canCampfire
+- edited attack methods to work
