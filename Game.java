@@ -233,6 +233,7 @@ public class Game {
 
         // Ask the user for the opponent and proponent 
         System.out.println("Which pair of your characters would you like to match against each other?");
+        this.listCharacters();
         String chr1 = sc.nextLine();
         String chr2 = sc.nextLine();
 
