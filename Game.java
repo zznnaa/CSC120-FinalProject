@@ -165,36 +165,64 @@ public class Game {
 
     // advance battle by one more attack
     public boolean advanceBattle(boolean fight, Character protagonist, Human villain, boolean isTraining){
-        //if any character dies, you lose the battle
-        if (!protagonist.isAlive()){
-            System.out.println(protagonist.name + " is dead. The enemy triumphed. BATTLE OVER.");
-            return false; // the battle is over
-        }
+        if (isTraining == true){
+            // vilain or protagonist dies, training over
+            if (!protagonist.isAlive() || !villain.isAlive()){
+                System.out.println("\n***TRAINING OVER***");
 
-        // if the character is alive, check if enemy is dead
-        else{
-            // if the enemy is dead, the character has won the battle
-            if (!villain.isAlive()){
-                System.out.println("Congrats! You have won the battle");
-                successfulBattles += 1;
-                return false; // battle is over and advanceBattle is no longer true
-            }
+                Human winner; 
+                Human loser; 
 
-            // else either return an attack or retreat
-            else{
-                // return an attack
-                if (fight){
-                    protagonist.attack(villain);
+                if (protagonist.isAlive()){
+                    winner = protagonist;
+                    loser = villain;
                 }
-
-                // retreat
                 else{
-                    System.out.println("The captain has ordered the troop to retreat");
-                    System.out.println(protagonist);
+                    winner = protagonist;
+                    loser = villain;
                 }
-                return true; // battle not over; can still advance battle
+                System.out.println(winner.name + " defeated " + loser.name);
+                return false; // the battle is over
+            }
+
+            // else, keep fighting
+            else{
+                protagonist.attack(villain);
+            } 
+        }
+        else {
+            //if any character dies, you lose the battle
+            if (!protagonist.isAlive()){
+                System.out.println(protagonist.name + " is dead. The enemy triumphed. BATTLE OVER.");
+                return false; // the battle is over
+            }
+
+            // if the character is alive, check if enemy is dead
+            else{
+                // if the enemy is dead, the character has won the battle
+                if (!villain.isAlive()){
+                    System.out.println("Congrats! You have won the battle");
+                    successfulBattles += 1;
+                    return false; // battle is over and advanceBattle is no longer true
+                }
+
+                // else either return an attack or retreat
+                else{
+                    // return an attack
+                    if (fight){
+                        protagonist.attack(villain);
+                    }
+
+                    // retreat
+                    else{
+                        System.out.println("The captain has ordered the troop to retreat");
+                        System.out.println(protagonist);
+                    }
+                    return true; // battle not over; can still advance battle
+                }
             }
         }
+
     }
 
     // implements a training session
@@ -227,11 +255,11 @@ public class Game {
 
         // while a particular battle is ongoing
         while(battleOngoing == true){
-        // opponent attacks proponent
-        opponent.attack(proponent);
+            // opponent attacks proponent
+            opponent.attack(proponent);
 
-        // proponent returns the attack 
-        battleOngoing = this.advanceBattle(true, proponent, opponent); 
+            // proponent returns the attack 
+            battleOngoing = this.advanceBattle(true, proponent, opponent, true); 
         }
 
         // TO-DO: allow user to end training while both characters are still alive. Copy from the Training file
@@ -292,10 +320,10 @@ public class Game {
             }
 
             if (nextMove.equals("attack")){
-                battleOngoing = this.advanceBattle(true, this.characters.get(i), enemy); // TO-DO: allow a different chr return attack
+                battleOngoing = this.advanceBattle(true, this.characters.get(i), enemy, false); // TO-DO: allow a different chr return attack
             }
             else if (nextMove.equals("retreat")){
-                battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy);
+                battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy, false);
             }
 
         }
