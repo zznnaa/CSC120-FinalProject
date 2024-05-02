@@ -512,6 +512,24 @@ public class Game {
     saveRecentAction("campfire");
     }
 
+    // the help function
+    public void help() {
+        System.out.println("train - Allows player to train two characters on their team. After each training session, the chosen characters experience goes up, and each character loses two health points.\r\n" + //
+                        "battle - Allows player to battle bosses. The battle ends when the enemy or a character on the team dies. Health points decrease for the characters on the team who don't die.\r\n" + //
+                        "campfire - Allows player to talk with a character on their team. Replenishes the team's health points and increases the chosen character's alliance with the user.\r\n" + //
+                        "attack - allows the characters to deliver a blow to a boss. This can only be called when in battle mode\r\n" + //
+                        "check stats - allows the player to the stats of all character in ther troop. This can only be called when in battle mode. \r\n" + //
+                        "\r\n" + //
+                        "The game ends when you've completed three battles. You win the game if you have successfully won two out of the three battles. \r\n" + //
+                        "\r\n" + //
+                        "Caveats: \r\n" + //
+                        "- When the game starts, you can train, battle or campfire\r\n" + //
+                        "- After a battle, you must campfire\r\n" + //
+                        "- After a campfire, you can train or battle\r\n" + //
+                        "- After three non-battles, you must battle.\r\n" + //
+                        "- During battle, if you choose to check stats, you give the enemy an opportunity to attack you without you returning the blow");
+    }
+
     public static void main(String[] args) {
         Game game = new Game(3);
         int numOfBattles = 0;
@@ -521,6 +539,7 @@ public class Game {
             Congratualations! As a student at the Imperial Academy of War, The Imperial Crown has selected YOU to serve in Her Majesty's Army, First Cohort. 
             You must unite soldiers from the Far Woods, Back Lakes and Imperium City under your command in order to lead them to victory against enemy forces.
             The General of War, Second to Her Imperial Majesty has charged you with a simple command: "FAILURE IS NOT AN OPTION"
+            (NOTE: If at any point you're unsure of what to do, seek HELP. Even the best warlords need help from time to time.)
             """);
 
         // name your characters
@@ -542,12 +561,13 @@ public class Game {
 
         // while the game isn't over
         while(!gameOver) {
+
             // Allow player choose next move based on characters' stats
             System.out.println("\nCommander, would you like to train with your team, go into battle or set up camp? \nRemember that you must maximize the strengths and resources of your Regiment. Choose wisely\n");
-            String cmd = game.sc.nextLine(); 
+            String cmd = game.sc.nextLine().toLowerCase(); 
 
-            while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire"))){
-                System.out.println("Strange request detected. (HINT: you can train, battle or have a campfire.)");
+            while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire") || cmd.equals("help"))){
+                System.out.println("Strange request detected. (HINT: you can train, battle or have a campfire. You may also seek for HELP)");
                 cmd = game.sc.nextLine().toLowerCase();
             }
 
@@ -596,6 +616,9 @@ public class Game {
                     System.out.println("War is not for the weak nor lazy. You go into battle now or train with your soldiers.");
                 }
                 break;
+
+                case "help":
+                game.help();
             }
 
             if (numOfBattles >= 3) {
