@@ -123,7 +123,7 @@ public class Game {
         }
         // after 1st action, if last action was battle, return false
         else{
-            return !(recentActions.get(-1).equals("battle")); 
+            return !(recentActions.get(recentActions.size() - 1).equals("battle")); 
         }
     }
 
@@ -136,11 +136,11 @@ public class Game {
         else{
             // if you have less than 3 actions and the last action was not battle, you're fine
             if (recentActions.size() < 3){
-                return !(recentActions.get(-1).equals("battle"));
+                return !(recentActions.get(recentActions.size()-1).equals("battle"));
             }
             // if your last 3 actions contains battle and your last action was not battle, you're fine
             else{
-                return recentActions.contains("battle") && !(recentActions.get(-1).equals("battle"));
+                return recentActions.contains("battle") && !(recentActions.get(recentActions.size() - 1).equals("battle"));
             }
         }
     }
@@ -153,11 +153,11 @@ public class Game {
         else{
             // if you have less than 3 actions and the last action was not campfire, you're fine
             if (recentActions.size() < 3){
-                return !(recentActions.get(-1).equals("campfire"));
+                return !(recentActions.get(recentActions.size() - 1).equals("campfire"));
             }
             // if your last 3 actions contains battle and your last action was not campfire, you're fine
             else{
-                return recentActions.contains("campfire") && !(recentActions.get(-1).equals("battle"));
+                return recentActions.contains("campfire") && !(recentActions.get(recentActions.size() - 1).equals("battle"));
             }
         }
     }
