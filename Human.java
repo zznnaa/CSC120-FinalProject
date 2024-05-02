@@ -5,6 +5,7 @@ public class Human{
     //attributes
     public String name;
     public int health;
+    public int maxHealth;
     public int experience;
     public int alliance;
     public boolean isEnemy;
@@ -13,6 +14,7 @@ public class Human{
     public Human(String name, int health, int experience, int alliance, boolean isEnemy){
         this.name = name;
         this.health = health;
+        this.maxHealth = health;
         this.experience = experience;
         this.alliance = alliance;
         this.isEnemy = isEnemy;

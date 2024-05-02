@@ -284,9 +284,9 @@ public class Game {
             opponent.experience += 3;
         }
 
-        // reinstate their health
-        proponent.health = initialHealth.get(0);
-        opponent.health = initialHealth.get(1);
+        // reinstate their health (subtract 2 health as a result of the training)
+        proponent.health = initialHealth.get(0) - 2;
+        opponent.health = initialHealth.get(1) - 2;
 
         // TO-DO: show character updated stats after a training session
         System.out.println(proponent);
@@ -334,8 +334,13 @@ public class Game {
 
     public void campfire(){    
         Character character = null;
-        //TO-DO: make sure this works in game loop
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
+        
+        //replenish every character's health
+        for (Character option: characters){
+            option.health = option.maxHealth;
+        }
+        
         //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
         //lists out the characters
@@ -372,12 +377,6 @@ public class Game {
         System.out.println("Current Location: " + character.currentLocation);
         System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
 
-        //if no more options, break loop
-        if(character.dialogue.successors(character.currentLocation).isEmpty()){
-            System.out.println("You have exhausted all your dialogue options for this character.");
-            return;
-        }
-
         //TO-DO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
         //while loop to ask player for dialogue options
         int check = 0;
@@ -386,7 +385,7 @@ public class Game {
             //if no more options, break loop
             if(character.dialogue.successors(character.currentLocation).isEmpty()){
                 System.out.println("You have exhausted all your dialogue options for this character.");
-                System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to another person.");
+                System.out.println("Dawn has arrived, and with it, your next action. Your characters have rested and regained their full health, but you will have to wait until the next campfire to talk to another person.");
                 return;
             }
             
@@ -428,7 +427,7 @@ public class Game {
             }
         }
     
-        System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
+        System.out.println("Dawn has arrived, and with it, your next action. Your characters have rested and regained their full health, but you will have to wait until the next campfire to talk to this person again.");
     
     //TO-DO: increase character's alliance based on how far down they get in the character's dialogue graph
     //System.out.println(character.dialogue.successors(character.currentLocation));
