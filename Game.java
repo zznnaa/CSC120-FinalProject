@@ -299,6 +299,7 @@ public class Game {
         //if no more options, break loop
         if(character.dialogue.successors(character.currentLocation).isEmpty()){
             System.out.println("You have exhausted all your dialogue options for this character.");
+            return;
         }
 
         //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
@@ -306,6 +307,12 @@ public class Game {
         int check = 0;
         //character.dialogue.successors(character.currentLocation).size() != 0
         while (check <= 2){
+            //if no more options, break loop
+            if(character.dialogue.successors(character.currentLocation).isEmpty()){
+                System.out.println("You have exhausted all your dialogue options for this character.");
+                return;
+            }
+            
             check += 1;
             //ask for user input
             System.out.println("\n Pick a response:");
@@ -319,7 +326,7 @@ public class Game {
 
             //testing validity of input
             boolean validInput = false;
-
+            
             //for each edge connected to beginning node
             for (String option: character.dialogue.outEdges(character.currentLocation)){
                 System.out.println("This is your edge object:");
