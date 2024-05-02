@@ -1,4 +1,7 @@
 import java.util.Scanner;
+
+import com.google.common.graph.Traverser;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -240,7 +243,7 @@ public class Game {
         }
     }
 
-    public void campfire(){
+    public void campfire(){    
         //TODO: make sure this works in game loop
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
         //asks user what character they want to talk to
@@ -267,7 +270,10 @@ public class Game {
 
         //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
         //while loop to ask player for dialogue options
-        while (character.dialogue.successors(character.currentLocation).size() != 0){
+        int check = 0;
+        //character.dialogue.successors(character.currentLocation).size() != 0
+        while (check <= 3){
+            check += 1;
             //ask for user input
             System.out.println("\n Pick a response:");
             //iterate through the edges in current location
@@ -280,6 +286,7 @@ public class Game {
 
             //testing validity of input
             boolean validInput = false;
+
             //for each edge connected to beginning node
             for (String option: character.dialogue.outEdges(character.currentLocation)){
                 System.out.println("This is your edge object:");
@@ -290,6 +297,7 @@ public class Game {
                     character.currentLocation = character.dialogue.incidentNodes(option).target();
                     System.out.println("\n Your new location is: " + character.currentLocation);
                     System.out.println("Your new location is: " + character.dialogueScript.get(character.currentLocation));
+                    System.out.println(character.dialogue.successors(character.currentLocation));
                     validInput = true;
                     break;
                 }
@@ -301,9 +309,25 @@ public class Game {
 
         }
 
-    //TODO: increase character's alliance based on how far down they get in the graph compared to where they started
+    //if no more options, break loop
+    if(character.dialogue.successors(character.currentLocation) == null){
+        System.out.println("success");
+    }
+    
+    System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
+
     //increase character's alliance
     character.alliance += 5;
+    
+    //TODO: increase character's alliance based on how far down they get in the character's dialogue graph
+    //System.out.println(character.dialogue.successors(character.currentLocation));
+
+    //traverse options in hashtable graph
+    // Traverser.forGraph(character.dialogue).breadthFirst(character.currentLocation)
+    // .forEach(x->System.out.println(x));
+
+    // Traverser.forGraph(character.dialogue).breadthFirst(initialLocation)
+    // .forEach(x->System.out.println(x));
 
     }
 

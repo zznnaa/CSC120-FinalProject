@@ -49,6 +49,7 @@ public class Dialogue {
         ht2.put("A.A", "A - How far away is it?");
         ht2.put("last edge", "A - last edge test 1");
         ht2.put("last edge 2", "A - last edge test 2");
+        ht2.put("edge goes up", "B - edge goes up");
 
         //network builder using keys in hashtable
         ImmutableNetwork<String, String> dialogue =
@@ -61,6 +62,7 @@ public class Dialogue {
             .addEdge("option 1", "option 1.1", "A.A")
             .addEdge("option 2.1", "last option", "last edge")
             .addEdge("option 1.1", "last option", "last edge 2")
+            .addEdge("option 2.1", "option 1.1", "edge goes up")
             .build();
 
         //print hashtable graph
@@ -75,7 +77,10 @@ public class Dialogue {
         System.out.println("Current location: " + ht.get(currentLocation));
 
         //while loop to ask player for dialogue options
-        while (dialogue.successors(currentLocation).size() != 0){
+        //dialogue.successors(currentLocation).size() != 0
+        int check = 0;
+        while (check <= 3){
+            check += 1;
             //ask for user input
             System.out.println("\n Pick a response:");
             //iterate through the edges in current location
@@ -88,6 +93,9 @@ public class Dialogue {
 
             //testing validity of input
             boolean validInput = false;
+            
+            //if (dialogue.successors(currentLocation));
+
             //for each edge connected to beginning node
             for (String option: dialogue.outEdges(currentLocation)){
                 System.out.println("This is your edge object:");
@@ -108,6 +116,9 @@ public class Dialogue {
             }
 
         }
+
+        System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
+
     }
 
 public static void main(String[] args) {
