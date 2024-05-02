@@ -164,7 +164,7 @@ public class Game {
 
 
     // advance battle by one more attack
-    public boolean advanceBattle(boolean fight, Character protagonist, Human villain){
+    public boolean advanceBattle(boolean fight, Character protagonist, Human villain, boolean isTraining){
         //if any character dies, you lose the battle
         if (!protagonist.isAlive()){
             System.out.println(protagonist.name + " is dead. The enemy triumphed. BATTLE OVER.");
