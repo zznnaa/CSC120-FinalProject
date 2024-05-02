@@ -15,15 +15,17 @@ public class Game {
     public static boolean gameOver;
     public Scanner sc; // create a scanner for the entire game class
     public ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>> scripts; //an ArrayList of the four possible hashtable pair scripts
-    ArrayList<String> recentActions; // saves the most recent actions
+    public ArrayList<String> recentActions; // saves the most recent actions
+    public int successfulBattles; // saves number of battles won so far
     
     public Game(int nCharacters){
         this.nCharacters = nCharacters;
         this.characters = new ArrayList<>(nCharacters);
         this.enemies = new ArrayList<>();
         Game.gameOver = false;
-        this.sc = new Scanner(System.in);
         this.recentActions = new ArrayList<>(3);
+        this.successfulBattles = 0; 
+        this.sc = new Scanner(System.in);
         // Zoe testing out networks
         Hashtable<String, String> one = new Hashtable<String, String>();
             // one.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
@@ -130,7 +132,45 @@ public class Game {
     }
     
     // TO-DO: functions to check if user can battle, train or campfire
+    // after 1st action, if last action was not battle, you can battle
+    public boolean canBattle(){
+        // no action yet? good to go!
+        if (recentActions.size() < 1){
+            return true; 
+        }
+        // after 1st action, if last action was battle, return false
+        else{
+            return !(recentActions.get(-1).equals("battle")); 
+        }
+    }
 
+    // after 1st action, if last action was not battle and last 3 actions contain battle, return true
+    public boolean canTrain(){
+        // no action yet? good to go!
+        if (recentActions.size() < 1){
+            return true; 
+        }
+        else{
+            // if you have less than 3 actions and the last action was not battle, you're fine
+            if (recentActions.size() < 3){
+                return !(recentActions.get(-1).equals("battle"));
+            }
+            // if you have up to 3 actions, 
+            else{
+                return recentActions.contains("battle");
+            }
+        }
+    }
+
+    public boolean canCampFire(){
+        if (recentActions.size() == 0){
+            return true; 
+        }
+        else if (recentActions.size() > 1){
+
+        }
+        return true;
+    }
 
 
     // advance battle by one more attack
@@ -146,6 +186,7 @@ public class Game {
             // if the enemy is dead, the character has won the battle
             if (!villain.isAlive()){
                 System.out.println("Congrats! You have won the battle");
+                successfulBattles += 1;
                 return false; // battle is over and advanceBattle is no longer true
             }
 
@@ -266,7 +307,6 @@ public class Game {
             }
 
         }
-
         // save the action battle
         saveRecentAction("battle");
     }    
@@ -322,7 +362,7 @@ public class Game {
                 String line = iterator.next();
                 System.out.println(character.edgeScript.get(line));
             }
-            String userInput2 = sc.nextLine(); //"A";
+            String userInput2 = sc.nextLine().toUpperCase(); //"A";
 
             //testing validity of input
             boolean validInput = false;
@@ -347,8 +387,6 @@ public class Game {
             if (validInput == false){
                 System.out.println("That's not a valid user input. Enter A or B");
             }
-
-
         }
     
         //increase character's alliance
@@ -357,7 +395,7 @@ public class Game {
     
         System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
     
-    //TODO: increase character's alliance based on how far down they get in the character's dialogue graph
+    //TO-DO: increase character's alliance based on how far down they get in the character's dialogue graph
     //System.out.println(character.dialogue.successors(character.currentLocation));
 
     //traverse options in hashtable graph
@@ -367,10 +405,13 @@ public class Game {
     // Traverser.forGraph(character.dialogue).breadthFirst(initialLocation)
     // .forEach(x->System.out.println(x));
 
+    // save the action campfire
+    saveRecentAction("campfire");
     }
 
     public static void main(String[] args) {
         Game game = new Game(3);
+        int numOfBattles = 0;
 
         System.out.println("Your game has started.");
 
@@ -408,6 +449,7 @@ public class Game {
                 // TO-DO: print out enemy, and ask user one last time to battle or train
                 System.out.println("\nToday, you will battle " + enemy.name + ".\n" + enemy);
                 game.battle(enemy);
+                numOfBattles += 1;
                 break;
 
                 case "train":
@@ -425,7 +467,16 @@ public class Game {
                 System.out.println("You have not chosen a valid option. Try again");
             }
 
-            Game.gameOver = true;
+            if (numOfBattles >= 3){
+                Game.gameOver = true;
+                System.out.println("----------------------------GAME OVER------------------------------------------------");
+                if (game.successfulBattles >= 2){
+                    System.out.println("CONGRATULATIONS! YOU WON THE GAME.");
+                }
+                else{
+                    System.out.println("SORRY, YOU LOST THE GAME. BETTER LUCK NEXT TIME");
+                }
+            }
         }   
     }
 }
