@@ -41,17 +41,17 @@ We started with six classes - Training and Campfire inherited from a Non-Battle 
     - Add graphics to make text print out more interesting
     - Figure out how to generate random numbers in a more efficient way
     - Allow user to quit game voluntarily
-    - Allow user "reun-away" from a battle
+    - Allow user "run-away" from a battle
     - Think about what methods and attributes should be public or private and make changes accordingly
     - Increase character's alliance based on how far down they get in the character's dialogue graph
     - Randomize the dialogue script between characters
     - Add more detailed background stories both for characters and enemies
 
  - What was the most helpful **piece of feedback** you received while working on your project? Who gave it to you?
-About a week to Demo Day, Jordan advised that I migrate the battle class to a method within the game and make training a parameter in the battle class. I spent about an hour asking questions about how to go about that because I couldn't wrap my mind around how I would implement that in such a short time, and was honestly slightly upset that I would have to break a part of our code I thought was mostly donw. However, that turned out to be crucial to the eventual flow of the game and also helped me changed how I thought about implementing other parts of the game. Migrating battle to game also turned out to not be too bad. I finished it in two coding sessions and did much more during the last week working on the project. 
+About a week to Demo Day, Jordan advised that I migrate the battle class to a method within the game and make training a parameter in the battle class. I spent about an hour asking questions about how to go about that because I couldn't wrap my mind around how I would implement that in such a short time, and was honestly slightly upset that I would have to break a part of our code I thought was mostly done. However, that turned out to be crucial to the eventual flow of the game and also helped me changed how I thought about implementing other parts of the game. Migrating battle to game also turned out to not be too bad. I finished it in two coding sessions and did much more during the last week working on the project. 
 
  - If you could go back in time and give your past self some **advice** about this project, what hints would you give?
- Don't be too fixated on getting a clean code from the start, and it's fine if you have to revise your code a thousand time. Just make sure that you keep making progress and keep making those lists at the beginning of each of your coding sessions. Really helpful to look back and to see how your project has morphed from session to session
+ Don't be too fixated on getting a clean code from the start, and it's fine if you have to revise your code a thousand times. Just make sure that you keep making progress and keep making those lists at the beginning of each of your coding sessions. Really helpful to look back and to see how your project has morphed from session to session
  - _If you worked with a team:_ please comment on how your **team dynamics** influenced your experience working on this project.
 Working with an initiator like Zoe was wonderful! I'm more of a strategist, and I love to see the end from the beginning. Sometimes, I get stuck in planning and replanning and do not get started on actual implementation. Having Zoe insist that we start even when most components of the game felt squishy was extremely advantageous to finishing the project in time. My attention to detail, continuous note taking and segmentation of our project ensured that we implemented all parts of the project methododically and didn't forget anything.
 
@@ -79,11 +79,20 @@ Working with an initiator like Zoe was wonderful! I'm more of a strategist, and 
     I would also like to create a variable network that can create the amount of edges needed based on the options avaliable in the hashtable, so that way the format of the script doesn't have to be the same for every character in order to work.
 
  - What was the most helpful **piece of feedback** you received while working on your project? Who gave it to you?
-    Although I didn't have time to implement it in my project, the most helpful piece of advice / useful bit of coding information I got was from Tillie who used .contains() instead of .equals() in her project which allowed for a level of flexibility with typos that most other games did not have.
+    Although I didn't have time to implement it in my code, the most helpful piece of advice / useful bit of coding information I got was from Tillie who used .contains() instead of .equals() in her project which allowed for a level of flexibility with typos that most other games did not have.
 
-    Ex. 
+    Ex. userInput = "set up a campfire"
+        userInput !== "campfire"
+        code fails
+
+        userInput = "set up a campfire"
+        userInput.contains("campfire")
+        code succeeds with variously accurate inputs
 
  - If you could go back in time and give your past self some **advice** about this project, what hints would you give?
-    
+    I would advise my past self to start battle, training, and campfire as methods instead of independent classes! But I also think we had to go through the struggle of transferring that to learn why it worked, so I don't regret having made that "mistake"
+
  - _If you worked with a team:_ please comment on how your **team dynamics** influenced your experience working on this project.
-    
+    I loved working with Chioma! Chioma's attention to detail really forced me to be specific about what I wanted to implement and why, which greatly increased my understanding of the code I was working with, and allowed us to get assistance early on for the areas we needed help with. She also kept track of every task, class, and method we needed to complete, which made the project feel manageable and was very useful as I'm a coder who tends to .
+
+    Fun fact: We worked on this project for a combined total of __ hours.
