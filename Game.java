@@ -118,7 +118,6 @@ public class Game {
         }
     }
     
-    // TO-DO: functions to check if user can battle, train or campfire
     // after 1st action, if last action was not battle, you can battle
     public boolean canBattle(){
         // no action yet? good to go!
@@ -142,21 +141,28 @@ public class Game {
             if (recentActions.size() < 3){
                 return !(recentActions.get(-1).equals("battle"));
             }
-            // if you have up to 3 actions, 
+            // if your last 3 actions contains battle and your last action was not battle, you're fine
             else{
-                return recentActions.contains("battle");
+                return recentActions.contains("battle") && !(recentActions.get(-1).equals("battle"));
             }
         }
     }
 
     public boolean canCampFire(){
-        if (recentActions.size() == 0){
+        // no action yet? good to go!
+        if (recentActions.size() < 1){
             return true; 
         }
-        else if (recentActions.size() > 1){
-
+        else{
+            // if you have less than 3 actions and the last action was not campfire, you're fine
+            if (recentActions.size() < 3){
+                return !(recentActions.get(-1).equals("campfire"));
+            }
+            // if your last 3 actions contains battle and your last action was not campfire, you're fine
+            else{
+                return recentActions.contains("campfire") && !(recentActions.get(-1).equals("battle"));
+            }
         }
-        return true;
     }
 
 
@@ -300,7 +306,7 @@ public class Game {
 
     public void campfire(){    
         Character character = null;
-        //TODO: make sure this works in game loop
+        //TO-DO: make sure this works in game loop
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
         //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
@@ -338,7 +344,13 @@ public class Game {
         System.out.println("Current Location: " + character.currentLocation);
         System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
 
-        //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
+        //if no more options, break loop
+        if(character.dialogue.successors(character.currentLocation).isEmpty()){
+            System.out.println("You have exhausted all your dialogue options for this character.");
+            return;
+        }
+
+        //TO-DO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
         //while loop to ask player for dialogue options
         int check = 0;
         //character.dialogue.successors(character.currentLocation).size() != 0
@@ -439,7 +451,10 @@ public class Game {
             // allows player to switch between different modes in a game
             switch (cmd){
                 case "battle":
-                // TO-DO: implement a method that check if troop is eligible for option. If troop is eligible, then battle. Else, say can't battle. Must train or camp
+                while (!game.canBattle()){
+                    System.out.println("You cannot battle a new enemy at this time.You must train with your troop or set up a campfire.");
+                    cmd = game.sc.nextLine();
+                }
                 Human enemy = game.addEnemy();
                 // TO-DO: print out enemy, and ask user one last time to battle or train
                 System.out.println("\nToday, you will battle " + enemy.name + ".\n" + enemy);
@@ -448,18 +463,20 @@ public class Game {
                 break;
 
                 case "train":
-                // TO-DO: implement a method that check if troop is eligible for option. If troop is eliible, then train
+                while (!game.canBattle()){
+                    System.out.println("You cannot train with your troop right now, you must engage in a battle or have a campfire.");
+                    cmd = game.sc.nextLine();
+                }
                 game.train();
                 break;
 
                 case "campfire":
-                // TO-DO: implement a method that check if troop is eligible for option. If troop is eliible, then camp
+                while (!game.canBattle()){
+                    System.out.println("You cannot have a campfire right now, you must engage in a battle or train with your troop.");
+                    cmd = game.sc.nextLine();
+                }
                 game.campfire();
                 break;
-
-                // default case
-                default:
-                System.out.println("You have not chosen a valid option. Try again");
             }
 
             if (numOfBattles >= 3){
@@ -500,9 +517,6 @@ public class Game {
 //  a help menu of what a player can do e.g. q to quit
 
 // LATER
-// change the prinout when the captain need to check in with players
-// allow player choose which character should return an enemy's attack in "real" battles
-// throw an exception that keeps asking for an input if the user types in a response that's not part of the options given without returning to the top of the loop or exiting the loop
 // allow the user to end a training session when both characters are still alive
 
 // ON DESIGN
@@ -512,3 +526,4 @@ public class Game {
 // Allow chrs train against old enemies battled
 // Display enemy's stats to user and double check if they wish to battle or not (in the switch case method)
 // Add in audio while player is in battle mode (battle music) and campfire (crackling of a fire)
+// allow player choose which character should return an enemy's attack in "real" battles
