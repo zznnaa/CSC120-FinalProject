@@ -24,10 +24,10 @@ public class Game {
         this.successfulBattles = 0; 
         this.sc = new Scanner(System.in);
         Hashtable<String, String> one = new Hashtable<String, String>();
-            one.put("Beginning", "You were shit at commanding that last battle.");
-            one.put("Option 1", "Miraculously. You almost tripped and fell facefirst onto your sword.");
+            one.put("Beginning", "You commanded that last battle terribly. I've seen infants do better.");
+            one.put("Option 1", "Miraculously. You almost tripped and fell face first onto your sword.");
             one.put("Option 2", "Yes.");
-            one.put("Option 3", "You would kill us all before you had the chance.");
+            one.put("Option 3", "You would send us up to look for Pan before I had the chance.");
             one.put("Option 4", "Is that not what I'm doing?");
             one.put("Option 5", "I've noticed most humans don't take kindly to my advice.");
             one.put("Option 6", "Yet you never seem to have trouble making us fight your battles.");
@@ -35,9 +35,9 @@ public class Game {
         Hashtable<String, String> two = new Hashtable<String, String>();
             two.put("A", "A - What do you mean? We won.");
             two.put("B", "B - You think you could do a better job?");
-            two.put("1.A", "A - Fuck you.");
+            two.put("1.A", "A - Farwoodsian to a fault, give me a break.");
             two.put("1.B", "B - Well the Imperial Crown isn't going to just let me quit, so you might try helping me improve instead.");
-            two.put("2.A", "A - Fuck you.");
+            two.put("2.A", "A - Farwoodsian to a fault, give me a break.");
             two.put("2.B", "B - Well the Imperial Crown isn't going to just let me quit, so you might try helping me improve instead.");
             two.put("4.A", "A - Uhhh, sure.");
             two.put("4.B", "B - Oh, you're from the Far Woods.");
@@ -110,8 +110,12 @@ public class Game {
     public void listCharacters(){
         int x = 0;
         for (Character option : characters){
-            x += 1;
-            System.out.println(x + ". " + option.name);
+            if (option.isAlive()){
+                x += 1;
+                System.out.println(x + ". " + option.name);
+            } else {
+                continue;
+            }   
         }
     }
     
@@ -448,28 +452,28 @@ public class Game {
         Game game = new Game(3);
         int numOfBattles = 0;
 
-        System.out.println("Your game has started.");
-
-        // TO-DO: add in short description of game objective and what is expected of the player
+        System.out.println("---------------------------- THE IMPERIAL CROWN ----------------------------");
+        System.out.println("\nCongratualations! As a student at the Imperial Academy of War, The Imperial Crown has selected YOU to serve in Her Majesty's Army, First Cohort. You must unite your assigned soldiers from the Far Woods, Back Lakes and Imperium City under your command in order to lead them to victory against enemy forces.");
+        System.out.println("\nFailure is not an option -- General of War, Second of Her Imperial Majesty");
 
         // name your characters
-        System.out.println("You will now choose your troop. Enter any " + game.nCharacters + " names.");
+        System.out.println("\nMeet your Regiment. Enter their " + game.nCharacters + " name(s).");
         // String characterNames
         for (int i = 0; i < game.nCharacters; i++){
             game.addCharacter(game.sc.nextLine());
         }
 
         // allows player see a well-formatted output of characters' stats 
-        System.out.println("\nHere's a decription of your troop, commander: ");
+        System.out.println("\nA short summary of your soldiers has been provided: ");
         for (Character character : game.characters){
-            System.out.println(character);
+            System.out.println(" " + character);
         }
 
         // while the game isn't over
         while(!gameOver){
             // Allow player choose next move based on characters' stats
-            System.out.println("\nBased on your troop's stats, what would you like to do: train, engage in battle or have a campfire with your troop?");
-            String cmd = game.sc.nextLine().toLowerCase();
+            System.out.println("\nBased on your Regiment's stats, what would you like to do: train, engage in battle or have a campfire?");
+            String cmd = game.sc.nextLine(); // check in with Jordan about this in OH. It's fine
 
             while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire"))){
                 System.out.println("You have not entered a valid option. Try again. You can train, battle or have a campfire");
@@ -512,12 +516,12 @@ public class Game {
 
             if (numOfBattles >= 3){
                 Game.gameOver = true;
-                System.out.println("----------------------------GAME OVER------------------------------------------------");
+                System.out.println("---------------------------- HER MAJESTY'S ARMY, FIRST COHORT: DELTA REGIMENT ----------------------------");
                 if (game.successfulBattles >= 2){
-                    System.out.println("******CONGRATULATIONS! YOU WON THE GAME.******");
+                    System.out.println("****** CONGRATULATIONS! YOUR IMPRESSIVE VICTORY'S HAVE LANDED YOU A PLACE IN HER MAJESTY'S COURT. ******");
                 }
                 else{
-                    System.out.println("******SORRY, YOU LOST THE GAME. BETTER LUCK NEXT TIME.******");
+                    System.out.println("****** YOUR PERFORMANCE HAS DISAPPOINTED IMPERIAL STANDARDS. REPORT TO YOUR NEAREST POST OFFICE FOR REASSIGNMENT. ******");
                 }
             }
         }   
