@@ -10,11 +10,12 @@ import java.util.Random;
 
 public class Game {
     public int nCharacters;
-    public ArrayList<Character> characters; // extending game to multiple characters
-    public ArrayList<Human> enemies; // extending game to multiple enemies
+    public ArrayList<Human> characters; 
+    public ArrayList<Human> enemies; 
     public static boolean gameOver;
     public Scanner sc; // create a scanner for the entire game class
     public ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>> scripts; //an ArrayList of the four possible hashtable pair scripts
+    ArrayList<String> recentActions; // saves the most recent actions
     
     public Game(int nCharacters){
         this.nCharacters = nCharacters;
@@ -22,6 +23,8 @@ public class Game {
         this.enemies = new ArrayList<>();
         Game.gameOver = false;
         this.sc = new Scanner(System.in);
+        this.recentActions = new ArrayList<>(3);
+        // Zoe testing out networks
         Hashtable<String, String> one = new Hashtable<String, String>();
             one.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
             one.put("option 1", "Ah you should one day.");
@@ -73,9 +76,7 @@ public class Game {
         this.characters.add(new Character(name, health, experience, alliance, false, script)); 
     }
 
-
-
-    // function to create a new enemy and add to list of enemies
+    // method to create a new enemy and add to list of enemies
     public Human addEnemy(){
         ArrayList<String> enemyNames = new ArrayList<String>(Arrays.asList("Frog", "Hulk", "Tigress", "Chameleon", "Boss Wolf", "Dmitri", "Mei Ling", "Bian Zo"));
         ArrayList<String> enemyDescriptors = new ArrayList<String>(Arrays.asList("The Terror", "The Shadow", "The Silent", "The Bloody", "The Savage", "The Nefarious", "The Mutilator", "The Cyclone"));
@@ -91,6 +92,14 @@ public class Game {
         Human enemy = new Human(name, health, experience, 0, true);
         this.enemies.add(enemy); 
         return enemy; 
+    }
+
+    // method to save the most recent action called  (battle/train/campfire)
+    public void saveRecentAction(String mode){
+        if (recentActions.size() > 2){
+            recentActions.remove(0);
+        }
+        recentActions.add(mode);
     }
 
     //lists out the characters in the user's party
@@ -110,7 +119,7 @@ public class Game {
     public boolean advanceBattle(boolean fight, Character protagonist, Human villain){
         //if any character dies, you lose the battle
         if (!protagonist.isAlive()){
-            System.out.println("Sorry you lost the battle.");
+            System.out.println(protagonist.name + " is dead. The enemy triumphed. BATTLE OVER.");
             return false; // the battle is over
         }
 
@@ -205,6 +214,9 @@ public class Game {
         opponent.health = initialHealth.get(1);
 
         // TO-DO: show character updated stats after a training session
+
+        // save the action train
+        saveRecentAction("train");
     }
 
 
@@ -234,14 +246,12 @@ public class Game {
             else if (nextMove.equals("retreat")){
                 battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy);
             }
-            
-            // TO-Do: delete this
-            System.out.println("This is enemy " + enemy);
-            for (Character character : this.characters){
-                System.out.println("This is " + character.name + character);
-            }
+
         }
-    }
+
+        // save the action battle
+        saveRecentAction("battle");
+    }    
 
     public void campfire(){    
         //TODO: make sure this works in game loop
@@ -347,12 +357,16 @@ public class Game {
             game.addCharacter(game.sc.nextLine());
         }
 
-        // TO-DO: allow player see a well-formatted output of characters' stats 
+        // allows player see a well-formatted output of characters' stats 
+        System.out.println("\nHere's a decription of your troop commander: ");
+        for (Human character : game.characters){
+            System.out.println(character);
+        }
 
         // while the game isn't over
         while(!gameOver){
             // Allow player choose next move based on characters' stats
-            System.out.println("Based on your troop's stats, what would you like to do: train, engage in battle or have a campfire with your troop?");
+            System.out.println("\nBased on your troop's stats, what would you like to do: train, engage in battle or have a campfire with your troop?");
             String cmd = game.sc.nextLine(); // check in with Jordan about this in OH. It's fine
 
             while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire"))){
@@ -366,7 +380,7 @@ public class Game {
                 // TO-DO: implement a method that check if troop is eligible for option. If troop is eligible, then battle. Else, say can't battle. Must train or camp
                 Human enemy = game.addEnemy();
                 // TO-DO: print out enemy, and ask user one last time to battle or train
-                System.out.println("Today, you will battle " + enemy.name);
+                System.out.println("\nToday, you will battle " + enemy.name + ".\n" + enemy);
                 game.battle(enemy);
                 break;
 
@@ -400,12 +414,18 @@ public class Game {
 
 // IMMEDIATE
 // implement cantrain, canBattle and canCampfire
-// implement a condition for gameOver
+// implement a condition for gameOver: for now, after three battles, game ends. If you win two of those, you win the game
 // write up all the text needed: 
 // - at the beginning of game
 // - enemies descriptions
 // - chracters description
 
+// FINE POINTS
+// description of game when game starts
+// edit attack methods to work according to original design
+// change the range of characters & enemy stats
+// should the user know characters' alliance or not?
+//  a help menu of what a player can do e.g. q to quit
 
 // LATER
 // change the prinout when the captain need to check in with players
@@ -419,3 +439,4 @@ public class Game {
 // EXTENSIONS
 // Allow chrs train against old enemies battled
 // Display enemy's stats to user and double check if they wish to battle or not (in the switch case method)
+// Add in audio while player is in battle mode (battle music) and campfire (crackling of a fire)
