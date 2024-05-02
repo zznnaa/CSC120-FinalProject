@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Game {
     public int nCharacters;
-    public ArrayList<Human> characters; 
+    public ArrayList<Character> characters; 
     public ArrayList<Human> enemies; 
     public static boolean gameOver;
     public Scanner sc; // create a scanner for the entire game class
@@ -174,7 +174,7 @@ public class Game {
         } 
 
         Character proponent = fightingPair.get(0);
-        Human opponent = fightingPair.get(1);
+        Character opponent = fightingPair.get(1);
 
         // while a particular battle is ongoing
         while(battleOngoing == true){
@@ -359,7 +359,7 @@ public class Game {
 
         // allows player see a well-formatted output of characters' stats 
         System.out.println("\nHere's a decription of your troop commander: ");
-        for (Human character : game.characters){
+        for (Character character : game.characters){
             System.out.println(character);
         }
 
