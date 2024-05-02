@@ -2,7 +2,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Scanner;
 import com.google.common.graph.*;
-import com.google.common.graph.Traverser;
 
 //ARCHITECTURE NOTES: turn dialogue into a parent class,
 //and make the talk method generalized so any two hashtables could be fed into the talk method?
@@ -11,6 +10,7 @@ import com.google.common.graph.Traverser;
 
 //starting by making this work with a scanner and format properly
 //keep dialogue and hashtables as attributes of the human, but have a talk method in human or game class
+//have four different hashtables and randomize which character gets the hashtable
 
 public class Dialogue {
     Hashtable<String, String> ht;
@@ -29,130 +29,102 @@ public class Dialogue {
         
         //array list that holds all the key value pairs
         //iterate through the array list, adding key value pairs to the hashtable(s) and then putting edges between them in the graph
-        Pair<A,B> p = new Pair("test", "test");
-        
+        //Pair<String, String> p = Pair.of("test", "test");
+       
+        //rename hashtables to be better
         //hashtable that holds all the character's responses
         Hashtable ht = new Hashtable<String, String>();
         ht.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
         ht.put("option 1", "Ah you should one day.");
         ht.put("option 2", "You've visited? I miss it.");
         ht.put("option 2.1", "The way the fall leaves would scatter on the ground.");
+        ht.put("option 1.1", "Only a day's ride");
+        ht.put("last option", "Testing the last string.");
 
         //hashtable that holds all the user's preprogrammed responses
         Hashtable ht2 = new Hashtable<String, String>();
         ht2.put("A", "A - I've never been.");
         ht2.put("B", "B - I went there once as a child.");
         ht2.put("B.A", "A - What do you miss most about it?");
+        ht2.put("A.A", "A - How far away is it?");
+        ht2.put("last edge", "A - last edge test 1");
+        ht2.put("last edge 2", "A - last edge test 2");
+        ht2.put("edge goes up", "B - edge goes up");
 
-        //network builder using the hashtables
-        ImmutableNetwork<Object, Object> dialogue =
+        //network builder using keys in hashtable
+        ImmutableNetwork<String, String> dialogue =
             NetworkBuilder.directed()
             .allowsParallelEdges(true)
-            .<Object, Object>immutable()
-            .addEdge(ht.get("beginning"), ht.get("option 1"), ht2.get("A"))
-            .addEdge(ht.get("beginning"), ht.get("option 2"), ht2.get("B"))
-            .addEdge(ht.get("option 2"), ht.get("option 2.1"), ht2.get("B.A"))
+            .<String, String>immutable()
+            .addEdge("beginning", "option 1", "A")
+            .addEdge("beginning", "option 2", "B")
+            .addEdge("option 2", "option 2.1", "B.A")
+            .addEdge("option 1", "option 1.1", "A.A")
+            .addEdge("option 2.1", "last option", "last edge")
+            .addEdge("option 1.1", "last option", "last edge 2")
+            .addEdge("option 2.1", "option 1.1", "edge goes up")
             .build();
 
         //print hashtable graph
         System.out.println("\n" + dialogue);
 
         //traverse options in hashtable graph
-        // Traverser.forGraph(dialogue).breadthFirst(ht.get("beginning"))
-        // .forEach(x->System.out.println(x));
+        Traverser.forGraph(dialogue).breadthFirst("beginning")
+        .forEach(x->System.out.println(x));
 
-        Object currentLocation = dialogue.nodes().iterator().next();
+        String currentLocation = dialogue.nodes().iterator().next();
         System.out.println("Current Location: " + currentLocation);
+        System.out.println("Current location: " + ht.get(currentLocation));
 
-        //while loop not running all the way through - global currentLocation and reference key value pairs by position in hashtable
-        //make sure null within while loop actually stops it
-        //while (dialogue.successors(currentLocation).size() != 0){
+        //while loop to ask player for dialogue options
+        //dialogue.successors(currentLocation).size() != 0
+        int check = 0;
+        while (check <= 3){
+            check += 1;
             //ask for user input
             System.out.println("\n Pick a response:");
-            Iterator<Object> iterator = dialogue.incidentEdges(currentLocation).iterator();
+            //iterate through the edges in current location
+            Iterator<String> iterator = dialogue.outEdges(currentLocation).iterator();
             while (iterator.hasNext()){
-                Object line = iterator.next();
-                System.out.println(line);
+                String line = iterator.next();
+                System.out.println(ht2.get(line));
             }
-            String userInput2 = "A"; //sc.nextLine();
+            String userInput2 = sc.nextLine(); //"A";
 
             //testing validity of input
             boolean validInput = false;
+            
+            //if (dialogue.successors(currentLocation));
+
             //for each edge connected to beginning node
-            for (Object o: dialogue.incidentEdges(currentLocation)){
+            for (String option: dialogue.outEdges(currentLocation)){
+                System.out.println("This is your edge object:");
+                System.out.println(option);
                 //if user input is equal to one of the edges' first characters
-                if (userInput2.charAt(0) == o.toString().charAt(0)){
-                    //update user input to match the full name of the edge
-                    Object updatedUserInput = o;
-                    //use updated user input to update current location of graph
-                    Object currentlocation = dialogue.incidentNodes(updatedUserInput).target();
-                    System.out.println("\n Your new location is: " + currentlocation);
+                if (userInput2.charAt(0) == ht2.get(option).toString().charAt(0)){
+                    //update current location of graph
+                    currentLocation = dialogue.incidentNodes(option).target();
+                    System.out.println("\n Your new location is: " + currentLocation);
+                    System.out.println("Your new location is: " + ht.get(currentLocation));
                     validInput = true;
                     break;
                 }
             }
-            System.out.println(currentLocation);
-            //checks if user input is valid (replace with try/catch once done coding the rest of it)
+            //checks if user input is valid
             if (validInput == false){
-                throw new RuntimeException("That's not a valid user input. Enter A or B");
+                System.out.println("That's not a valid user input. Enter A or B");
             }
 
-        //}
+        }
+
+        System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
+
     }
 
 public static void main(String[] args) {
 
     Dialogue c = new Dialogue();
     c.talk();
-    
-    // //network builder using strings
-    // ImmutableNetwork<String, String> myGraph =
-    //     NetworkBuilder.directed()
-    //     .allowsParallelEdges(true)
-    //     .<String, String>immutable()
-    //     .addEdge("beginning", "option 1", "A")
-    //     .addEdge("beginning", "option 2", "B")
-    //     .build();  
-
-    //     //print string graph
-    //     System.out.println(myGraph);
-
-    //     //traverse options in string graph
-    //     Traverser.forGraph(myGraph).breadthFirst("beginning")
-    //     .forEach(x->System.out.println(x));
-
-    //     String userInput = "A"; //sc.nextLine()
-
-    //     String currentLocation = "beginning";
-
-    //     System.out.println("\n Current Location: " + currentLocation);
-
-    //     //navigating to different locations in string graph
-    //     if (myGraph.incidentNodes(userInput) != null){
-    //         currentLocation = myGraph.incidentNodes(userInput).target();
-    //         System.out.println("Your new location is: " + currentLocation);
-    //     } else {
-    //         System.out.println("That's not a valid user input. Enter A or B");
-    //         //userInput something something
-    //     }
-
-    // if (userInput2.charAt(0) == ht2.get("A").toString().charAt(0)){
-    //     Object replaceUserInputwithNewVariable = ht2.get("A");
-    // }
-
-    //navigating to different locations in hashtable graph
-    // if (myGraph2.incidentNodes(userInput2) != null){
-    //     currentLocation2 = myGraph2.incidentNodes(userInput2).target();
-    //     System.out.println("Your new location is: " + currentLocation2);
-    // } else {
-    //     System.out.println("That's not a valid user input. Enter A or B");
-    //     //userInput something something
-    // }
-        
-
-
-
-
         
 }
 }
