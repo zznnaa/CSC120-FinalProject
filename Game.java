@@ -1,7 +1,4 @@
 import java.util.Scanner;
-
-import com.google.common.graph.Traverser;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -75,9 +72,9 @@ public class Game {
     // adds a character
     public void addCharacter(String name){
         // randomly sample character's stats
-        int health = getRandomNumber(0, 5);
-        int experience = getRandomNumber(0, 5);
-        int alliance = getRandomNumber(0, 1);
+        int health = getRandomNumber(15, 50);
+        int experience = getRandomNumber(1, 5);
+        int alliance = getRandomNumber(1, 10);
         HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(0);//getRandomNumber(0,4));
         // add new character to list of characters
         this.characters.add(new Character(name, health, experience, alliance, false, script)); 
@@ -266,6 +263,8 @@ public class Game {
         opponent.health = initialHealth.get(1);
 
         // TO-DO: show character updated stats after a training session
+        System.out.println(proponent);
+        System.out.println(opponent);
 
         // save the action train
         saveRecentAction("train");
@@ -389,7 +388,7 @@ public class Game {
                     System.out.println(character.dialogue.successors(character.currentLocation));
                     System.out.println(character.dialogue.successors(character.currentLocation).size());
                     //increase character's alliance
-                    character.alliance += 1;
+                    character.alliance += 5;
                     validInput = true;
                     break;
                 }
