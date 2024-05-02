@@ -148,12 +148,8 @@ public class Game {
     public void listCharacters() {
         int x = 0;
         for (Character option : characters) {
-            if (option.isAlive()) {
-                x += 1;
-                System.out.println(x + ". " + option.name);
-            } else if (!option.isAlive()){
-                continue;
-            }   
+            x += 1;
+            System.out.println(x + ". " + option.name);   
         }
     }
     
@@ -404,11 +400,7 @@ public class Game {
         
         //replenish every character's health (except if they are dead)
         for (Character option: characters){
-            if (option.isAlive()){
-                option.health = option.maxHealth;
-            } else {
-                continue;
-            }
+            option.health = option.maxHealth;
         }
         
         //asks user what character they want to talk to
