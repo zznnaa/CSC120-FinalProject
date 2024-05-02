@@ -26,14 +26,7 @@ public class Game {
         this.recentActions = new ArrayList<>(3);
         this.successfulBattles = 0; 
         this.sc = new Scanner(System.in);
-        // Zoe testing out networks
         Hashtable<String, String> one = new Hashtable<String, String>();
-            // one.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
-            // one.put("option 1", "Ah you should one day.");
-            // one.put("option 2", "You've visited? I miss it.");
-            // one.put("option 2.1", "The way the fall leaves would scatter on the ground.");
-            // one.put("option 1.1", "Only a day's ride");
-            // one.put("last option", "Testing the last string.");
             one.put("Beginning", "You were shit at commanding that last battle.");
             one.put("Option 1", "Miraculously. You almost tripped and fell facefirst onto your sword.");
             one.put("Option 2", "Yes.");
@@ -43,12 +36,6 @@ public class Game {
             one.put("Option 6", "Yet you never seem to have trouble making us fight your battles.");
             one.put("Option 7", "I don't want to see them die");
         Hashtable<String, String> two = new Hashtable<String, String>();
-            // two.put("A", "A - I've never been.");
-            // two.put("B", "B - I went there once as a child.");
-            // two.put("B.A", "A - What do you miss most about it?");
-            // two.put("A.A", "A - How far away is it?");
-            // two.put("last edge", "A - last edge test 1");
-            // two.put("last edge 2", "A - last edge test 2");
             two.put("A", "A - What do you mean? We won.");
             two.put("B", "B - You think you could do a better job?");
             two.put("1.A", "A - Fuck you.");
