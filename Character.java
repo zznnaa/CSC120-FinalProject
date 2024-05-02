@@ -42,11 +42,6 @@ public class Character extends Human{
         this.currentLocation = this.dialogue.nodes().iterator().next();
     }
 
-    public void talk(){
-        //print hashtable graph
-        System.out.println(dialogue);
-    }
-
 public static void main(String[] args) {
     
 }
