@@ -1,6 +1,4 @@
 import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Scanner;
 import com.google.common.graph.*;
 import com.google.common.graph.ImmutableNetwork;
 

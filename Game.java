@@ -346,7 +346,7 @@ public class Game {
 
     public void campfire(){    
         Character character = null;
-        System.out.println("You are camping with your troop in preparation for the next day's battle.");
+        System.out.println("You are camping with your troop in preparation for the tomorrow's battle.");
         
         //replenish every character's health
         for (Character option: characters){
@@ -459,12 +459,15 @@ public class Game {
         Game game = new Game(3);
         int numOfBattles = 0;
 
-        System.out.println("---------------------------- THE IMPERIAL CROWN ----------------------------");
-        System.out.println("\nCongratualations! As a student at the Imperial Academy of War, The Imperial Crown has selected YOU to serve in Her Majesty's Army, First Cohort. You must unite your assigned soldiers from the Far Woods, Back Lakes and Imperium City under your command in order to lead them to victory against enemy forces.");
-        System.out.println("\nFailure is not an option -- General of War, Second of Her Imperial Majesty");
+        System.out.println("----------------------------------------- THE IMPERIAL CROWN ------------------------------------------");
+        System.out.println("""
+            Congratualations! As a student at the Imperial Academy of War, The Imperial Crown has selected YOU to serve in Her Majesty's Army, First Cohort. 
+            You must unite soldiers from the Far Woods, Back Lakes and Imperium City under your command in order to lead them to victory against enemy forces.
+            The General of War, Second to Her Imperial Majesty has charged you with a simple command: "FAILURE IS NOT AN OPTION"
+            """);
 
         // name your characters
-        System.out.println("\nMeet your Regiment. Enter their " + game.nCharacters + " name(s).");
+        System.out.println("You have been given the opportunity to choose " + game.nCharacters + " soldiers to fight with you. Enter the name(s) of your chosen soldier(s):");
         // save characters
         for (int i = 0; i < game.nCharacters; i++){
             game.addCharacter(game.sc.nextLine());
@@ -475,19 +478,19 @@ public class Game {
         }
 
         // allows player see a well-formatted output of characters' stats 
-        System.out.println("\nA short summary of your Regiment has been provided: ");
+        System.out.println("\nCommander, meet your Regiment: ");
         for (Character character : game.characters){
-            System.out.println(" " + character);
+            System.out.println("- " + character);
         }
 
         // while the game isn't over
         while(!gameOver){
             // Allow player choose next move based on characters' stats
-            System.out.println("\nBased on your soldiers' stats, what would you like to do: train, engage in battle or have a campfire?");
+            System.out.println("\nCommander, would you like to train with your team, go into battle or set up camp? \nRemember that you must maximize the strengths and resources of your Regiment. Choose wisely\n");
             String cmd = game.sc.nextLine(); 
 
             while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire"))){
-                System.out.println("You have not entered a valid option. Try again. You can train, battle or have a campfire");
+                System.out.println("Strange request detected. (HINT: you can train, battle or have a campfire.)");
                 cmd = game.sc.nextLine().toLowerCase();
             }
 
@@ -497,12 +500,25 @@ public class Game {
                 if (game.canBattle()){
                     Human enemy = game.addEnemy();
                     // TO-DO: print out enemy, and ask user one last time to battle or train
-                    System.out.println("\nToday, you will battle " + enemy.name + ".\n" + enemy);
-                    game.battle(enemy);
-                    numOfBattles += 1;
+                    System.out.println("You're coming up against " + enemy.name + ".\n" + enemy + "\nCommander, are you confident that your troop is prepared for this battle?");
+                    String confirmation = game.sc.nextLine().toLowerCase();
+
+                    // validate input
+                    while(!(confirmation.equals("yes") || confirmation.equals("no"))){
+                        System.out.println("Unrecognizable command. Would you still like to go into battle? (yes/no)");
+                        confirmation = game.sc.nextLine();
+                    }
+                    if (confirmation.equals("yes")){
+                        System.out.println("\nToday, you will battle " + enemy.name + ".\n");
+                        game.battle(enemy);
+                        numOfBattles += 1;
+                    }
+                    else{
+                        break;
+                    }
                 }
                 else{
-                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or set up a campfire.");
+                    System.out.println("The General of War has forbidden you to engage in another battle in order to preserve your Regiment. \nYou must either train with your troop or set up camp to replenish your soldiers' strengths.");
                 }
                 break;
 
@@ -511,7 +527,7 @@ public class Game {
                     game.train();
                 }
                 else{
-                    System.out.println("You cannot train with your troop right now, you must engage in a battle or have a campfire.");
+                    System.out.println("Commander, an enemy is around the corner. You can set up camp to prepare your soldiers for tomorrow or march on to the battle clearing.");
                 }
                 break;
 
@@ -520,7 +536,7 @@ public class Game {
                     game.campfire();
                 }
                 else{
-                    System.out.println("You cannot have a campfire right now, you must engage in a battle or train with your troop.");
+                    System.out.println("War is not for the weak nor lazy. You go into battle now or train with your soldiers.");
                 }
                 break;
             }
@@ -539,41 +555,16 @@ public class Game {
     }
 }
 
-// TO-DO:
 
-// IMMEDIATE
-// allow user quit the game at any point
-// write up all the text needed: 
-// - at the beginning of game
-// - enemies descriptions
-// - characters description
 
-// FINE POINTS
-// description of game when game starts
-// edit attack methods to work according to original design
-// change the range of characters & enemy stats
-// should the user know characters' alliance or not?
-// a help menu of what a player can do e.g. q to quit?
-
-// LATER
-// allow the user to end a training session when both characters are still alive
-
-// ON DESIGN
-// Figure out how to generate random numbers in a more efficient way
-
-// EXTENSIONS
+// GAME EXTENSIONS
 // Allow chrs train against old enemies battled
+// allow the user to end a training session when both characters are still alive
 // Display enemy's stats to user and double check if they wish to battle or not (in the switch case method)
 // Add in audio while player is in battle mode (battle music) and campfire (crackling of a fire)
 // allow player choose which character should return an enemy's attack in "real" battles
 // outcome of game should be based on both alliance and number of battles won
+// add graphics to make text print out more interesting
+// Figure out how to generate random numbers in a more efficient way
+// Allow user to quit game voluntarily
 
-/**
- *                 while (!game.canBattle()){
-                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or set up a campfire. What would you like to do?");
-                    cmd = game.sc.nextLine().toLowerCase();
-                    if (cmd.equals("train") || cmd.equals("campfire")){
-                        break;
-                    }
-                }
- */
