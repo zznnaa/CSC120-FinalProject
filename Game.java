@@ -11,7 +11,7 @@ public class Game {
     public ArrayList<String> characterNames; 
     public ArrayList<Human> enemies; 
     public static boolean gameOver;
-    public Scanner sc; // create a scanner for the entire game class
+    public Scanner sc; 
     public ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>> scripts; //an ArrayList of the four possible hashtable pair scripts
     public ArrayList<String> recentActions; // saves the most recent actions
     public int successfulBattles; // saves number of battles won so far
@@ -109,7 +109,7 @@ public class Game {
         recentActions.add(mode);
     }
 
-    //lists out the characters in the user's party
+    // lists out the characters in the user's party
     public void listCharacters(){
         int x = 0;
         for (Character option : characters){
@@ -275,8 +275,6 @@ public class Game {
             battleOngoing = this.advanceBattle(true, proponent, opponent, true); 
         }
 
-        // TO-DO: allow user to end training while both characters are still alive. Copy from the Training file
-
         // update characters' experience based on battle outcome
         // proponent and opponent die
         if (!proponent.isAlive() && !opponent.isAlive()){
@@ -301,7 +299,7 @@ public class Game {
         proponent.health = initialHealth.get(0) - 2;
         opponent.health = initialHealth.get(1) - 2;
 
-        // TO-DO: show character updated stats after a training session
+        // show character updated stats after a training session
         System.out.println(proponent);
         System.out.println(opponent);
 
@@ -500,7 +498,7 @@ public class Game {
                 case "battle":
                 if (game.canBattle()){
                     Human enemy = game.addEnemy();
-                    // TO-DO: print out enemy, and ask user one last time to battle or train
+                    // print out enemy, and ask user one last time to battle or train
                     System.out.println("You're coming up against " + enemy.name + ".\n" + enemy + "\nCommander, are you confident that your troop is prepared for this battle?");
                     String confirmation = game.sc.nextLine().toLowerCase();
 
@@ -561,11 +559,11 @@ public class Game {
 // GAME EXTENSIONS
 // Allow chrs train against old enemies battled
 // allow the user to end a training session when both characters are still alive
-// Display enemy's stats to user and double check if they wish to battle or not (in the switch case method)
 // Add in audio while player is in battle mode (battle music) and campfire (crackling of a fire)
 // allow player choose which character should return an enemy's attack in "real" battles
 // outcome of game should be based on both alliance and number of battles won
 // add graphics to make text print out more interesting
 // Figure out how to generate random numbers in a more efficient way
 // Allow user to quit game voluntarily
+// Allow user "reun-away" from a battle
 
