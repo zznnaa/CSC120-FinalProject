@@ -38,3 +38,34 @@ We started with six classes - Training and Campfire inherited from a Non-Battle 
 
 
 ## ZOE REFLECTION:
+ - What was your **overall approach** to tackling this project?
+    Overall, our approach was to split tasks into parts that each team member could do seperately. My job was to learn guava and then create the campfire class/method. Then I tried to split my task into manageable pieces such as build an immutable network using strings -> add method to move to a new location in the network -> build a network using strings that can access hashtables -> add network to Character class -> add hashtables to Game class -> write scripts.
+
+ - What **new thing(s)** did you learn / figure out in completing this project?
+    I learned how to install guava, create immutable networks - including how to traverse through networks, how to store your location from a network, how to move to a different location in a network, and how to use network to access hashtables.
+    
+ - Is there anything that you wish you had **implemented differently**?
+    If I had more time, I would love to add a character selection method and add seperate conditional method for campfire() before allowing it to go through (like Chioma's canBattle method). The way I currently have it means a "not valid input" message is printed if the user input doesn't match any sucessive nodes, which could happen because of an invalid input or because there are no more dialogue options, and although I got around that by checking whether there were additional dialogue options at the beginning of the while loop, it made it very convoluted and I would love to fix it if I had more time.
+
+ - If you had **unlimited time**, what additional features would you implement?
+    An additional feature I would want to implement if I had more time would be creating a dialogue script that works with backtracking so Option 5 - see Fig. 1 - could cross over to the thread on the right side and end up at Option 3. This would allow a more interesting alliance stat because I would store the initial "level" of the network the user starts out on, compare that to the final level they end up on, and increase the character's alliance based on if the user got to a deeper dialogue level with that character, not just on how many options they can get through.
+
+    Fig. 1
+     beginning         Level One
+       /    \
+      2   __ 3         Level Two
+     / \ /  / \
+     4 5    6 7        Level Three
+    || |   || ||
+
+    I would also like to create a variable network that can create the amount of edges needed based on the options avaliable in the hashtable, so that way the format of the script doesn't have to be the same for every character in order to work.
+
+ - What was the most helpful **piece of feedback** you received while working on your project? Who gave it to you?
+    Although I didn't have time to implement it in my project, the most helpful piece of advice / useful bit of coding information I got was from Tillie who used .contains() instead of .equals() in her project which allowed for a level of flexibility with typos that most other games did not have.
+
+    Ex. 
+
+ - If you could go back in time and give your past self some **advice** about this project, what hints would you give?
+    
+ - _If you worked with a team:_ please comment on how your **team dynamics** influenced your experience working on this project.
+    
