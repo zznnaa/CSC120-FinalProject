@@ -521,28 +521,21 @@ public class Game {
     }
 }
 
-// NOTES on game mechanics:
-// In a real battle, variuos characters attack. In training, there is always only two characters
-
 // TO-DO:
 
-// OH: 
-// In the battle case, should I display enemy's stats and give the user another chance to battle or train?
-
 // IMMEDIATE
-// implement cantrain, canBattle and canCampfire
-// implement a condition for gameOver: for now, after three battles, game ends. If you win two of those, you win the game
+// allow user quit the game at any point
 // write up all the text needed: 
 // - at the beginning of game
 // - enemies descriptions
-// - chracters description
+// - characters description
 
 // FINE POINTS
 // description of game when game starts
 // edit attack methods to work according to original design
 // change the range of characters & enemy stats
 // should the user know characters' alliance or not?
-//  a help menu of what a player can do e.g. q to quit
+// a help menu of what a player can do e.g. q to quit?
 
 // LATER
 // allow the user to end a training session when both characters are still alive
@@ -555,3 +548,4 @@ public class Game {
 // Display enemy's stats to user and double check if they wish to battle or not (in the switch case method)
 // Add in audio while player is in battle mode (battle music) and campfire (crackling of a fire)
 // allow player choose which character should return an enemy's attack in "real" battles
+// outcome of game should be based on both alliance and number of battles won
