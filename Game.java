@@ -268,6 +268,13 @@ public class Game {
         System.out.println("Current Location: " + character.currentLocation);
         System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
 
+        character.currentLocation = character.dialogue.incidentNodes("last edge").target();
+        //if no more options, break loop
+        if(character.dialogue.successors(character.currentLocation).size() == 0){
+            System.out.println("You have exhausted all your dialogue options for this character.");
+            return;
+        }
+
         //TODO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
         //while loop to ask player for dialogue options
         int check = 0;
@@ -308,11 +315,6 @@ public class Game {
             }
 
         }
-
-    //if no more options, break loop
-    if(character.dialogue.successors(character.currentLocation) == null){
-        System.out.println("success");
-    }
     
     System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
 
