@@ -73,8 +73,8 @@ public class Game {
     public void addCharacter(String name){
         // randomly sample character's stats
         int health = getRandomNumber(15, 50);
-        int experience = getRandomNumber(1, 5);
-        int alliance = getRandomNumber(1, 10);
+        int experience = 0;
+        int alliance = 0;
         HashtablePair<Hashtable<String, String>, Hashtable<String, String>> script = scripts.get(0);//getRandomNumber(0,4));
         // add new character to list of characters
         this.characters.add(new Character(name, health, experience, alliance, false, script)); 
@@ -207,16 +207,15 @@ public class Game {
                     return false; // battle is over and advanceBattle is no longer true
                 }
 
-                // else either return an attack or retreat
+                // else either return an attack or check stats
                 else{
                     // return an attack
                     if (fight){
                         protagonist.attack(villain);
                     }
 
-                    // retreat
+                    // check stats
                     else{
-                        System.out.println("The captain has ordered the troop to retreat");
                         System.out.println(protagonist);
                     }
                     return true; // battle not over; can still advance battle
@@ -234,6 +233,7 @@ public class Game {
 
         // Ask the user for the opponent and proponent 
         System.out.println("Which pair of your characters would you like to match against each other?");
+        this.listCharacters();
         String chr1 = sc.nextLine();
         String chr2 = sc.nextLine();
 
@@ -275,21 +275,19 @@ public class Game {
 
         // proponent dies, opponent doesn't
         else if (!proponent.isAlive() && opponent.isAlive()){
-            System.out.println(opponent.name + " won the battle.");
-            proponent.experience += 5;
-            opponent.experience += 10;
+            proponent.experience += 3;
+            opponent.experience += 5;
         }
 
         // proponent doesn't die, opponent does
         else if (proponent.isAlive() && !opponent.isAlive()){
-            System.out.println(opponent.name + " lost the battle.");
-            proponent.experience += 10;
-            opponent.experience += 5;
+            proponent.experience += 5;
+            opponent.experience += 3;
         }
 
-        // reinstate their health
-        proponent.health = initialHealth.get(0);
-        opponent.health = initialHealth.get(1);
+        // reinstate their health (subtract 2 health as a result of the training)
+        proponent.health = initialHealth.get(0) - 2;
+        opponent.health = initialHealth.get(1) - 2;
 
         // TO-DO: show character updated stats after a training session
         System.out.println(proponent);
@@ -310,22 +308,25 @@ public class Game {
             int i = this.getRandomNumber(0, this.characters.size());
             enemy.attack(this.characters.get(i));
 
-            // Ask the user if they wish to attack or retreat. Call advanceBattle based on user response
-            System.out.println("Do you wish to return the attack or check in with your troop? (attack/retreat)");
+            // Ask the user if they wish to attack or check stats. Call advanceBattle based on user response
+            System.out.println("Do you wish to return the attack or check in with your troop? (attack/check stats)");
             String nextMove = sc.nextLine().toLowerCase();
 
             // force the user to enter a valid option
-            while (!(nextMove.equals("attack") || nextMove.equals("retreat"))){
-                System.out.println("You have not entered a valid option. Try again. You can either attack or retreat.");
+            while (!(nextMove.equals("attack") || nextMove.equals("check stats"))){
+                System.out.println("You have not entered a valid option. Try again. You can either attack or check stats.");
                 nextMove = this.sc.nextLine();
             }
 
             if (nextMove.equals("attack")){
                 battleOngoing = this.advanceBattle(true, this.characters.get(i), enemy, false); // TO-DO: allow a different chr return attack
             }
-            else if (nextMove.equals("retreat")){
+            else if (nextMove.equals("check stats")){
                 battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy, false);
             }
+            //TO-DO: add retreat method
+            //else if (nextMove.equals("retreat")){  
+            //}
 
         }
         // save the action battle
@@ -334,8 +335,13 @@ public class Game {
 
     public void campfire(){    
         Character character = null;
-        //TO-DO: make sure this works in game loop
         System.out.println("You are camping with your troop in preparation for the next day's battle.");
+        
+        //replenish every character's health
+        for (Character option: characters){
+            option.health = option.maxHealth;
+        }
+        
         //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
         //lists out the characters
@@ -372,12 +378,6 @@ public class Game {
         System.out.println("Current Location: " + character.currentLocation);
         System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
 
-        //if no more options, break loop
-        if(character.dialogue.successors(character.currentLocation).isEmpty()){
-            System.out.println("You have exhausted all your dialogue options for this character.");
-            return;
-        }
-
         //TO-DO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
         //while loop to ask player for dialogue options
         int check = 0;
@@ -386,7 +386,7 @@ public class Game {
             //if no more options, break loop
             if(character.dialogue.successors(character.currentLocation).isEmpty()){
                 System.out.println("You have exhausted all your dialogue options for this character.");
-                System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to another person.");
+                System.out.println("Dawn has arrived, and with it, your next action. Your characters have rested and regained their full health, but you will have to wait until the next campfire to talk to another person.");
                 return;
             }
             
@@ -417,7 +417,7 @@ public class Game {
                     System.out.println(character.dialogue.successors(character.currentLocation));
                     System.out.println(character.dialogue.successors(character.currentLocation).size());
                     //increase character's alliance
-                    character.alliance += 5;
+                    character.alliance += 1;
                     validInput = true;
                     break;
                 }
@@ -428,7 +428,7 @@ public class Game {
             }
         }
     
-        System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
+        System.out.println("Dawn has arrived, and with it, your next action. Your characters have rested and regained their full health, but you will have to wait until the next campfire to talk to this person again.");
     
     //TO-DO: increase character's alliance based on how far down they get in the character's dialogue graph
     //System.out.println(character.dialogue.successors(character.currentLocation));
