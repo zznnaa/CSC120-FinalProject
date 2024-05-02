@@ -26,14 +26,7 @@ public class Game {
         this.recentActions = new ArrayList<>(3);
         this.successfulBattles = 0; 
         this.sc = new Scanner(System.in);
-        // Zoe testing out networks
         Hashtable<String, String> one = new Hashtable<String, String>();
-            // one.put("beginning", "Hello. My name is Farfelle. I'm a warrior from the Far Woods.");
-            // one.put("option 1", "Ah you should one day.");
-            // one.put("option 2", "You've visited? I miss it.");
-            // one.put("option 2.1", "The way the fall leaves would scatter on the ground.");
-            // one.put("option 1.1", "Only a day's ride");
-            // one.put("last option", "Testing the last string.");
             one.put("Beginning", "You were shit at commanding that last battle.");
             one.put("Option 1", "Miraculously. You almost tripped and fell facefirst onto your sword.");
             one.put("Option 2", "Yes.");
@@ -43,12 +36,6 @@ public class Game {
             one.put("Option 6", "Yet you never seem to have trouble making us fight your battles.");
             one.put("Option 7", "I don't want to see them die");
         Hashtable<String, String> two = new Hashtable<String, String>();
-            // two.put("A", "A - I've never been.");
-            // two.put("B", "B - I went there once as a child.");
-            // two.put("B.A", "A - What do you miss most about it?");
-            // two.put("A.A", "A - How far away is it?");
-            // two.put("last edge", "A - last edge test 1");
-            // two.put("last edge 2", "A - last edge test 2");
             two.put("A", "A - What do you mean? We won.");
             two.put("B", "B - You think you could do a better job?");
             two.put("1.A", "A - Fuck you.");
@@ -324,17 +311,32 @@ public class Game {
         //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
         //lists out the characters
+        //only list out characters with remaining dialogue options
         this.listCharacters();
-        String talkToName = this.sc.nextLine();
         
-        //selects that character from the list of characters
-        for (Character option : characters){
-            if (talkToName.contains(option.name)){
-                System.out.println("successfully chose which character");
-                character = option;
-                break;
-            }
+        //user selects character from the list of characters
+        boolean chooseCharacter = false;
+        while (chooseCharacter == false) {
+            //asks for user input
+            String talkToName = this.sc.nextLine();
+            //iterates through character list
+            for (Character option : characters){
+                //checks if user input contains the character's name
+                if (talkToName.contains(option.name)){
+                    //if so, allows user to choose that character if dialogue options are remaining 
+                    if (!option.dialogue.successors(option.currentLocation).isEmpty()){
+                        character = option;
+                        chooseCharacter = true;
+                        System.out.println("successfully chose which character");
+                        break;
+                    //if no more dialogue options, break loop
+                    } else if (option.dialogue.successors(option.currentLocation).isEmpty()) {
+                        System.out.println("You have exhausted all of this character's dialogue options. Please choose another one.");
+                    }
+                }
+            } 
         }
+
         //prints network
         character.talk();
 
@@ -356,6 +358,7 @@ public class Game {
             //if no more options, break loop
             if(character.dialogue.successors(character.currentLocation).isEmpty()){
                 System.out.println("You have exhausted all your dialogue options for this character.");
+                System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to another person.");
                 return;
             }
             
@@ -385,6 +388,8 @@ public class Game {
                     System.out.println("Your new location is: " + character.dialogueScript.get(character.currentLocation));
                     System.out.println(character.dialogue.successors(character.currentLocation));
                     System.out.println(character.dialogue.successors(character.currentLocation).size());
+                    //increase character's alliance
+                    character.alliance += 1;
                     validInput = true;
                     break;
                 }
@@ -394,10 +399,6 @@ public class Game {
                 System.out.println("That's not a valid user input. Enter A or B");
             }
         }
-    
-        //increase character's alliance
-        System.out.println("After this conversation, you've increased your alliance with this character.");
-        character.alliance += 5;
     
         System.out.println("Dawn has arrived, and with it, your next action. You will have to wait until the next campfire to talk to this person again.");
     
