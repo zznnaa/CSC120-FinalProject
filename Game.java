@@ -206,16 +206,15 @@ public class Game {
                     return false; // battle is over and advanceBattle is no longer true
                 }
 
-                // else either return an attack or retreat
+                // else either return an attack or check stats
                 else{
                     // return an attack
                     if (fight){
                         protagonist.attack(villain);
                     }
 
-                    // retreat
+                    // check stats
                     else{
-                        System.out.println("The captain has ordered the troop to retreat");
                         System.out.println(protagonist);
                     }
                     return true; // battle not over; can still advance battle
@@ -309,22 +308,25 @@ public class Game {
             int i = this.getRandomNumber(0, this.characters.size());
             enemy.attack(this.characters.get(i));
 
-            // Ask the user if they wish to attack or retreat. Call advanceBattle based on user response
-            System.out.println("Do you wish to return the attack or check in with your troop? (attack/retreat)");
+            // Ask the user if they wish to attack or check stats. Call advanceBattle based on user response
+            System.out.println("Do you wish to return the attack or check in with your troop? (attack/check stats)");
             String nextMove = sc.nextLine().toLowerCase();
 
             // force the user to enter a valid option
-            while (!(nextMove.equals("attack") || nextMove.equals("retreat"))){
-                System.out.println("You have not entered a valid option. Try again. You can either attack or retreat.");
+            while (!(nextMove.equals("attack") || nextMove.equals("check stats"))){
+                System.out.println("You have not entered a valid option. Try again. You can either attack or check stats.");
                 nextMove = this.sc.nextLine();
             }
 
             if (nextMove.equals("attack")){
                 battleOngoing = this.advanceBattle(true, this.characters.get(i), enemy, false); // TO-DO: allow a different chr return attack
             }
-            else if (nextMove.equals("retreat")){
+            else if (nextMove.equals("check stats")){
                 battleOngoing = this.advanceBattle(false, this.characters.get(i), enemy, false);
             }
+            //TO-DO: add retreat method
+            //else if (nextMove.equals("retreat")){  
+            //}
 
         }
         // save the action battle
