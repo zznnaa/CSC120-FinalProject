@@ -92,3 +92,11 @@ Chiom 4/29 1.75 hours
 Chioma 4/30 1 hour:
 - Fixed battle class to ensure that chractrs died once their health was negative or zero
 - implemented a loop to keep asking user for a response when a valid response isn't inputted
+
+Zoe 4/30 2 hours:
+ - Integrated dialogue into main
+
+Work Meeting #4 6 hours:
+- Completed working game loop
+- Created both scripts for dialogue
+- Fixed bugs
