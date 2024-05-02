@@ -448,27 +448,27 @@ public class Game {
         Game game = new Game(3);
         int numOfBattles = 0;
 
-        System.out.println("Your game has started.");
-
-        // TO-DO: add in short description of game objective and what is expected of the player
+        System.out.println("---------------------------- THE IMPERIAL CROWN ----------------------------");
+        System.out.println("\nCongratualations! As a student at the Imperial Academy of War, The Imperial Crown has selected YOU to serve in Her Majesty's Army, First Cohort. You must unite your assigned soldiers from the Far Woods, Back Lakes and Imperium City under your command in order to lead them to victory against enemy forces.");
+        System.out.println("\nFailure is not an option -- General of War, Second of Her Imperial Majesty");
 
         // name your characters
-        System.out.println("You will now choose your troop. Enter any " + game.nCharacters + " names.");
+        System.out.println("\nMeet your Regiment. Enter their " + game.nCharacters + " name(s).");
         // String characterNames
         for (int i = 0; i < game.nCharacters; i++){
             game.addCharacter(game.sc.nextLine());
         }
 
         // allows player see a well-formatted output of characters' stats 
-        System.out.println("\nHere's a decription of your troop commander: ");
+        System.out.println("\nA short summary of your soldiers has been provided: ");
         for (Character character : game.characters){
-            System.out.println(character);
+            System.out.println(" " + character);
         }
 
         // while the game isn't over
         while(!gameOver){
             // Allow player choose next move based on characters' stats
-            System.out.println("\nBased on your troop's stats, what would you like to do: train, engage in battle or have a campfire with your troop?");
+            System.out.println("\nBased on your Regiment's stats, what would you like to do: train, engage in battle or have a campfire?");
             String cmd = game.sc.nextLine(); // check in with Jordan about this in OH. It's fine
 
             while (!(cmd.equals("battle") || cmd.equals("train") || cmd.equals("campfire"))){
@@ -480,7 +480,7 @@ public class Game {
             switch (cmd){
                 case "battle":
                 while (!game.canBattle()){
-                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or set up a campfire.");
+                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or have a campfire.");
                     cmd = game.sc.nextLine();
                 }
                 Human enemy = game.addEnemy();
@@ -500,7 +500,7 @@ public class Game {
 
                 case "campfire":
                 while (!game.canBattle()){
-                    System.out.println("You cannot have a campfire right now, you must engage in a battle or train with your troop.");
+                    System.out.println("You cannot camp right now, you must engage in a battle or train with your troop.");
                     cmd = game.sc.nextLine();
                 }
                 game.campfire();
@@ -509,12 +509,12 @@ public class Game {
 
             if (numOfBattles >= 3){
                 Game.gameOver = true;
-                System.out.println("----------------------------GAME OVER------------------------------------------------");
+                System.out.println("---------------------------- HER MAJESTY'S ARMY, FIRST COHORT: DELTA REGIMENT ----------------------------");
                 if (game.successfulBattles >= 2){
-                    System.out.println("******CONGRATULATIONS! YOU WON THE GAME.******");
+                    System.out.println("****** CONGRATULATIONS! YOUR IMPRESSIVE VICTORY'S HAVE LANDED YOU A PLACE IN HER MAJESTY'S COURT. ******");
                 }
                 else{
-                    System.out.println("******SORRY, YOU LOST THE GAME. BETTER LUCK NEXT TIME.******");
+                    System.out.println("****** YOUR PERFORMANCE HAS DISAPPOINTED IMPERIAL STANDARDS. REPORT TO YOUR NEAREST POST OFFICE FOR REASSIGNMENT. ******");
                 }
             }
         }   
