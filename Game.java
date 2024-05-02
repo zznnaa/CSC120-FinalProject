@@ -85,8 +85,8 @@ public class Game {
         ArrayList<String> enemyNames = new ArrayList<String>(Arrays.asList("Frog", "Hulk", "Tigress", "Chameleon", "Boss Wolf", "Dmitri", "Mei Ling", "Bian Zo"));
         ArrayList<String> enemyDescriptors = new ArrayList<String>(Arrays.asList("The Terror", "The Shadow", "The Silent", "The Bloody", "The Savage", "The Nefarious", "The Mutilator", "The Cyclone"));
         // randomly sample stats
-        int health = getRandomNumber(0, 5);
-        int experience = getRandomNumber(0, 5);
+        int health = getRandomNumber(15, 50);
+        int experience = getRandomNumber(1, 5);
 
         // create a new name
         int i = getRandomNumber(0, enemyNames.size());
@@ -451,7 +451,7 @@ public class Game {
             switch (cmd){
                 case "battle":
                 while (!game.canBattle()){
-                    System.out.println("You cannot battle a new enemy at this time.You must train with your troop or set up a campfire.");
+                    System.out.println("You cannot battle a new enemy at this time. You must train with your troop or set up a campfire.");
                     cmd = game.sc.nextLine();
                 }
                 Human enemy = game.addEnemy();
