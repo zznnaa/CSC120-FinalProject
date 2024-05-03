@@ -19,4 +19,8 @@ Caveats:
 
 Fastest way to go through all of the methods: battle, campfire, battle, campfire, train, battle.
 
-![GamePath](GamePath.jpg)  
+![GamePath](GamePath.jpg)
+
+![Script #1 Dialogue Tree](Script_#1_Dialogue_Tree.jpg)
+
+![Script #2 Dialogue Tree](Script_#2_Dialogue_Tree.jpg)
