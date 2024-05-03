@@ -30,9 +30,9 @@ public class Game {
             one.put("Beginning", "You commanded that last battle terribly. I've seen infants do better.");
             one.put("Option 1", "Miraculously. You almost tripped and fell face first onto your sword.");
             one.put("Option 2", "Yes.");
-            one.put("Option 3", "You would send us up to look for Pan before I had the chance.");
+            one.put("Option 3", "You would send us all up to look for Pan before I had the chance.");
             one.put("Option 4", "Is that not what I'm doing?");
-            one.put("Option 5", "I've noticed most humans don't take kindly to my advice.");
+            one.put("Option 5", "I've noticed most Imperialists don't take kindly to my advice.");
             one.put("Option 6", "Yet you never seem to have trouble making us fight your battles.");
             one.put("Option 7", "I don't want to see them die");
         //character #1 script - user responses
@@ -41,7 +41,7 @@ public class Game {
             two.put("B", "B - You think you could do a better job?");
             two.put("1.A", "A - Farwoodsian to a fault, give me a break.");
             two.put("1.B", "B - Well the Imperial Crown isn't going to just let me quit, so you might try helping me improve instead.");
-            two.put("2.A", "A - Farwoodsian to a fault, give me a break.");
+            two.put("2.A", "A - You're Farwoodsian to a fault - give me a break.");
             two.put("2.B", "B - Well the Imperial Crown isn't going to just let me quit, so you might try helping me improve instead.");
             two.put("4.A", "A - Uhhh, sure.");
             two.put("4.B", "B - Oh, you're from the Far Woods.");
@@ -51,18 +51,18 @@ public class Game {
             Hashtable<String, String> three = new Hashtable<String, String>();
             three.put("Beginning", "You skinned this squirrel nicely. All it needs to be perfect is a little tamarind juice and paprika.");
             three.put("Option 1", "Devina, the Academy. Undercooking your food as well as your brains.");
-            three.put("Option 2", "Second favorite, but the Imperium's never made my first correctly.");
+            three.put("Option 2", "Second favorite, but the Imperium's never made the first correctly.");
             three.put("Option 3", "You mean tilapia, or catfish. But everyone only catches them to sell as an Imperial export now.");
             three.put("Option 4", "Devina? Most Lakers don't bother trying out for the Academy.");
             three.put("Option 5", "And now it'll never leave him.");
             three.put("Option 6", "But when was the last time they let him visit home?");
-            three.put("Option 7", "Ha, no. I tried to go home once, when I was on leave. But there were kids catching dinner, and I couldn't even tell a pebble from a rock crab at two paces away.");
+            three.put("Option 7", "I tried going home once. They knew me from a photo in their recruitment ads and chased me out of the resturant I was eating at, calling me an Imperialist.");
         //character #2 script - user responses
             Hashtable<String, String> four = new Hashtable<String, String>();
             four.put("A", "A - Anything on sticks is pretty nice. I always liked the Academy's cubes with green sauce.");
             four.put("B", "B - That a favorite meal from home?");
-            four.put("1.A", "A - We're not all bad! Just last week Anji was showing me fresh fish out of the Back Lakes.");
-            four.put("1.B", "B - My friend Anji kep sneaking me out to try to teach me how to cook. I didn't know a pot from a frying pan, and they kept saying, \"Devina, I know you're Imperium, but I didn't think it was *this* bad.\"");
+            four.put("1.A", "A - We're not all bad! Just last week Anji was showing me the fresh fish out of the Back Lakes.");
+            four.put("1.B", "B - My friend Anji kept sneaking me out to try to teach me how to cook. I didn't know a pot from a frying pan, and they kept saying, \"I know you're Imperium, but Devina I didn't think it was *this* bad.\"");
             four.put("2.A", "A - We're not all bad! Just last week Anji was showing me fresh fish out of the Back Lakes.");
             four.put("2.B", "B - My friend Anji kep sneaking me out to try to teach me how to cook. I can't tell a pot from a frying pan, and they kept saying, \"Devina, I know you're Imperium, but I didn't think it was *this* bad.\"");
             four.put("4.A", "A - It took him in after the Lakeside Wars.");
