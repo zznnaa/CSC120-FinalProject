@@ -403,7 +403,7 @@ public class Game {
     }    
 
     /**
-     * User talks with a character from their party.
+     * Simulates a conversation between the player and a character from their party.
      */
     public void campfire() {    
         Character character = null;
@@ -494,7 +494,9 @@ public class Game {
     saveRecentAction("campfire");
     }
 
-    // the help function
+    /**
+     * Prints out all the actions a player is allowed to take and how that affects the outcome of the game
+     */
     public void help() {
         System.out.println("train - Allows player to train two characters on their team. After each training session, the chosen characters experience goes up, and each character loses two health points.\r\n" + //
                         "battle - Allows player to battle bosses. The battle ends when the enemy or a character on the team dies. Health points decrease for the characters on the team who don't die.\r\n" + //

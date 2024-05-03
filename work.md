@@ -102,5 +102,5 @@ Work Meeting #4 6 hours:
 - Added canBattle, canTrain, canCampfire
 - edited attack methods to work
 
-Work Meeting #5 2 hours:
-- writing reflection
+Work Meeting #5 3 hours:
+- writing reflections and cleaning up of code
