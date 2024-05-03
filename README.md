@@ -95,4 +95,4 @@ Working with an initiator like Zoe was wonderful! I'm more of a strategist, and 
  - _If you worked with a team:_ please comment on how your **team dynamics** influenced your experience working on this project.
     I loved working with Chioma! Chioma's attention to detail really forced me to be specific about what I wanted to implement and why, which greatly increased my understanding of the code I was working with, and allowed us to get assistance early on for the areas we needed help with. She also kept track of every task, class, and method we needed to complete, which made the project feel manageable and was very useful as I'm tends to keep plans in my brain insteda of writing them down and thus forget pieces of the project I'm working on.
 
-    Fun fact: We worked on this project for a combined total of __ hours.
+    Fun fact: We worked on this project for a combined total of 38.25 hours.

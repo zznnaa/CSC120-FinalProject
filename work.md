@@ -101,3 +101,6 @@ Work Meeting #4 6 hours:
 - Created both scripts for dialogue
 - Added canBattle, canTrain, canCampfire
 - edited attack methods to work
+
+Work Meeting #5 2 hours:
+- writing reflection

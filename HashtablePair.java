@@ -10,10 +10,18 @@ public class HashtablePair<K,V> {
         this.edgeHashtable = edgeHashtable;
     }
 
+    /**
+     * Return Hashtable key for Hashtable pair
+     * @return Hashtable<String, String>
+     */
     public Hashtable<String, String> getKey(){
         return this.dialogueHashtable;
     }
 
+    /**
+     * Return Hashtable value for Hashtable pair
+     * @return Hashtable<String, String>
+     */
     public Hashtable<String, String> getValue(){
         return this.edgeHashtable;
     }

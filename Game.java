@@ -6,15 +6,15 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class Game {
-    public int nCharacters;
-    public ArrayList<Character> characters; 
-    public ArrayList<String> characterNames; 
-    public ArrayList<Human> enemies; 
-    public static boolean gameOver;
+    public int nCharacters; //number of characters
+    public ArrayList<Character> characters; //list of characters
+    public ArrayList<String> characterNames; //list of character names
+    public ArrayList<Human> enemies; //list of enemies
+    public static boolean gameOver; //game end condition
     public Scanner sc; 
     public ArrayList<HashtablePair<Hashtable<String, String>, Hashtable<String, String>>> scripts; //an ArrayList of the four possible hashtable pair scripts
-    public ArrayList<String> recentActions; 
-    public int successfulBattles; 
+    public ArrayList<String> recentActions; //list of recent actions
+    public int successfulBattles;
     
     public Game(int nCharacters) {
         this.nCharacters = nCharacters;
@@ -25,7 +25,7 @@ public class Game {
         this.recentActions = new ArrayList<>(3);
         this.successfulBattles = 0; 
         this.sc = new Scanner(System.in);
-        // this keeps track of all the dialogue 
+        //character #1 script - character responses
         Hashtable<String, String> one = new Hashtable<String, String>();
             one.put("Beginning", "You commanded that last battle terribly. I've seen infants do better.");
             one.put("Option 1", "Miraculously. You almost tripped and fell face first onto your sword.");
@@ -35,7 +35,8 @@ public class Game {
             one.put("Option 5", "I've noticed most humans don't take kindly to my advice.");
             one.put("Option 6", "Yet you never seem to have trouble making us fight your battles.");
             one.put("Option 7", "I don't want to see them die");
-        Hashtable<String, String> two = new Hashtable<String, String>();
+        //character #1 script - user responses
+            Hashtable<String, String> two = new Hashtable<String, String>();
             two.put("A", "A - What do you mean? We won.");
             two.put("B", "B - You think you could do a better job?");
             two.put("1.A", "A - Farwoodsian to a fault, give me a break.");
@@ -46,7 +47,8 @@ public class Game {
             two.put("4.B", "B - Oh, you're from the Far Woods.");
             two.put("5.A", "A - Most don't take kindly to anyone from the Far Woods, unfortunately.");
             two.put("5.B", "B - Why keeo giving it then?");
-        Hashtable<String, String> three = new Hashtable<String, String>();
+        //character #2 script - character responses
+            Hashtable<String, String> three = new Hashtable<String, String>();
             three.put("Beginning", "You skinned this squirrel nicely. All it needs to be perfect is a little tamarind juice and paprika.");
             three.put("Option 1", "Devina, the Academy. Undercooking your food as well as your brains.");
             three.put("Option 2", "Second favorite, but the Imperium's never made my first correctly.");
@@ -55,7 +57,8 @@ public class Game {
             three.put("Option 5", "And now it'll never leave him.");
             three.put("Option 6", "But when was the last time they let him visit home?");
             three.put("Option 7", "Ha, no. I tried to go home once, when I was on leave. But there were kids catching dinner, and I couldn't even tell a pebble from a rock crab at two paces away.");
-        Hashtable<String, String> four = new Hashtable<String, String>();
+        //character #2 script - user responses
+            Hashtable<String, String> four = new Hashtable<String, String>();
             four.put("A", "A - Anything on sticks is pretty nice. I always liked the Academy's cubes with green sauce.");
             four.put("B", "B - That a favorite meal from home?");
             four.put("1.A", "A - We're not all bad! Just last week Anji was showing me fresh fish out of the Back Lakes.");
@@ -399,6 +402,9 @@ public class Game {
         saveRecentAction("battle");
     }    
 
+    /**
+     * User talks with a character from their party.
+     */
     public void campfire() {    
         Character character = null;
         System.out.println("You are camping with your troop in preparation for the tomorrow's battle.");
@@ -411,7 +417,6 @@ public class Game {
         //asks user what character they want to talk to
         System.out.println("Which character would you like to talk to?");
         //lists out the characters
-        //only list out characters with remaining dialogue options
         this.listCharacters();
         
         //user selects character from the list of characters
@@ -427,7 +432,6 @@ public class Game {
                     if (!option.dialogue.successors(option.currentLocation).isEmpty()) {
                         character = option;
                         chooseCharacter = true;
-                        //System.out.println("successfully chose which character");
                         break;
                     //if no more dialogue options, break loop
                     } else if (option.dialogue.successors(option.currentLocation).isEmpty()) {
@@ -437,20 +441,13 @@ public class Game {
             } 
         }
 
-        //prints network
-        //System.out.println(character.dialogue);
-
-        //prints current location of user in that character's dialogue tree
-        //System.out.println("Current Location: " + character.currentLocation);
-        //System.out.println("Current location: " + character.dialogueScript.get(character.currentLocation));
+        //prints line for current location of user in that character's dialogue tree
         System.out.println("\n" + character.name + ": " + character.dialogueScript.get(character.currentLocation));
 
-        //TO-DO: replace while loop with three turn condition - if player has reached end of dialogue tree, print that statement
-        //while loop to ask player for dialogue options
         int check = 0;
-        //character.dialogue.successors(character.currentLocation).size() != 0
+        //while loop navigates down dialogue tree
         while (check <= 1) {
-            //if no more options, break loop
+            //if there are no more options for a character, break loop
             if(character.dialogue.successors(character.currentLocation).isEmpty()) {
                 System.out.println("\n You have exhausted all your dialogue options for this character.");
                 System.out.println("\n Dawn has arrived, and with it, your next action. Your characters have rested and regained their full health, but you will have to wait until the next campfire to talk to another person.");
@@ -460,30 +457,25 @@ public class Game {
             check += 1;
             //ask for user input
             System.out.println("\n Pick a response:");
-            //iterate through the edges in current location
+            //iterates through the edges *from* a current location
             Iterator<String> iterator = character.dialogue.outEdges(character.currentLocation).iterator();
+            //prints each edge
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 System.out.println(character.edgeScript.get(line));
             }
             String userInput2 = sc.nextLine().toUpperCase(); //"A";
 
-            //testing validity of input
+            //checks validity of user input
             boolean validInput = false;
-            
+
             //for each edge connected to beginning node
             for (String option: character.dialogue.outEdges(character.currentLocation)) {
-                //System.out.println("This is your edge object:");
-                //System.out.println(option);
                 //if user input is equal to one of the edges' first characters
                 if (userInput2.charAt(0) == character.edgeScript.get(option).toString().charAt(0)) {
                     //update current location of user in character's dialogue network
                     character.currentLocation = character.dialogue.incidentNodes(option).target();
-                    //System.out.println("\n Your new location is: " + character.currentLocation);
-                    //System.out.println("Your new location is: " + character.dialogueScript.get(character.currentLocation));
                     System.out.println("\n" + character.name + ": " + character.dialogueScript.get(character.currentLocation));
-                    //System.out.println(character.dialogue.successors(character.currentLocation));
-                    //System.out.println(character.dialogue.successors(character.currentLocation).size());
                     //increase character's alliance
                     character.alliance += 1;
                     validInput = true;
@@ -497,16 +489,6 @@ public class Game {
         }
     
         System.out.println("\n Dawn has arrived, and with it, your next action. Your characters have rested and regained their full health, but you will have to wait until the next campfire to talk to this person again.");
-    
-    //TO-DO: increase character's alliance based on how far down they get in the character's dialogue graph
-    //System.out.println(character.dialogue.successors(character.currentLocation));
-
-    //traverse options in hashtable graph
-    // Traverser.forGraph(character.dialogue).breadthFirst(character.currentLocation)
-    // .forEach(x->System.out.println(x));
-
-    // Traverser.forGraph(character.dialogue).breadthFirst(initialLocation)
-    // .forEach(x->System.out.println(x));
 
     // save the action, campfire
     saveRecentAction("campfire");

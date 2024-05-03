@@ -2,8 +2,8 @@ import java.util.Hashtable;
 import com.google.common.graph.*;
 
 public class Character extends Human{
-    public Hashtable<String, String> dialogueScript;
-    public Hashtable<String, String> edgeScript;
+    public Hashtable<String, String> dialogueScript; //script for the character's responses
+    public Hashtable<String, String> edgeScript; //script for the user's responses 
     public ImmutableNetwork<String, String> dialogue;
     public String currentLocation; //current location user in that character's dialogue network
 
@@ -16,12 +16,6 @@ public class Character extends Human{
             NetworkBuilder.directed()
             .allowsParallelEdges(true)
             .<String, String>immutable()
-            // .addEdge("beginning", "option 1", "A")
-            // .addEdge("beginning", "option 2", "B")
-            // .addEdge("option 2", "option 2.1", "B.A")
-            // .addEdge("option 1", "option 1.1", "A.A")
-            // .addEdge("option 2.1", "last option", "last edge")
-            // .addEdge("option 1.1", "last option", "last edge 2")
             .addEdge("Beginning", "Option 1", "A")
             .addEdge("Beginning", "Option 2", "B")
             .addEdge("Option 1", "Option 3", "1.A")
