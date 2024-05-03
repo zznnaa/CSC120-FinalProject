@@ -1,7 +1,5 @@
 This file will contain documentation for all commands available in your game.
 
-Note:  It's a good idea to also make this list available inside the game, in response to a `HELP` command.
-
 train - Allows player to train two characters on their team. After each training session, the chosen characters experience goes up, and each character loses two health points.
 battle - Allows player to battle bosses. The battle ends when the enemy or a character on the team dies. Health points decrease for the characters on the team who don't die.
 campfire - Allows player to talk with a character on their team. Replenishes the team's health points and increases the chosen character's alliance with the user.
