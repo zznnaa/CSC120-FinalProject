@@ -90,9 +90,9 @@ Working with an initiator like Zoe was wonderful! I'm more of a strategist, and 
         code succeeds with variously accurate inputs
 
  - If you could go back in time and give your past self some **advice** about this project, what hints would you give?
-    I would advise my past self to start battle, training, and campfire as methods instead of independent classes! But I also think we had to go through the struggle of transferring that to learn why it worked, so I don't regret having made that "mistake"
+    I would advise my past self to start battle, training, and campfire as methods instead of independent classes! But I also think we had to go through the struggle of transferring that to learn why it worked, so I don't regret having made that "mistake."
 
  - _If you worked with a team:_ please comment on how your **team dynamics** influenced your experience working on this project.
-    I loved working with Chioma! Chioma's attention to detail really forced me to be specific about what I wanted to implement and why, which greatly increased my understanding of the code I was working with, and allowed us to get assistance early on for the areas we needed help with. She also kept track of every task, class, and method we needed to complete, which made the project feel manageable and was very useful as I'm a coder who tends to .
+    I loved working with Chioma! Chioma's attention to detail really forced me to be specific about what I wanted to implement and why, which greatly increased my understanding of the code I was working with, and allowed us to get assistance early on for the areas we needed help with. She also kept track of every task, class, and method we needed to complete, which made the project feel manageable and was very useful as I'm tends to keep plans in my brain insteda of writing them down and thus forget pieces of the project I'm working on.
 
     Fun fact: We worked on this project for a combined total of __ hours.
