@@ -1,21 +1,21 @@
 import java.util.Hashtable;
 import com.google.common.graph.*;
 
-public class Character extends Human{
-    public Hashtable<String, String> dialogueScript; //script for the character's responses
-    public Hashtable<String, String> edgeScript; //script for the user's responses 
-    public ImmutableNetwork<String, String> dialogue;
+public class Character extends Human {
+    public Hashtable < String, String > dialogueScript; //script for the character's responses
+    public Hashtable < String, String > edgeScript; //script for the user's responses 
+    public ImmutableNetwork < String, String > dialogue;
     public String currentLocation; //current location user in that character's dialogue network
 
-    public Character(String name, int health, int experience, int alliance, boolean isEnemy, HashtablePair<Hashtable<String, String>,Hashtable<String, String>> script) {
+    public Character(String name, int health, int experience, int alliance, boolean isEnemy, HashtablePair < Hashtable < String, String >, Hashtable < String, String >> script) {
         super(name, health, experience, alliance, isEnemy);
         this.dialogueScript = script.getKey();
         this.edgeScript = script.getValue();
         //network builder using keys in hashtable
-        ImmutableNetwork<String, String> dialogue =
+        ImmutableNetwork < String, String > dialogue =
             NetworkBuilder.directed()
             .allowsParallelEdges(true)
-            .<String, String>immutable()
+            . < String, String > immutable()
             .addEdge("Beginning", "Option 1", "A")
             .addEdge("Beginning", "Option 2", "B")
             .addEdge("Option 1", "Option 3", "1.A")
@@ -33,3 +33,4 @@ public class Character extends Human{
         this.currentLocation = this.dialogue.nodes().iterator().next();
     }
 }
+
