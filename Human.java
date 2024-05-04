@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Human{
+public class Human {
     public String name;
     public int health;
     public int maxHealth;
@@ -8,7 +8,7 @@ public class Human{
     public int alliance;
     public boolean isEnemy;
 
-    public Human(String name, int health, int experience, int alliance, boolean isEnemy){
+    public Human(String name, int health, int experience, int alliance, boolean isEnemy) {
         this.name = name;
         this.health = health;
         this.maxHealth = health;
@@ -23,16 +23,16 @@ public class Human{
      * @param max upper bound of desired range
      * @return the randomly generated number
      */
-    public int getRandomNumber(int min, int max){
+    public int getRandomNumber(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
-    
+
     /**
      * Overloaded method to randomly generate method when the range is not specified
      * @return the randomly generated number
      */
-    public int getRandomNumber(){
+    public int getRandomNumber() {
         Random random = new Random();
         return random.nextInt();
     }
@@ -41,7 +41,7 @@ public class Human{
      * Simulates a kick by decreasing a character's health
      * @param h the character to be kicked
      */
-    public void kick(Human h){
+    public void kick(Human h) {
         System.out.println(h.name + " has suffered a kick");
         int damage = 5 + experience;
         h.health -= damage;
@@ -51,7 +51,7 @@ public class Human{
      * Simulates a shooting attack by decreasing a characters health by a certain amount
      * @param h the character to be shot
      */
-    public void shoot(Human h){
+    public void shoot(Human h) {
         System.out.println(h.name + "is down with a grave injury");
         int damage = 10 + experience;
         h.health -= damage;
@@ -61,9 +61,9 @@ public class Human{
      * Randomly samples from the two possible attack methods
      * @param h the character to be attacked
      */
-    public void attack(Human h){
+    public void attack(Human h) {
         int x = this.getRandomNumber(1, 2);
-        if (x == 1){
+        if (x == 1) {
             this.kick(h);
         } else if (x == 2) {
             this.shoot(h);
@@ -74,15 +74,14 @@ public class Human{
      * Checks if a charcter is alive or not
      * @return a boolean based on character's current life status
      */
-    public boolean isAlive(){
+    public boolean isAlive() {
         return this.health > 0;
     }
 
-    public String toString(){
-        if (!isEnemy){
+    public String toString() {
+        if (!isEnemy) {
             return name + " has health " + health + ", experience " + experience + ", alliance " + alliance + ".";
-        }
-        else{
+        } else {
             return name + " has health " + health + ", experience " + experience + ".";
         }
 
